@@ -1,0 +1,94 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: ../src/route_pi.cpp:83 ../src/route_pi.cpp:84 ../src/route_pi.cpp:227
+#: ../src/route_pi.cpp:261
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-09 21:37+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/route_pi.cpp:42 ../src/route_pi.cpp:47
+msgid "C"
+msgstr ""
+
+#: ../src/route_pi.cpp:70
+msgid "opencpn-route_pi"
+msgstr ""
+
+#: ../src/route_pi.cpp:84
+msgid "Plot Route"
+msgstr ""
+
+#: ../src/route_pi.cpp:151 ../src/route_pi.cpp:242
+msgid "ROUTE"
+msgstr ""
+
+#: ../src/route_pi.cpp:157
+msgid "Route Plotting plugin for OpenCPN"
+msgstr ""
+
+#: ../src/route_pi.cpp:162
+msgid ""
+"Route Plotting plugin for OpenCPN\n"
+"Plots Great Circle routes, Limited Circle Routes and Rhumb lines."
+msgstr ""
+
+#: ../src/route_pi.cpp:189
+msgid "\r\n"
+msgstr ""
+
+#: ../src/route_pi.cpp:227 ../src/route_pi.cpp:261
+msgid "Choose a file"
+msgstr ""
+
+#: ../src/route_pi.cpp:227 ../src/route_pi.cpp:261
+msgid "*.*"
+msgstr ""
+
+#: ../src/route_pi.cpp:242
+msgid "ROUTE replay"
+msgstr ""
+
+#: ../src/route_pi.cpp:293 ../src/route_pi.cpp:311
+msgid "/PlugIns/ROUTE"
+msgstr ""
+
+#: ../src/route_pi.cpp:295 ../src/route_pi.cpp:313
+msgid "InputFilename"
+msgstr ""
+
+#: ../src/route_pi.cpp:296 ../src/route_pi.cpp:314
+msgid "OutputFilename"
+msgstr ""
+
+#: ../src/route_pi.cpp:297 ../src/route_pi.cpp:315
+msgid "Interval"
+msgstr ""
+
+#: ../src/route_pi.cpp:330
+msgid "Dashboard"
+msgstr ""
+
+#: ../src/route_pi.cpp:333 ../src/route_pi.cpp:360
+msgid "DILG1"
+msgstr ""
+
+#: ../src/route_pi.cpp:339
+msgid "Speed:"
+msgstr ""
+
+#: ../src/route_pi.cpp:346
+msgid "Progress:"
+msgstr ""
