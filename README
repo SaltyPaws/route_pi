@@ -1,0 +1,29 @@
+Route Plot Plugin for OpenCPN
+=======================================
+
+The purpose of this plugin is to provide Great Circle, Limited Circle and Rhumb line plotting capability to OpenCPN
+
+The aims are to:
+
+1. Show Great Circle, Limited Circle and Rhumb line distances
+2. Plot selected routes with waypoints at a selected interval
+
+Compiling
+=========
+You have to be able to compile OpenCPN itself - Get the info at http://opencpn.org/ocpn/developers_manual
+
+* go to the plugin subdirectory in your OpenCPN source tree
+* git clone https://github.com/SaltyPaws/route_pi.git
+
+Build as normally:
+
+* cd ..
+* cd build
+* cmake ../
+* make
+* sudo make install
+
+License
+=======
+The plugin is licensed under the terms of GPL v2 or, at your will, later.
+The globe image comes from wikimeadia.org (https://commons.wikimedia.org/wiki/File:Globe_Atlantic.svg) and is By U.S. Government [Public domain], via Wikimedia Commons
