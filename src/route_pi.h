@@ -85,7 +85,7 @@ public:
 
 //    The required override PlugIn Methods
       int GetToolbarToolCount(void);
-      void OnToolbarToolCallback(int id);
+      void OnToolbarToolCallback( int id );
 
 //    Optional plugin overrides
       void SetColorScheme(PI_ColorScheme cs);
@@ -113,11 +113,11 @@ private:
       wxWindow         *m_parent_window;
 //      bool              LoadConfig(void);
 //      bool              SaveConfig(void);
-
+      WmmUIDialog       *m_pRouteDialog;
       double            m_lat, m_lon;
       wxDateTime        m_lastPosReport;
 
-      RouteDlg            *m_pRouteDialog;
+
 
       int               m_route_dialog_x, m_route_dialog_y;
       int               m_display_width, m_display_height;
@@ -129,6 +129,7 @@ private:
 
       int               dbGetIntNotNullValue(wxString sql);
       wxString          dbGetStringValue(wxString sql);
+      void              RearangeWindow();
       bool              m_bshuttingDown;
 
       short             mPriPosition;

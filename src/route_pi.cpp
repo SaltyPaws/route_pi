@@ -111,18 +111,6 @@ int route_pi::Init(void)
       //      Establish the location of the config file
       wxString dbpath;
 
-//      Establish a "home" location
-      /*wxStandardPathsBase& std_path = wxStandardPaths::Get();
-
-      wxString pHome_Locn;
-#ifdef __WXMSW__
-      pHome_Locn.Append(std_path.GetConfigDir());          // on w98, produces "/windows/Application Data"
-#else
-      pHome_Locn.Append(std_path.GetUserConfigDir());
-#endif
-      //appendOSDirSlash(&pHome_Locn) ;
-      */
-
       //    This PlugIn needs a toolbar icon, so request its insertion
       m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_route_pi, _img_route_pi, wxITEM_NORMAL,
             _("Plot Route"), _T(""), NULL,
@@ -191,7 +179,6 @@ wxString route_pi::GetCommonName()
       return _("ROUTE");
 }
 
-
 wxString route_pi::GetShortDescription()
 {
       return _("Route Plotting plugin for OpenCPN");
@@ -201,7 +188,6 @@ wxString route_pi::GetLongDescription()
 {
       return _("Route Plotting plugin for OpenCPN\n\
 Plots Great Circle routes, Limited Circle Routes and Rhumb lines.");
-
 }
 
 void route_pi::SetCursorLatLon(double lat, double lon)
@@ -253,24 +239,24 @@ void route_pi::ShowPreferencesDialog( wxWindow* parent )
 
 void route_pi::SetCurrentViewPort(PlugIn_ViewPort &vp)
 {
-  
+
 }
 
-void route_pi::OnToolbarToolCallback(int id)
+void route_pi::OnToolbarToolCallback( int id )
 {
-      wxLogMessage (_T("ROUTE_PI: OnToolbarToolCallback\n"));
-      // ROUTE Dialog (here we can select what types of objects to show)
-      if(NULL == m_pRouteDialog)
+
+     if(NULL == m_pRouteDialog)
       {
-            m_pRouteDialog = new RouteDlg(m_parent_window);
-            m_pRouteDialog->plugin = this;
+            m_pRouteDialog = new WmmUIDialog(m_parent_window);
             m_pRouteDialog->Move(wxPoint(m_route_dialog_x, m_route_dialog_y));
       }
+
+      //RearangeWindow();
+      /*m_pWmmDialog->SetMaxSize(m_pWmmDialog->GetSize());
+      m_pWmmDialog->SetMinSize(m_pWmmDialog->GetSize());*/
       m_pRouteDialog->Show(!m_pRouteDialog->IsShown());
-      
-     // DownloadUrl(m_overpass_url);
+      if (m_pRouteDialog->IsShown())
+            SendPluginMessage(_T("WMM_WINDOW_SHOWN"), wxEmptyString);
+      else
+            SendPluginMessage(_T("WMM_WINDOW_HIDDEN"), wxEmptyString);
 }
-
-
-
-
