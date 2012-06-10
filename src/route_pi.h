@@ -25,14 +25,21 @@
  ***************************************************************************
  */
 
-#ifndef _ROUTEPI_H_
-#define _ROUTEPI_H_
+#ifndef _OSMPI_H_
+#define _OSMPI_H_
 
 #include "wx/wxprec.h"
 
 #ifndef  WX_PRECOMP
   #include "wx/wx.h"
+  #include <wx/glcanvas.h>
 #endif //precompiled headers
+
+#include <wx/fileconf.h>
+#include <wx/hashmap.h>
+#include <map>
+
+//#include "tinyxml.h"
 
 #define     PLUGIN_VERSION_MAJOR    0
 #define     PLUGIN_VERSION_MINOR    1
@@ -40,28 +47,32 @@
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    8
 
-#include <wx/fileconf.h>
-#include <wx/filepicker.h>
-#include <wx/file.h>
-#include <wx/aui/aui.h>
-#include "../../../include/ocpn_plugin.h"
+//World Mercator
+#define PROJECTION 3395
 
-#define ROUTE_TOOL_POSITION -1          // Request default positioning of toolbar tool
+#include "../../../include/ocpn_plugin.h"
+#include "routegui_impl.h"
+#include "WmmUIDialog.h"
+#include <wx/event.h>
+
+class RouteDlg;
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
 //----------------------------------------------------------------------------------------------------------
 
-class ROUTEControl;
+#define ROUTE_TOOL_POSITION    -1          // Request default positioning of toolbar tool
+WX_DECLARE_STRING_HASH_MAP( wxString, TagList );
+//WX_DEFINE_ARRAY(double, NodeRefList);
 
-class route_pi : public opencpn_plugin_18, wxTimer
+class route_pi : public opencpn_plugin_18
 {
 public:
-      route_pi( void *ppimgr );
+      route_pi(void *ppimgr);
 
 //    The required PlugIn Methods
-      int Init( void );
-      bool DeInit( void );
+      int Init(void);
+      bool DeInit(void);
 
       int GetAPIVersionMajor();
       int GetAPIVersionMinor();
@@ -72,47 +83,61 @@ public:
       wxString GetShortDescription();
       wxString GetLongDescription();
 
-      void Notify();
-      void SetInterval( int interval );
+//    The required override PlugIn Methods
+      int GetToolbarToolCount(void);
+      void OnToolbarToolCallback(int id);
 
-//    The optional method overrides
-//      void SetNMEASentence( wxString &sentence );
-//      void SetAISSentence( wxString &sentence );
-      int GetToolbarToolCount( void );
-      void OnToolbarToolCallback( int id );
-      void SetColorScheme( PI_ColorScheme cs );
+//    Optional plugin overrides
+      void SetColorScheme(PI_ColorScheme cs);
+      void SetCurrentViewPort(PlugIn_ViewPort &vp);
+      void ShowPreferencesDialog( wxWindow* parent );
+
+//    The override PlugIn Methods
+//      bool RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp);
+//      bool RenderGLOverlay(wxGLContext *pcontext, PlugIn_ViewPort *vp);
+
+//    Other public methods
+      void SetRouteDialogX    (int x){ m_route_dialog_x = x;};
+      void SetRouteDialogY    (int x){ m_route_dialog_y = x;}
+
+      void SetCursorLatLon(double lat, double lon);
+      void OnRouteDialogClose();
+
+protected:
+      void DownloadUrl(wxString url);
+
 
 private:
-      bool LoadConfig( void );
-      bool SaveConfig( void );
-
-      int               m_tb_item_id_record;
-      int               m_tb_item_id_play;
 
       wxFileConfig     *m_pconfig;
-      wxAuiManager     *m_pauimgr;
-      ROUTEControl       *m_proutecontrol;
-      wxString          m_ifilename;
-      wxString          m_ofilename;
-      int               m_interval;
-      bool              m_recording;
-      wxTextFile        m_istream;
-      wxFile            m_ostream;
-};
+      wxWindow         *m_parent_window;
+//      bool              LoadConfig(void);
+//      bool              SaveConfig(void);
 
-class ROUTEControl : public wxWindow
-{
-public:
-      ROUTEControl( wxWindow *pparent, wxWindowID id, route_pi *route, int speed, int range );
-      void SetColorScheme( PI_ColorScheme cs );
-      void SetProgress( int progress );
+      double            m_lat, m_lon;
+      wxDateTime        m_lastPosReport;
 
-private:
-      void OnSliderUpdated( wxCommandEvent& event );
+      RouteDlg            *m_pRouteDialog;
 
-      route_pi           *m_proute;
-      wxSlider         *m_pslider;
-      wxGauge          *m_pgauge;
+      int               m_route_dialog_x, m_route_dialog_y;
+      int               m_display_width, m_display_height;
+      bool              m_bRenderOverlay;
+      int               m_iOpacity;
+      int               m_iUnits;
+
+      int               m_leftclick_tool_id;
+
+      int               dbGetIntNotNullValue(wxString sql);
+      wxString          dbGetStringValue(wxString sql);
+      bool              m_bshuttingDown;
+
+      short             mPriPosition;
+      PlugIn_ViewPort   m_pastVp;
+      wxString          m_overpass_url;
+      //void		ParseRoute(TiXmlElement *route);
+      //TagList		ParseTags(TiXmlElement *route);
+      int		InsertNode(int id, double lat, double lon, TagList tags);
+      int		InsertWay(int id, double lat, double lon, TagList tags);
 };
 
 #endif

@@ -65,8 +65,14 @@ FIND_PACKAGE(Gettext REQUIRED)
 SET(SRC_ROUTE
             src/icons.h
             src/icons.cpp
+            src/WmmUIDialog.h
+            src/WmmUIDialog.cpp
             src/route_pi.h
             src/route_pi.cpp
+            src/routegui.h
+            src/routegui.cpp
+            src/routegui_impl.cpp
+            src/routegui_impl.h
  	)
 
 ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_ROUTE} )
