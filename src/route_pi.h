@@ -52,7 +52,7 @@
 
 #include "../../../include/ocpn_plugin.h"
 #include "routegui_impl.h"
-#include "WmmUIDialog.h"
+#include "UIDialog.h"
 #include <wx/event.h>
 
 class RouteDlg;

@@ -65,8 +65,8 @@ FIND_PACKAGE(Gettext REQUIRED)
 SET(SRC_ROUTE
             src/icons.h
             src/icons.cpp
-            src/WmmUIDialog.h
-            src/WmmUIDialog.cpp
+            src/UIDialog.h
+            src/UIDialog.cpp
             src/route_pi.h
             src/route_pi.cpp
             src/routegui.h
