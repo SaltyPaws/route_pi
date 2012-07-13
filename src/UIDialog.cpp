@@ -15,21 +15,22 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	
 	bSframe = new wxBoxSizer( wxVERTICAL );
 	
-	bSframe->SetMinSize( wxSize( 200,-1 ) ); 
-	m_notebook1 = new wxNotebook( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0 );
-	m_panel1 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	m_panel1->SetMinSize( wxSize( 290,300 ) );
+	m_notebook1 = new wxNotebook( this, wxID_ANY, wxDefaultPosition, wxSize( -1,345 ), 0 );
+	m_notebook1->SetMinSize( wxSize( 615,345 ) );
+	
+	m_panel1 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxTAB_TRAVERSAL );
+	m_panel1->SetMinSize( wxSize( 615,335 ) );
 	
 	wxBoxSizer* bSizer3;
 	bSizer3 = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_panel6 = new wxPanel( m_panel1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	m_panel6->SetMinSize( wxSize( 300,200 ) );
+	m_panel6->SetMinSize( wxSize( 300,335 ) );
 	
 	wxBoxSizer* bSizer9111;
 	bSizer9111 = new wxBoxSizer( wxVERTICAL );
 	
-	m_staticText1511 = new wxStaticText( m_panel6, wxID_ANY, _("Paralell Search Pattern"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText1511 = new wxStaticText( m_panel6, wxID_ANY, _("Paralell Search\n     Pattern"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText1511->Wrap( -1 );
 	m_staticText1511->SetFont( wxFont( 20, 70, 90, 92, false, wxEmptyString ) );
 	
@@ -45,7 +46,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	m_staticText3221->Wrap( -1 );
 	bSizer1421->Add( m_staticText3221, 0, wxALL, 5 );
 	
-	m_textCtrl2521 = new wxTextCtrl( m_panel6, wxID_ANY, _("c"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_textCtrl2521 = new wxTextCtrl( m_panel6, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer1421->Add( m_textCtrl2521, 0, wxALL, 5 );
 	
 	m_staticText3321 = new wxStaticText( m_panel6, wxID_ANY, _("Degrees"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -53,7 +54,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	bSizer1421->Add( m_staticText3321, 0, wxALL, 5 );
 	
 	
-	bSizer1311->Add( bSizer1421, 1, wxEXPAND|wxALIGN_CENTER_HORIZONTAL, 5 );
+	bSizer1311->Add( bSizer1421, 0, 0, 5 );
 	
 	wxBoxSizer* bSizer14112;
 	bSizer14112 = new wxBoxSizer( wxHORIZONTAL );
@@ -70,7 +71,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	bSizer14112->Add( m_staticText33112, 0, wxALL, 5 );
 	
 	
-	bSizer1311->Add( bSizer14112, 1, wxEXPAND, 5 );
+	bSizer1311->Add( bSizer14112, 0, 0, 5 );
 	
 	wxBoxSizer* bSizer141111;
 	bSizer141111 = new wxBoxSizer( wxHORIZONTAL );
@@ -82,12 +83,12 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	m_textCtrl251111 = new wxTextCtrl( m_panel6, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer141111->Add( m_textCtrl251111, 0, wxALL, 5 );
 	
-	m_staticText331111 = new wxStaticText( m_panel6, wxID_ANY, _("n"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText331111 = new wxStaticText( m_panel6, wxID_ANY, _("NM"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText331111->Wrap( -1 );
 	bSizer141111->Add( m_staticText331111, 0, wxALL, 5 );
 	
 	
-	bSizer1311->Add( bSizer141111, 1, wxEXPAND, 5 );
+	bSizer1311->Add( bSizer141111, 0, 0, 5 );
 	
 	wxBoxSizer* bSizer1411111;
 	bSizer1411111 = new wxBoxSizer( wxHORIZONTAL );
@@ -104,7 +105,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	bSizer1411111->Add( m_staticText3311111, 0, wxALL, 5 );
 	
 	
-	bSizer1311->Add( bSizer1411111, 1, wxEXPAND, 5 );
+	bSizer1311->Add( bSizer1411111, 0, 0, 5 );
 	
 	wxBoxSizer* bSizer14111111;
 	bSizer14111111 = new wxBoxSizer( wxHORIZONTAL );
@@ -120,10 +121,10 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	bSizer14111111->Add( m_choice1, 0, wxALL, 5 );
 	
 	
-	bSizer1311->Add( bSizer14111111, 1, wxEXPAND, 5 );
+	bSizer1311->Add( bSizer14111111, 0, 0, 5 );
 	
 	
-	bSizer9111->Add( bSizer1311, 1, wxEXPAND, 5 );
+	bSizer9111->Add( bSizer1311, 0, 0, 5 );
 	
 	m_button311 = new wxButton( m_panel6, wxID_ANY, _("Generate &GPX"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer9111->Add( m_button311, 0, wxALL|wxALIGN_RIGHT, 5 );
@@ -132,7 +133,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	m_panel6->SetSizer( bSizer9111 );
 	m_panel6->Layout();
 	bSizer9111->Fit( m_panel6 );
-	bSizer3->Add( m_panel6, 1, wxALL, 5 );
+	bSizer3->Add( m_panel6, 0, wxALL, 5 );
 	
 	m_bitmap1 = new wxStaticBitmap( m_panel1, wxID_ANY, wxBitmap( wxT("bitmaps/trackln.jpg"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
 	m_bitmap1->SetMinSize( wxSize( 290,300 ) );
@@ -144,17 +145,17 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	m_panel1->Layout();
 	bSizer3->Fit( m_panel1 );
 	m_notebook1->AddPage( m_panel1, _("SAR: Trackline"), false );
-	m_panel2 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	m_panel2 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxTAB_TRAVERSAL );
+	m_panel2->SetMinSize( wxSize( -1,335 ) );
+	
 	wxBoxSizer* bSizer4;
 	bSizer4 = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_panel7 = new wxPanel( m_panel2, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	m_panel7->SetMinSize( wxSize( 400,200 ) );
-	
 	wxBoxSizer* bSizer911;
 	bSizer911 = new wxBoxSizer( wxVERTICAL );
 	
-	m_staticText151 = new wxStaticText( m_panel7, wxID_ANY, _("Expanding Square Search"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText151 = new wxStaticText( m_panel7, wxID_ANY, _("Expanding Square\n         Search"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText151->Wrap( -1 );
 	m_staticText151->SetFont( wxFont( 20, 70, 90, 92, false, wxEmptyString ) );
 	
@@ -178,7 +179,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	bSizer142->Add( m_staticText332, 0, wxALL, 5 );
 	
 	
-	bSizer131->Add( bSizer142, 1, wxEXPAND|wxALIGN_CENTER_HORIZONTAL, 5 );
+	bSizer131->Add( bSizer142, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
 	
 	wxBoxSizer* bSizer1411;
 	bSizer1411 = new wxBoxSizer( wxHORIZONTAL );
@@ -195,7 +196,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	bSizer1411->Add( m_staticText3311, 0, wxALL, 5 );
 	
 	
-	bSizer131->Add( bSizer1411, 1, wxEXPAND, 5 );
+	bSizer131->Add( bSizer1411, 0, 0, 5 );
 	
 	wxBoxSizer* bSizer14111;
 	bSizer14111 = new wxBoxSizer( wxHORIZONTAL );
@@ -212,10 +213,10 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	bSizer14111->Add( m_staticText33111, 0, wxALL, 5 );
 	
 	
-	bSizer131->Add( bSizer14111, 1, wxEXPAND, 5 );
+	bSizer131->Add( bSizer14111, 0, 0, 5 );
 	
 	
-	bSizer911->Add( bSizer131, 1, wxEXPAND, 5 );
+	bSizer911->Add( bSizer131, 0, 0, 5 );
 	
 	m_button31 = new wxButton( m_panel7, wxID_ANY, _("Generate &GPX"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer911->Add( m_button31, 0, wxALL|wxALIGN_RIGHT, 5 );
@@ -224,7 +225,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	m_panel7->SetSizer( bSizer911 );
 	m_panel7->Layout();
 	bSizer911->Fit( m_panel7 );
-	bSizer4->Add( m_panel7, 1, wxALL, 5 );
+	bSizer4->Add( m_panel7, 0, wxALL, 5 );
 	
 	m_bitmap2 = new wxStaticBitmap( m_panel2, wxID_ANY, wxBitmap( wxT("bitmaps/exp_sq.jpg"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
 	m_bitmap2->SetMinSize( wxSize( 290,300 ) );
@@ -235,10 +236,8 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	m_panel2->SetSizer( bSizer4 );
 	m_panel2->Layout();
 	bSizer4->Fit( m_panel2 );
-	m_notebook1->AddPage( m_panel2, _("SAR: Expanding Square"), false );
+	m_notebook1->AddPage( m_panel2, _("SAR: Expanding Square"), true );
 	m_panel3 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	m_panel3->SetMinSize( wxSize( 300,200 ) );
-	
 	wxBoxSizer* bSizer5;
 	bSizer5 = new wxBoxSizer( wxHORIZONTAL );
 	
@@ -270,7 +269,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	bSizer14->Add( m_staticText33, 0, wxALL, 5 );
 	
 	
-	bSizer13->Add( bSizer14, 1, wxEXPAND|wxALIGN_RIGHT, 5 );
+	bSizer13->Add( bSizer14, 0, 0, 5 );
 	
 	wxBoxSizer* bSizer141;
 	bSizer141 = new wxBoxSizer( wxHORIZONTAL );
@@ -287,10 +286,10 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	bSizer141->Add( m_staticText331, 0, wxALL, 5 );
 	
 	
-	bSizer13->Add( bSizer141, 1, wxEXPAND, 5 );
+	bSizer13->Add( bSizer141, 0, 0, 5 );
 	
 	
-	bSizer91->Add( bSizer13, 1, wxEXPAND, 5 );
+	bSizer91->Add( bSizer13, 0, 0, 5 );
 	
 	m_button3 = new wxButton( m_panel8, wxID_ANY, _("Generate &GPX"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer91->Add( m_button3, 0, wxALL|wxALIGN_RIGHT, 5 );
@@ -299,7 +298,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	m_panel8->SetSizer( bSizer91 );
 	m_panel8->Layout();
 	bSizer91->Fit( m_panel8 );
-	bSizer5->Add( m_panel8, 1, wxALL, 5 );
+	bSizer5->Add( m_panel8, 0, wxALL, 5 );
 	
 	m_bitmap3 = new wxStaticBitmap( m_panel3, wxID_ANY, wxBitmap( wxT("bitmaps/sector.jpg"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
 	m_bitmap3->SetMinSize( wxSize( 280,300 ) );
@@ -391,7 +390,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	m_panel10->SetSizer( bSizer912 );
 	m_panel10->Layout();
 	bSizer912->Fit( m_panel10 );
-	bSizer6->Add( m_panel10, 1, wxALL, 5 );
+	bSizer6->Add( m_panel10, 0, wxALL, 5 );
 	
 	m_bitmap4 = new wxStaticBitmap( m_panel4, wxID_ANY, wxBitmap( wxT("bitmaps/oil_rig.jpg"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, 0 );
 	m_bitmap4->SetMinSize( wxSize( 300,300 ) );
@@ -403,7 +402,178 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	m_panel4->Layout();
 	bSizer6->Fit( m_panel4 );
 	m_notebook1->AddPage( m_panel4, _("SAR: Oil Rig"), false );
-	m_panel5 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	
+	bSframe->Add( m_notebook1, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxEXPAND, 5 );
+	
+	wxBoxSizer* bSizer35;
+	bSizer35 = new wxBoxSizer( wxVERTICAL );
+	
+	m_panel11 = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxStaticBoxSizer* sbSizer7;
+	sbSizer7 = new wxStaticBoxSizer( new wxStaticBox( m_panel11, wxID_ANY, _("Start of Search") ), wxVERTICAL );
+	
+	wxBoxSizer* bSizer1321;
+	bSizer1321 = new wxBoxSizer( wxVERTICAL );
+	
+	wxBoxSizer* bSizer1431;
+	bSizer1431 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText3231 = new wxStaticText( m_panel11, wxID_ANY, _("Lattitude  "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3231->Wrap( -1 );
+	bSizer1431->Add( m_staticText3231, 0, wxALL, 5 );
+	
+	m_textCtrl2531 = new wxTextCtrl( m_panel11, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer1431->Add( m_textCtrl2531, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	m_staticText3331 = new wxStaticText( m_panel11, wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3331->Wrap( -1 );
+	bSizer1431->Add( m_staticText3331, 0, wxALL, 5 );
+	
+	m_textCtrl61 = new wxTextCtrl( m_panel11, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer1431->Add( m_textCtrl61, 0, wxALL, 5 );
+	
+	m_staticText114 = new wxStaticText( m_panel11, wxID_ANY, _("'"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText114->Wrap( -1 );
+	bSizer1431->Add( m_staticText114, 0, wxALL, 5 );
+	
+	m_textCtrl62 = new wxTextCtrl( m_panel11, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer1431->Add( m_textCtrl62, 0, wxALL, 5 );
+	
+	m_staticText115 = new wxStaticText( m_panel11, wxID_ANY, _("\""), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText115->Wrap( -1 );
+	bSizer1431->Add( m_staticText115, 0, wxALL, 5 );
+	
+	
+	bSizer1321->Add( bSizer1431, 0, 0, 5 );
+	
+	wxBoxSizer* bSizer14311;
+	bSizer14311 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText32311 = new wxStaticText( m_panel11, wxID_ANY, _("Longitude"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText32311->Wrap( -1 );
+	bSizer14311->Add( m_staticText32311, 0, wxALL, 5 );
+	
+	m_textCtrl25311 = new wxTextCtrl( m_panel11, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer14311->Add( m_textCtrl25311, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	m_staticText33311 = new wxStaticText( m_panel11, wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText33311->Wrap( -1 );
+	bSizer14311->Add( m_staticText33311, 0, wxALL, 5 );
+	
+	m_textCtrl611 = new wxTextCtrl( m_panel11, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer14311->Add( m_textCtrl611, 0, wxALL, 5 );
+	
+	m_staticText1141 = new wxStaticText( m_panel11, wxID_ANY, _("'"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText1141->Wrap( -1 );
+	bSizer14311->Add( m_staticText1141, 0, wxALL, 5 );
+	
+	m_textCtrl621 = new wxTextCtrl( m_panel11, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer14311->Add( m_textCtrl621, 0, wxALL, 5 );
+	
+	m_staticText1151 = new wxStaticText( m_panel11, wxID_ANY, _("\""), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText1151->Wrap( -1 );
+	bSizer14311->Add( m_staticText1151, 0, wxALL, 5 );
+	
+	
+	bSizer1321->Add( bSizer14311, 0, 0, 5 );
+	
+	
+	sbSizer7->Add( bSizer1321, 0, 0, 5 );
+	
+	
+	m_panel11->SetSizer( sbSizer7 );
+	m_panel11->Layout();
+	sbSizer7->Fit( m_panel11 );
+	bSizer35->Add( m_panel11, 1, wxEXPAND | wxALL, 5 );
+	
+	
+	bSframe->Add( bSizer35, 1, wxEXPAND, 5 );
+	
+	
+	this->SetSizer( bSframe );
+	this->Layout();
+	
+	this->Centre( wxBOTH );
+}
+
+WmmUIDialog::~WmmUIDialog()
+{
+}
+
+WmmPrefsDialog::WmmPrefsDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	
+	wxBoxSizer* bSizer2;
+	bSizer2 = new wxBoxSizer( wxVERTICAL );
+	
+	wxString m_rbViewTypeChoices[] = { _("Extended"), _("Variation only") };
+	int m_rbViewTypeNChoices = sizeof( m_rbViewTypeChoices ) / sizeof( wxString );
+	m_rbViewType = new wxRadioBox( this, wxID_ANY, _("View"), wxDefaultPosition, wxDefaultSize, m_rbViewTypeNChoices, m_rbViewTypeChoices, 2, wxRA_SPECIFY_COLS );
+	m_rbViewType->SetSelection( 1 );
+	bSizer2->Add( m_rbViewType, 0, wxALL|wxEXPAND, 5 );
+	
+	m_cbShowAtCursor = new wxCheckBox( this, wxID_ANY, _("Show also data at cursor position"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer2->Add( m_cbShowAtCursor, 0, wxALL, 5 );
+	
+	m_cbLiveIcon = new wxCheckBox( this, wxID_ANY, _("Show data in toolbar icon"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer2->Add( m_cbLiveIcon, 0, wxALL, 5 );
+	
+	wxStaticBoxSizer* sbSizer4;
+	sbSizer4 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, _("Window transparency") ), wxVERTICAL );
+	
+	m_sOpacity = new wxSlider( this, wxID_ANY, 255, 0, 255, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL|wxSL_INVERSE );
+	sbSizer4->Add( m_sOpacity, 0, wxBOTTOM|wxEXPAND|wxTOP, 5 );
+	
+	
+	bSizer2->Add( sbSizer4, 1, wxALL|wxEXPAND, 5 );
+	
+	m_sdbSizer1 = new wxStdDialogButtonSizer();
+	m_sdbSizer1OK = new wxButton( this, wxID_OK );
+	m_sdbSizer1->AddButton( m_sdbSizer1OK );
+	m_sdbSizer1Cancel = new wxButton( this, wxID_CANCEL );
+	m_sdbSizer1->AddButton( m_sdbSizer1Cancel );
+	m_sdbSizer1->Realize();
+	
+	bSizer2->Add( m_sdbSizer1, 0, wxBOTTOM|wxEXPAND|wxTOP, 5 );
+	
+	
+	this->SetSizer( bSizer2 );
+	this->Layout();
+	bSizer2->Fit( this );
+	
+	this->Centre( wxBOTH );
+}
+
+WmmPrefsDialog::~WmmPrefsDialog()
+{
+}
+
+MyDialog3::MyDialog3( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	
+	wxBoxSizer* bSizer61;
+	bSizer61 = new wxBoxSizer( wxVERTICAL );
+	
+	m_panel12 = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer62;
+	bSizer62 = new wxBoxSizer( wxVERTICAL );
+	
+	m_staticText95 = new wxStaticText( m_panel12, wxID_ANY, _("Hello World!"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText95->Wrap( -1 );
+	bSizer62->Add( m_staticText95, 0, wxALL, 5 );
+	
+	m_button10 = new wxButton( m_panel12, wxID_ANY, _("MyButton"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer62->Add( m_button10, 0, wxALL, 5 );
+	
+	
+	m_panel12->SetSizer( bSizer62 );
+	m_panel12->Layout();
+	bSizer62->Fit( m_panel12 );
+	bSizer61->Add( m_panel12, 1, wxEXPAND | wxALL, 5 );
+	
+	m_panel5 = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer9;
 	bSizer9 = new wxBoxSizer( wxVERTICAL );
 	
@@ -595,171 +765,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	m_panel5->SetSizer( bSizer9 );
 	m_panel5->Layout();
 	bSizer9->Fit( m_panel5 );
-	m_notebook1->AddPage( m_panel5, _("a page"), true );
-	
-	bSframe->Add( m_notebook1, 1, wxEXPAND | wxALL, 5 );
-	
-	m_panel13 = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	wxStaticBoxSizer* sbSizer7;
-	sbSizer7 = new wxStaticBoxSizer( new wxStaticBox( m_panel13, wxID_ANY, _("Start of Search") ), wxVERTICAL );
-	
-	wxBoxSizer* bSizer1321;
-	bSizer1321 = new wxBoxSizer( wxVERTICAL );
-	
-	wxBoxSizer* bSizer1431;
-	bSizer1431 = new wxBoxSizer( wxHORIZONTAL );
-	
-	m_staticText3231 = new wxStaticText( m_panel13, wxID_ANY, _("Lattitude  "), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText3231->Wrap( -1 );
-	bSizer1431->Add( m_staticText3231, 0, wxALL, 5 );
-	
-	m_textCtrl2531 = new wxTextCtrl( m_panel13, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer1431->Add( m_textCtrl2531, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	m_staticText3331 = new wxStaticText( m_panel13, wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText3331->Wrap( -1 );
-	bSizer1431->Add( m_staticText3331, 0, wxALL, 5 );
-	
-	m_textCtrl61 = new wxTextCtrl( m_panel13, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer1431->Add( m_textCtrl61, 0, wxALL, 5 );
-	
-	m_staticText114 = new wxStaticText( m_panel13, wxID_ANY, _("'"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText114->Wrap( -1 );
-	bSizer1431->Add( m_staticText114, 0, wxALL, 5 );
-	
-	m_textCtrl62 = new wxTextCtrl( m_panel13, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer1431->Add( m_textCtrl62, 0, wxALL, 5 );
-	
-	m_staticText115 = new wxStaticText( m_panel13, wxID_ANY, _("\""), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText115->Wrap( -1 );
-	bSizer1431->Add( m_staticText115, 0, wxALL, 5 );
-	
-	
-	bSizer1321->Add( bSizer1431, 1, wxEXPAND|wxALIGN_RIGHT, 5 );
-	
-	
-	sbSizer7->Add( bSizer1321, 0, 0, 5 );
-	
-	wxBoxSizer* bSizer14311;
-	bSizer14311 = new wxBoxSizer( wxHORIZONTAL );
-	
-	m_staticText32311 = new wxStaticText( m_panel13, wxID_ANY, _("Longitude"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText32311->Wrap( -1 );
-	bSizer14311->Add( m_staticText32311, 0, wxALL, 5 );
-	
-	m_textCtrl25311 = new wxTextCtrl( m_panel13, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer14311->Add( m_textCtrl25311, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	m_staticText33311 = new wxStaticText( m_panel13, wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText33311->Wrap( -1 );
-	bSizer14311->Add( m_staticText33311, 0, wxALL, 5 );
-	
-	m_textCtrl611 = new wxTextCtrl( m_panel13, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer14311->Add( m_textCtrl611, 0, wxALL, 5 );
-	
-	m_staticText1141 = new wxStaticText( m_panel13, wxID_ANY, _("'"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText1141->Wrap( -1 );
-	bSizer14311->Add( m_staticText1141, 0, wxALL, 5 );
-	
-	m_textCtrl621 = new wxTextCtrl( m_panel13, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer14311->Add( m_textCtrl621, 0, wxALL, 5 );
-	
-	m_staticText1151 = new wxStaticText( m_panel13, wxID_ANY, _("\""), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText1151->Wrap( -1 );
-	bSizer14311->Add( m_staticText1151, 0, wxALL, 5 );
-	
-	
-	sbSizer7->Add( bSizer14311, 0, 0, 5 );
-	
-	
-	m_panel13->SetSizer( sbSizer7 );
-	m_panel13->Layout();
-	sbSizer7->Fit( m_panel13 );
-	bSframe->Add( m_panel13, 0, wxALL, 5 );
-	
-	
-	this->SetSizer( bSframe );
-	this->Layout();
-	
-	this->Centre( wxBOTH );
-}
-
-WmmUIDialog::~WmmUIDialog()
-{
-}
-
-WmmPrefsDialog::WmmPrefsDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
-{
-	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-	
-	wxBoxSizer* bSizer2;
-	bSizer2 = new wxBoxSizer( wxVERTICAL );
-	
-	wxString m_rbViewTypeChoices[] = { _("Extended"), _("Variation only") };
-	int m_rbViewTypeNChoices = sizeof( m_rbViewTypeChoices ) / sizeof( wxString );
-	m_rbViewType = new wxRadioBox( this, wxID_ANY, _("View"), wxDefaultPosition, wxDefaultSize, m_rbViewTypeNChoices, m_rbViewTypeChoices, 2, wxRA_SPECIFY_COLS );
-	m_rbViewType->SetSelection( 1 );
-	bSizer2->Add( m_rbViewType, 0, wxALL|wxEXPAND, 5 );
-	
-	m_cbShowAtCursor = new wxCheckBox( this, wxID_ANY, _("Show also data at cursor position"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer2->Add( m_cbShowAtCursor, 0, wxALL, 5 );
-	
-	m_cbLiveIcon = new wxCheckBox( this, wxID_ANY, _("Show data in toolbar icon"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer2->Add( m_cbLiveIcon, 0, wxALL, 5 );
-	
-	wxStaticBoxSizer* sbSizer4;
-	sbSizer4 = new wxStaticBoxSizer( new wxStaticBox( this, wxID_ANY, _("Window transparency") ), wxVERTICAL );
-	
-	m_sOpacity = new wxSlider( this, wxID_ANY, 255, 0, 255, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL|wxSL_INVERSE );
-	sbSizer4->Add( m_sOpacity, 0, wxBOTTOM|wxEXPAND|wxTOP, 5 );
-	
-	
-	bSizer2->Add( sbSizer4, 1, wxALL|wxEXPAND, 5 );
-	
-	m_sdbSizer1 = new wxStdDialogButtonSizer();
-	m_sdbSizer1OK = new wxButton( this, wxID_OK );
-	m_sdbSizer1->AddButton( m_sdbSizer1OK );
-	m_sdbSizer1Cancel = new wxButton( this, wxID_CANCEL );
-	m_sdbSizer1->AddButton( m_sdbSizer1Cancel );
-	m_sdbSizer1->Realize();
-	
-	bSizer2->Add( m_sdbSizer1, 0, wxBOTTOM|wxEXPAND|wxTOP, 5 );
-	
-	
-	this->SetSizer( bSizer2 );
-	this->Layout();
-	bSizer2->Fit( this );
-	
-	this->Centre( wxBOTH );
-}
-
-WmmPrefsDialog::~WmmPrefsDialog()
-{
-}
-
-MyDialog3::MyDialog3( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
-{
-	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
-	
-	wxBoxSizer* bSizer61;
-	bSizer61 = new wxBoxSizer( wxVERTICAL );
-	
-	m_panel12 = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
-	wxBoxSizer* bSizer62;
-	bSizer62 = new wxBoxSizer( wxVERTICAL );
-	
-	m_staticText95 = new wxStaticText( m_panel12, wxID_ANY, _("Hello World!"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_staticText95->Wrap( -1 );
-	bSizer62->Add( m_staticText95, 0, wxALL, 5 );
-	
-	m_button10 = new wxButton( m_panel12, wxID_ANY, _("MyButton"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer62->Add( m_button10, 0, wxALL, 5 );
-	
-	
-	m_panel12->SetSizer( bSizer62 );
-	m_panel12->Layout();
-	bSizer62->Fit( m_panel12 );
-	bSizer61->Add( m_panel12, 1, wxEXPAND | wxALL, 5 );
+	bSizer61->Add( m_panel5, 1, wxEXPAND | wxALL, 5 );
 	
 	
 	this->SetSizer( bSizer61 );

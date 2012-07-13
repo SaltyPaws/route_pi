@@ -26,8 +26,8 @@
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/statbmp.h>
-#include <wx/statbox.h>
 #include <wx/notebook.h>
+#include <wx/statbox.h>
 #include <wx/dialog.h>
 #include <wx/radiobox.h>
 #include <wx/checkbox.h>
@@ -103,22 +103,7 @@ class WmmUIDialog : public wxDialog
 		wxStaticText* m_staticText33121;
 		wxButton* m_button32;
 		wxStaticBitmap* m_bitmap4;
-		wxPanel* m_panel5;
-		wxStaticText* m_staticText8;
-		wxStaticText* m_staticText9;
-		wxStaticText* m_staticText10;
-		wxStaticText* m_staticText11;
-		wxStaticText* m_staticText12;
-		wxStaticText* m_staticText14;
-		wxStaticText* m_staticText13;
-		wxStaticText* m_staticText81;
-		wxStaticText* m_staticText91;
-		wxStaticText* m_staticText101;
-		wxStaticText* m_staticText111;
-		wxStaticText* m_staticText121;
-		wxStaticText* m_staticText141;
-		wxStaticText* m_staticText131;
-		wxPanel* m_panel13;
+		wxPanel* m_panel11;
 		wxStaticText* m_staticText3231;
 		wxTextCtrl* m_textCtrl2531;
 		wxStaticText* m_staticText3331;
@@ -136,27 +121,8 @@ class WmmUIDialog : public wxDialog
 	
 	public:
 		wxBoxSizer* bSframe;
-		wxBoxSizer* bSframe1;
-		wxStaticBoxSizer* sbSboat;
-		wxFlexGridSizer* gSboat;
-		wxTextCtrl* m_tbF;
-		wxTextCtrl* m_tbH;
-		wxTextCtrl* m_tbX;
-		wxTextCtrl* m_tbY;
-		wxTextCtrl* m_tbZ;
-		wxTextCtrl* m_tbI;
-		wxTextCtrl* m_tbD;
-		wxStaticBoxSizer* sbScursor;
-		wxFlexGridSizer* gScursor;
-		wxTextCtrl* m_tcF;
-		wxTextCtrl* m_tcH;
-		wxTextCtrl* m_tcX;
-		wxTextCtrl* m_tcY;
-		wxTextCtrl* m_tcZ;
-		wxTextCtrl* m_tcI;
-		wxTextCtrl* m_tcD;
 		
-		WmmUIDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("SAR & Route"), const wxPoint& pos = wxPoint( 20,20 ), const wxSize& size = wxSize( 800,700 ), long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxRESIZE_BORDER|wxTAB_TRAVERSAL ); 
+		WmmUIDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("SAR & Route"), const wxPoint& pos = wxPoint( 20,20 ), const wxSize& size = wxSize( 626,506 ), long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxRESIZE_BORDER|wxTAB_TRAVERSAL ); 
 		~WmmUIDialog();
 	
 };
@@ -195,8 +161,42 @@ class MyDialog3 : public wxDialog
 		wxPanel* m_panel12;
 		wxStaticText* m_staticText95;
 		wxButton* m_button10;
+		wxPanel* m_panel5;
+		wxStaticText* m_staticText8;
+		wxStaticText* m_staticText9;
+		wxStaticText* m_staticText10;
+		wxStaticText* m_staticText11;
+		wxStaticText* m_staticText12;
+		wxStaticText* m_staticText14;
+		wxStaticText* m_staticText13;
+		wxStaticText* m_staticText81;
+		wxStaticText* m_staticText91;
+		wxStaticText* m_staticText101;
+		wxStaticText* m_staticText111;
+		wxStaticText* m_staticText121;
+		wxStaticText* m_staticText141;
+		wxStaticText* m_staticText131;
 	
 	public:
+		wxBoxSizer* bSframe1;
+		wxStaticBoxSizer* sbSboat;
+		wxFlexGridSizer* gSboat;
+		wxTextCtrl* m_tbF;
+		wxTextCtrl* m_tbH;
+		wxTextCtrl* m_tbX;
+		wxTextCtrl* m_tbY;
+		wxTextCtrl* m_tbZ;
+		wxTextCtrl* m_tbI;
+		wxTextCtrl* m_tbD;
+		wxStaticBoxSizer* sbScursor;
+		wxFlexGridSizer* gScursor;
+		wxTextCtrl* m_tcF;
+		wxTextCtrl* m_tcH;
+		wxTextCtrl* m_tcX;
+		wxTextCtrl* m_tcY;
+		wxTextCtrl* m_tcZ;
+		wxTextCtrl* m_tcI;
+		wxTextCtrl* m_tcD;
 		
 		MyDialog3( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE ); 
 		~MyDialog3();
