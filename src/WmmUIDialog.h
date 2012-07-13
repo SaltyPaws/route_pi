@@ -1,24 +1,31 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Mar 22 2011)
+// C++ code generated with wxFormBuilder (version Apr 11 2012)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
 ///////////////////////////////////////////////////////////////////////////
 
-#ifndef __WmmUIDialog__
-#define __WmmUIDialog__
+#ifndef __WMMUIDIALOG_H__
+#define __WMMUIDIALOG_H__
 
+#include <wx/artprov.h>
+#include <wx/xrc/xmlres.h>
 #include <wx/intl.h>
-
-#include <wx/string.h>
-#include <wx/stattext.h>
+#include <wx/bitmap.h>
+#include <wx/image.h>
+#include <wx/icon.h>
+#include <wx/statbmp.h>
 #include <wx/gdicmn.h>
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
-#include <wx/textctrl.h>
+#include <wx/string.h>
 #include <wx/sizer.h>
+#include <wx/panel.h>
+#include <wx/stattext.h>
+#include <wx/textctrl.h>
 #include <wx/statbox.h>
+#include <wx/notebook.h>
 #include <wx/dialog.h>
 #include <wx/radiobox.h>
 #include <wx/checkbox.h>
@@ -36,6 +43,16 @@ class WmmUIDialog : public wxDialog
 	private:
 	
 	protected:
+		wxNotebook* m_notebook1;
+		wxPanel* m_panel1;
+		wxStaticBitmap* m_bitmap1;
+		wxPanel* m_panel2;
+		wxStaticBitmap* m_bitmap2;
+		wxPanel* m_panel3;
+		wxStaticBitmap* m_bitmap3;
+		wxPanel* m_panel4;
+		wxStaticBitmap* m_bitmap4;
+		wxPanel* m_panel5;
 		wxStaticText* m_staticText8;
 		wxStaticText* m_staticText9;
 		wxStaticText* m_staticText10;
@@ -53,6 +70,7 @@ class WmmUIDialog : public wxDialog
 	
 	public:
 		wxBoxSizer* bSframe;
+		wxBoxSizer* bSframe1;
 		wxStaticBoxSizer* sbSboat;
 		wxFlexGridSizer* gSboat;
 		wxTextCtrl* m_tbF;
@@ -72,7 +90,7 @@ class WmmUIDialog : public wxDialog
 		wxTextCtrl* m_tcI;
 		wxTextCtrl* m_tcD;
 		
-		WmmUIDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("WMM"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 250,415 ), long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE|wxTAB_TRAVERSAL ); 
+		WmmUIDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("SAR & Route"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 691,650 ), long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE|wxTAB_TRAVERSAL ); 
 		~WmmUIDialog();
 	
 };
@@ -92,7 +110,7 @@ class WmmPrefsDialog : public wxDialog
 	public:
 		wxRadioBox* m_rbViewType;
 		wxCheckBox* m_cbShowAtCursor;
-            wxCheckBox* m_cbLiveIcon;
+		wxCheckBox* m_cbLiveIcon;
 		wxSlider* m_sOpacity;
 		
 		WmmPrefsDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("WMM Preferences"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE ); 
@@ -100,4 +118,4 @@ class WmmPrefsDialog : public wxDialog
 	
 };
 
-#endif //__WmmUIDialog__
+#endif //__WMMUIDIALOG_H__
