@@ -212,7 +212,7 @@ void route_pi::SetColorScheme(PI_ColorScheme cs)
 
 void route_pi::ShowPreferencesDialog( wxWindow* parent )
 {
-      PrefsDialog *dialog = new PrefsDialog( parent, wxID_ANY, _("WMM Preferences"), wxPoint( m_route_dialog_x, m_route_dialog_y), wxDefaultSize, wxDEFAULT_DIALOG_STYLE );
+      PrefsDialog *dialog = new PrefsDialog( parent, wxID_ANY, _("Route & SAR Preferences"), wxPoint( m_route_dialog_x, m_route_dialog_y), wxDefaultSize, wxDEFAULT_DIALOG_STYLE );
       dialog->Fit();
       wxColour cl;
       GetGlobalColor(_T("DILG1"), &cl);
@@ -247,7 +247,7 @@ void route_pi::OnToolbarToolCallback( int id )
 
      if(NULL == m_pRouteDialog)
       {
-            m_pRouteDialog = new WmmUIDialog(m_parent_window);
+            m_pRouteDialog = new UIDialog(m_parent_window);
             m_pRouteDialog->Move(wxPoint(m_route_dialog_x, m_route_dialog_y));
       }
 

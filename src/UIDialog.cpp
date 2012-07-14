@@ -9,7 +9,7 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+UIDialog::UIDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxSize( -1,-1 ), wxSize( 2000,2000 ) );
 	
@@ -496,7 +496,7 @@ WmmUIDialog::WmmUIDialog( wxWindow* parent, wxWindowID id, const wxString& title
 	this->Centre( wxBOTH );
 }
 
-WmmUIDialog::~WmmUIDialog()
+UIDialog::~UIDialog()
 {
 }
 

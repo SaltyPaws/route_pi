@@ -51,11 +51,11 @@
 #define PROJECTION 3395
 
 #include "../../../include/ocpn_plugin.h"
-#include "routegui_impl.h"
+//#include "routegui_impl.h"
 #include "UIDialog.h"
 #include <wx/event.h>
 
-class RouteDlg;
+//class RouteDlg;
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
@@ -113,7 +113,7 @@ private:
       wxWindow         *m_parent_window;
 //      bool              LoadConfig(void);
 //      bool              SaveConfig(void);
-      WmmUIDialog       *m_pRouteDialog;
+      UIDialog       *m_pRouteDialog;
       double            m_lat, m_lon;
       wxDateTime        m_lastPosReport;
 

@@ -37,9 +37,9 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Class WmmUIDialog
+/// Class UIDialog
 ///////////////////////////////////////////////////////////////////////////////
-class WmmUIDialog : public wxDialog 
+class UIDialog : public wxDialog 
 {
 	private:
 	
@@ -122,8 +122,8 @@ class WmmUIDialog : public wxDialog
 	public:
 		wxBoxSizer* bSframe;
 		
-		WmmUIDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("SAR & Route"), const wxPoint& pos = wxPoint( 20,20 ), const wxSize& size = wxSize( 626,506 ), long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxRESIZE_BORDER|wxTAB_TRAVERSAL ); 
-		~WmmUIDialog();
+		UIDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("SAR & Route"), const wxPoint& pos = wxPoint( 20,20 ), const wxSize& size = wxSize( 626,506 ), long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxRESIZE_BORDER|wxTAB_TRAVERSAL ); 
+		~UIDialog();
 	
 };
 
