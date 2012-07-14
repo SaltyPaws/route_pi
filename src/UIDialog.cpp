@@ -30,7 +30,7 @@ UIDialog::UIDialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	wxBoxSizer* bSizer9111;
 	bSizer9111 = new wxBoxSizer( wxVERTICAL );
 	
-	m_staticText1511 = new wxStaticText( m_panel6, wxID_ANY, _("Paralell Search\n     Pattern"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText1511 = new wxStaticText( m_panel6, wxID_ANY, _("Parallel Search\n     Pattern"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText1511->Wrap( -1 );
 	m_staticText1511->SetFont( wxFont( 20, 70, 90, 92, false, wxEmptyString ) );
 	
@@ -494,10 +494,16 @@ UIDialog::UIDialog( wxWindow* parent, wxWindowID id, const wxString& title, cons
 	this->Layout();
 	
 	this->Centre( wxBOTH );
+	
+	// Connect Events
+	m_button311->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( UIDialog::OnParallelSearchClick ), NULL, this );
 }
 
 UIDialog::~UIDialog()
 {
+	// Disconnect Events
+	m_button311->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( UIDialog::OnParallelSearchClick ), NULL, this );
+	
 }
 
 PrefsDialog::PrefsDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
@@ -571,7 +577,7 @@ MyDialog3::MyDialog3( wxWindow* parent, wxWindowID id, const wxString& title, co
 	m_panel12->SetSizer( bSizer62 );
 	m_panel12->Layout();
 	bSizer62->Fit( m_panel12 );
-	bSizer61->Add( m_panel12, 1, wxEXPAND | wxALL, 5 );
+	bSizer61->Add( m_panel12, 0, wxALL|wxEXPAND, 5 );
 	
 	m_panel5 = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer9;

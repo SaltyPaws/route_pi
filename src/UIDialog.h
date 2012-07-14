@@ -118,6 +118,10 @@ class UIDialog : public wxDialog
 		wxStaticText* m_staticText1141;
 		wxTextCtrl* m_textCtrl621;
 		wxStaticText* m_staticText1151;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnParallelSearchClick( wxCommandEvent& event ) { event.Skip(); }
+		
 	
 	public:
 		wxBoxSizer* bSframe;

@@ -1,13 +1,12 @@
 Route Plot Plugin for OpenCPN
 =======================================
 
-The purpose of this plugin is to provide Search and Rescue Patterns (SAR), Great Circle, Limited Circle and Rhumb line plotting capability to OpenCPN
+The purpose of this plugin is to provide Great Circle, Limited Circle and Rhumb line plotting capability to OpenCPN
 
 The aims are to:
 
-1. Generate GPX files for a number of SAR patterns
-2. Generate GPX files for a number of route plotting methods (I have yet to decide whether I should code a seperate plugin for this) 
-3. Plot selected routes and SAR patterns directly in OpenCPN
+1. Show Great Circle, Limited Circle and Rhumb line distances
+2. Plot selected routes with waypoints at a selected interval
 
 Compiling
 =========
