@@ -31,16 +31,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="../src/Route_piPrefsDialog.cpp" />
+		<Unit filename="../src/Route_piUIDialog.cpp" />
 		<Unit filename="../src/UIDialog.cpp" />
 		<Unit filename="../src/UIDialog.h" />
 		<Unit filename="../src/icons.cpp" />
 		<Unit filename="../src/icons.h" />
 		<Unit filename="../src/route_pi.cpp" />
 		<Unit filename="../src/route_pi.h" />
-		<Unit filename="../src/routegui.cpp" />
-		<Unit filename="../src/routegui.h" />
-		<Unit filename="../src/routegui_impl.cpp" />
-		<Unit filename="../src/routegui_impl.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
