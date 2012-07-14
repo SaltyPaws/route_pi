@@ -128,9 +128,9 @@ class WmmUIDialog : public wxDialog
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/// Class WmmPrefsDialog
+/// Class PrefsDialog
 ///////////////////////////////////////////////////////////////////////////////
-class WmmPrefsDialog : public wxDialog 
+class PrefsDialog : public wxDialog 
 {
 	private:
 	
@@ -145,8 +145,8 @@ class WmmPrefsDialog : public wxDialog
 		wxCheckBox* m_cbLiveIcon;
 		wxSlider* m_sOpacity;
 		
-		WmmPrefsDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("WMM Preferences"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE ); 
-		~WmmPrefsDialog();
+		PrefsDialog( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Route & SAR Preferences"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE ); 
+		~PrefsDialog();
 	
 };
 

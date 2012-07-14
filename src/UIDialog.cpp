@@ -500,7 +500,7 @@ WmmUIDialog::~WmmUIDialog()
 {
 }
 
-WmmPrefsDialog::WmmPrefsDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+PrefsDialog::PrefsDialog( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
 	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 	
@@ -545,7 +545,7 @@ WmmPrefsDialog::WmmPrefsDialog( wxWindow* parent, wxWindowID id, const wxString&
 	this->Centre( wxBOTH );
 }
 
-WmmPrefsDialog::~WmmPrefsDialog()
+PrefsDialog::~PrefsDialog()
 {
 }
 
