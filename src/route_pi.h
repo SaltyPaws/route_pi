@@ -1,8 +1,8 @@
 /******************************************************************************
  *
  * Project:  OpenCPN
- * Purpose:  ROUTE Plugin
- * Author:   Brazil BrokeTail
+ * Purpose:  CALCULATOR Plugin
+ * Author:   SaltyPaws
  *
  ***************************************************************************
  *   Copyright (C) 2012 by Brazil BrokeTail                                *
@@ -25,8 +25,8 @@
  ***************************************************************************
  */
 
-#ifndef _OSMPI_H_
-#define _OSMPI_H_
+#ifndef _CALCULATOR_PI_H_
+#define _CALCULATOR_PI_H_
 
 #include "wx/wxprec.h"
 
@@ -36,34 +36,23 @@
 #endif //precompiled headers
 
 #include <wx/fileconf.h>
-#include <wx/hashmap.h>
-#include <map>
 
-//#include "tinyxml.h"
+#include "../../../include/ocpn_plugin.h"
+#include "routegui_impl.h"
 
 #define     PLUGIN_VERSION_MAJOR    0
-#define     PLUGIN_VERSION_MINOR    1
+#define     PLUGIN_VERSION_MINOR    4
 
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    8
 
-//World Mercator
-#define PROJECTION 3395
-
-#include "../../../include/ocpn_plugin.h"
-//#include "routegui_impl.h"
-#include "UIDialog.h"
-#include <wx/event.h>
-
-//class RouteDlg;
+class Dlg;
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
 //----------------------------------------------------------------------------------------------------------
 
-#define ROUTE_TOOL_POSITION    -1          // Request default positioning of toolbar tool
-WX_DECLARE_STRING_HASH_MAP( wxString, TagList );
-//WX_DEFINE_ARRAY(double, NodeRefList);
+#define CALCULATOR_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
 class route_pi : public opencpn_plugin_18
 {
@@ -85,60 +74,35 @@ public:
 
 //    The required override PlugIn Methods
       int GetToolbarToolCount(void);
-      void OnToolbarToolCallback( int id );
+      void ShowPreferencesDialog( wxWindow* parent );
+      void OnToolbarToolCallback(int id);
 
 //    Optional plugin overrides
       void SetColorScheme(PI_ColorScheme cs);
-      void SetCurrentViewPort(PlugIn_ViewPort &vp);
-      void ShowPreferencesDialog( wxWindow* parent );
 
 //    The override PlugIn Methods
-//      bool RenderOverlay(wxDC &dc, PlugIn_ViewPort *vp);
-//      bool RenderGLOverlay(wxGLContext *pcontext, PlugIn_ViewPort *vp);
 
 //    Other public methods
-      void SetRouteDialogX    (int x){ m_route_dialog_x = x;};
-      void SetRouteDialogY    (int x){ m_route_dialog_y = x;}
+      void SetCalculatorDialogX         (int x){ m_route_dialog_x = x;};
+      void SetCalculatorDialogY         (int x){ m_route_dialog_y = x;};
+      void SetCalculatorDialogWidth     (int x){ m_route_dialog_width = x;};
+      void SetCalculatorDialogHeight    (int x){ m_route_dialog_height = x;};
 
-      void SetCursorLatLon(double lat, double lon);
-      void OnRouteDialogClose();
 
-protected:
-      void DownloadUrl(wxString url);
-
+      void OnSurveyDialogClose();
 
 private:
-
-      wxFileConfig     *m_pconfig;
-      wxWindow         *m_parent_window;
-//      bool              LoadConfig(void);
-//      bool              SaveConfig(void);
-      UIDialog       *m_pRouteDialog;
-      double            m_lat, m_lon;
-      wxDateTime        m_lastPosReport;
-
-
-
-      int               m_route_dialog_x, m_route_dialog_y;
+      wxFileConfig      *m_pconfig;
+      wxWindow          *m_parent_window;
+      bool              LoadConfig(void);
+      bool              SaveConfig(void);
+      Dlg               *m_pDialog;
+      int               m_route_dialog_x, m_route_dialog_y,m_route_dialog_width,m_route_dialog_height;
       int               m_display_width, m_display_height;
-      bool              m_bRenderOverlay;
       int               m_iOpacity;
-      int               m_iUnits;
-
       int               m_leftclick_tool_id;
-
-      int               dbGetIntNotNullValue(wxString sql);
-      wxString          dbGetStringValue(wxString sql);
-      void              RearangeWindow();
-      bool              m_bshuttingDown;
-
-      short             mPriPosition;
-      PlugIn_ViewPort   m_pastVp;
-      wxString          m_overpass_url;
-      //void		ParseRoute(TiXmlElement *route);
-      //TagList		ParseTags(TiXmlElement *route);
-      int		InsertNode(int id, double lat, double lon, TagList tags);
-      int		InsertWay(int id, double lat, double lon, TagList tags);
+      bool              m_ShowHelp;
+;
 };
 
 #endif

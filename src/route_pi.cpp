@@ -2,7 +2,7 @@
  *
  * Project:  OpenCPN
  * Purpose:  ROUTE Plugin
- * Author:   Brazil BrokeTail
+ * Author:   SaltyPaws
  *
  ***************************************************************************
  *   Copyright (C) 2012 by Brazil BrokeTail                                *
@@ -31,11 +31,7 @@
   #include "wx/wx.h"
 #endif //precompiled headers
 
-#include <wx/stdpaths.h>
 #include "route_pi.h"
-//#define CURL_STATICLIB
-//#include <curl/curl.h>
-//#include <curl/easy.h>
 
 // the class factories, used to create and destroy instances of the PlugIn
 
@@ -49,22 +45,9 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
     delete p;
 }
 
-void appendOSDirSlash(wxString* pString)
-{
-
-}
-/*
-// write downloaded data
-size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
-    size_t written;
-    written = fwrite(ptr, size, nmemb, stream);
-    return written;
-}
-*/
-
 //---------------------------------------------------------------------------------------------------------
 //
-//    Route PlugIn Implementation
+//    Calculator PlugIn Implementation
 //
 //---------------------------------------------------------------------------------------------------------
 
@@ -83,19 +66,15 @@ route_pi::route_pi(void *ppimgr)
       initialize_images();
 }
 
-
 int route_pi::Init(void)
 {
-
-      m_bshuttingDown = false;
-      m_lat = 999.0;
-      m_lon = 999.0;
-
       AddLocaleCatalog( _T("opencpn-route_pi") );
 
       // Set some default private member parameters
       m_route_dialog_x = 0;
       m_route_dialog_y = 0;
+      m_route_dialog_width = 20;
+      m_route_dialog_height = 20;
 
       ::wxDisplaySize(&m_display_width, &m_display_height);
 
@@ -106,46 +85,41 @@ int route_pi::Init(void)
       m_pconfig = GetOCPNConfigObject();
 
       //    And load the configuration items
-//      LoadConfig();
-
-      //      Establish the location of the config file
-      wxString dbpath;
+      LoadConfig();
 
       //    This PlugIn needs a toolbar icon, so request its insertion
       m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_route_pi, _img_route_pi, wxITEM_NORMAL,
-            _("Plot Route"), _T(""), NULL,
-             ROUTE_TOOL_POSITION, 0, this);
+            _("Route"), _T(""), NULL,
+             CALCULATOR_TOOL_POSITION, 0, this);
 
-      m_pRouteDialog = NULL;
+      m_pDialog = NULL;
 
-      return (WANTS_TOOLBAR_CALLBACK    |
+      return (WANTS_TOOLBAR_CALLBACK   |
               INSTALLS_TOOLBAR_TOOL     |
-              WANTS_CURSOR_LATLON       |
               WANTS_PREFERENCES         |
-              WANTS_OVERLAY_CALLBACK    |
-              WANTS_ONPAINT_VIEWPORT    |
-              //WANTS_OPENGL_OVERLAY_CALLBACK |
-              //WANTS_DYNAMIC_OPENGL_OVERLAY_CALLBACK |
               WANTS_CONFIG
            );
 }
 
 bool route_pi::DeInit(void)
 {
-      m_bshuttingDown = true;
-     //    Record the dialog position
-      if (NULL != m_pRouteDialog)
+      //    Record the dialog position
+      if (NULL != m_pDialog)
       {
-            wxPoint p = m_pRouteDialog->GetPosition();
-            SetRouteDialogX(p.x);
-            SetRouteDialogY(p.y);
+            //Capture dialog position
+            wxPoint p = m_pDialog->GetPosition();
+            SetCalculatorDialogX(p.x);
+            SetCalculatorDialogY(p.y);
+            //Capture dialog size
+            wxSize q = m_pDialog->GetSize();
+            SetCalculatorDialogWidth(q.x);
+            SetCalculatorDialogHeight(q.y);
 
-            m_pRouteDialog->Close();
-            delete m_pRouteDialog;
-            m_pRouteDialog = NULL;
+            m_pDialog->Close();
+            delete m_pDialog;
+            m_pDialog = NULL;
       }
-
-//      SaveConfig();
+      SaveConfig();
       return true;
 }
 
@@ -190,13 +164,6 @@ wxString route_pi::GetLongDescription()
 Plots Great Circle routes, Limited Circle Routes and Rhumb lines.");
 }
 
-void route_pi::SetCursorLatLon(double lat, double lon)
-{
-      //m_cursor_lon = lon;
-      //m_cursor_lat = lat;
-      //wxLogMessage (_T("ROUTE_PI: OnToolbarToolCallback %d,%d\n"), lat,lon);
-}
-
 int route_pi::GetToolbarToolCount(void)
 {
       return 1;
@@ -204,59 +171,97 @@ int route_pi::GetToolbarToolCount(void)
 
 void route_pi::SetColorScheme(PI_ColorScheme cs)
 {
-      if (NULL == m_pRouteDialog)
+      if (NULL == m_pDialog)
             return;
 
-      DimeWindow(m_pRouteDialog);
+      DimeWindow(m_pDialog);
+}
+
+void route_pi::OnToolbarToolCallback(int id)
+{
+      if(NULL == m_pDialog)
+      {
+            m_pDialog = new Dlg(m_parent_window);
+            m_pDialog->plugin = this;
+            m_pDialog->Move(wxPoint(m_route_dialog_x, m_route_dialog_y));
+            if ((m_route_dialog_width>60)||(m_route_dialog_height>25))
+            {
+                m_pDialog->SetSize(wxSize(m_route_dialog_width, m_route_dialog_height));
+                //printf("setting size to: %d %d\n", m_route_dialog_x,m_route_dialog_y);
+            }
+
+            else{
+                m_pDialog->Fit();
+                //printf("Just fitting window");
+                }
+      }
+
+      m_pDialog->Show(!m_pDialog->IsShown());
+}
+
+bool route_pi::LoadConfig(void)
+{
+      wxFileConfig *pConf = (wxFileConfig *)m_pconfig;
+
+      if(pConf)
+      {
+            pConf->SetPath ( _T( "/Settings/Calculator" ) );
+            pConf->Read ( _T ( "Opacity" ),  &m_iOpacity, 255 );
+           // pConf->Read       dialog->m_cpConnectorColor->SetColour(m_sConnectorColor);
+            m_route_dialog_x =  pConf->Read ( _T ( "DialogPosX" ), 20L );
+            m_route_dialog_y =  pConf->Read ( _T ( "DialogPosY" ), 20L );
+            m_route_dialog_width = pConf->Read ( _T ( "DialogPosW" ), 20L );
+            m_route_dialog_height = pConf->Read ( _T ( "DialogPosH" ), 20L );
+
+            if((m_route_dialog_x < 0) || (m_route_dialog_x > m_display_width))
+                  m_route_dialog_x = 5;
+            if((m_route_dialog_y < 0) || (m_route_dialog_y > m_display_height))
+                  m_route_dialog_y = 5;
+            if((m_route_dialog_width < 0) || ((m_route_dialog_x + m_route_dialog_width) > m_display_width))
+                  m_route_dialog_width = 5;
+            if((m_route_dialog_width < 0) || ((m_route_dialog_y + m_route_dialog_height) > m_display_height))
+                  m_route_dialog_width = 5;
+
+
+            return true;
+      }
+      else
+            return false;
+}
+
+bool route_pi::SaveConfig(void)
+{
+      wxFileConfig *pConf = (wxFileConfig *)m_pconfig;
+
+      if(pConf)
+      {
+            pConf->SetPath ( _T ( "/Settings/Calculator" ) );
+            pConf->Write ( _T ( "Opacity" ), m_iOpacity );
+            pConf->Write ( _T ( "DialogPosX" ),   m_route_dialog_x );
+            pConf->Write ( _T ( "DialogPosY" ),   m_route_dialog_y );
+            pConf->Write ( _T ( "DialogPosW" ),   m_route_dialog_width );
+            pConf->Write ( _T ( "DialogPosH" ),   m_route_dialog_height );
+
+
+            return true;
+      }
+      else
+            return false;
 }
 
 void route_pi::ShowPreferencesDialog( wxWindow* parent )
 {
-      PrefsDialog *dialog = new PrefsDialog( parent, wxID_ANY, _("Route & SAR Preferences"), wxPoint( m_route_dialog_x, m_route_dialog_y), wxDefaultSize, wxDEFAULT_DIALOG_STYLE );
+      CfgDlg *dialog = new CfgDlg( parent, wxID_ANY, _("Calculator Preferences"), wxPoint( m_route_dialog_x, m_route_dialog_y), wxDefaultSize, wxDEFAULT_DIALOG_STYLE );
       dialog->Fit();
       wxColour cl;
-      GetGlobalColor(_T("DILG1"), &cl);
-      dialog->SetBackgroundColour(cl);
-
-      /*dialog->m_rbViewType->SetSelection(m_iViewType);
-      dialog->m_cbShowAtCursor->SetValue(m_bShowAtCursor);
-      dialog->m_cbLiveIcon->SetValue(m_bShowLiveIcon);
-      dialog->m_sOpacity->SetValue(m_iOpacity);*/
+      DimeWindow(dialog);
+      dialog->m_sOpacity->SetValue(m_iOpacity);
 
       if(dialog->ShowModal() == wxID_OK)
       {
-            /*m_iViewType = dialog->m_rbViewType->GetSelection();
-            m_bShowAtCursor = dialog->m_cbShowAtCursor->GetValue();
-            m_bShowLiveIcon = dialog->m_cbLiveIcon->GetValue();
             m_iOpacity = dialog->m_sOpacity->GetValue();
-
-            RearangeWindow();
-
-            SaveConfig();*/
+            SaveConfig();
       }
       delete dialog;
 }
 
-void route_pi::SetCurrentViewPort(PlugIn_ViewPort &vp)
-{
-
-}
-
-void route_pi::OnToolbarToolCallback( int id )
-{
-
-     if(NULL == m_pRouteDialog)
-      {
-            m_pRouteDialog = new UIDialog(m_parent_window);
-            m_pRouteDialog->Move(wxPoint(m_route_dialog_x, m_route_dialog_y));
-      }
-
-      //RearangeWindow();
-      /*m_pWmmDialog->SetMaxSize(m_pWmmDialog->GetSize());
-      m_pWmmDialog->SetMinSize(m_pWmmDialog->GetSize());*/
-      m_pRouteDialog->Show(!m_pRouteDialog->IsShown());
-      if (m_pRouteDialog->IsShown())
-            SendPluginMessage(_T("WMM_WINDOW_SHOWN"), wxEmptyString);
-      else
-            SendPluginMessage(_T("WMM_WINDOW_HIDDEN"), wxEmptyString);
-}

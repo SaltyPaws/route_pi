@@ -1,0 +1,160 @@
+///////////////////////////////////////////////////////////////////////////
+// C++ code generated with wxFormBuilder (version Apr 11 2012)
+// http://www.wxformbuilder.org/
+//
+// PLEASE DO "NOT" EDIT THIS FILE!
+///////////////////////////////////////////////////////////////////////////
+
+#ifndef __ROUTEGUI_H__
+#define __ROUTEGUI_H__
+
+#include <wx/artprov.h>
+#include <wx/xrc/xmlres.h>
+#include <wx/intl.h>
+#include <wx/string.h>
+#include <wx/stattext.h>
+#include <wx/gdicmn.h>
+#include <wx/font.h>
+#include <wx/colour.h>
+#include <wx/settings.h>
+#include <wx/textctrl.h>
+#include <wx/sizer.h>
+#include <wx/button.h>
+#include <wx/statbox.h>
+#include <wx/panel.h>
+#include <wx/bitmap.h>
+#include <wx/image.h>
+#include <wx/icon.h>
+#include <wx/statbmp.h>
+#include <wx/notebook.h>
+#include <wx/choice.h>
+#include <wx/dialog.h>
+#include <wx/slider.h>
+
+///////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class DlgDef
+///////////////////////////////////////////////////////////////////////////////
+class DlgDef : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxNotebook* m_notebook1;
+		wxPanel* m_panel1;
+		wxPanel* m_panel6;
+		wxStaticText* m_staticText1511;
+		wxStaticText* m_staticText3221;
+		wxTextCtrl* m_IntervalNM;
+		wxStaticText* m_staticText3321;
+		wxButton* m_button11;
+		wxButton* m_button111;
+		wxStaticText* m_staticText32211;
+		wxTextCtrl* m_distance_GC;
+		wxStaticText* m_staticText33211;
+		wxStaticText* m_statictext234;
+		wxTextCtrl* m_distance_RH;
+		wxStaticText* m_staticText332111;
+		wxStaticBitmap* m_bitmap1;
+		wxPanel* m_panel2;
+		wxPanel* m_panel7;
+		wxStaticText* m_staticText151;
+		wxStaticText* m_staticText322;
+		wxTextCtrl* m_textCtrl252;
+		wxStaticText* m_staticText332;
+		wxStaticText* m_staticText3211;
+		wxTextCtrl* m_textCtrl2511;
+		wxStaticText* m_staticText3311;
+		wxStaticText* m_staticText32111;
+		wxTextCtrl* m_textCtrl25111;
+		wxStaticText* m_staticText33111;
+		wxButton* m_button31;
+		wxStaticBitmap* m_bitmap2;
+		wxNotebook* m_wxNotebook234;
+		wxPanel* m_panel11;
+		wxStaticText* m_staticText3231;
+		wxTextCtrl* m_Lat1;
+		wxStaticText* m_staticText3331;
+		wxStaticText* m_staticText32311;
+		wxTextCtrl* m_Lon1;
+		wxStaticText* m_staticText33311;
+		wxStaticText* m_staticText32312;
+		wxTextCtrl* m_Lat2;
+		wxStaticText* m_staticText33312;
+		wxStaticText* m_staticText323111;
+		wxTextCtrl* m_Lon2;
+		wxStaticText* m_staticText333111;
+		wxPanel* m_panel15;
+		wxStaticText* m_staticText32313;
+		wxTextCtrl* m_Lat1_d;
+		wxStaticText* m_staticText33313;
+		wxTextCtrl* m_Lat1_m;
+		wxStaticText* m_staticText1143;
+		wxTextCtrl* m_Lat1_s;
+		wxStaticText* m_staticText1153;
+		wxChoice* m_Lat1_NS;
+		wxStaticText* m_staticText323112;
+		wxTextCtrl* m_Lon1_d;
+		wxStaticText* m_staticText333112;
+		wxTextCtrl* m_Lon1_m;
+		wxStaticText* m_staticText11412;
+		wxTextCtrl* m_Lon1_s;
+		wxStaticText* m_staticText11512;
+		wxChoice* m_Lon1_EW;
+		wxStaticText* m_staticText323121;
+		wxTextCtrl* m_Lat2_d;
+		wxStaticText* m_staticText333121;
+		wxTextCtrl* m_Lat2_m;
+		wxStaticText* m_staticText11421;
+		wxTextCtrl* m_Lat2_s;
+		wxStaticText* m_staticText11521;
+		wxChoice* m_Lat2_NS;
+		wxStaticText* m_staticText3231111;
+		wxTextCtrl* m_Lon2_d;
+		wxStaticText* m_staticText3331111;
+		wxTextCtrl* m_Lon2_m;
+		wxStaticText* m_staticText114111;
+		wxTextCtrl* m_Lon2_s;
+		wxStaticText* m_staticText115111;
+		wxChoice* m_Lon2_EW;
+		wxButton* m_button81;
+		
+		// Virtual event handlers, overide them in your derived class
+		virtual void OnGCCalculate( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnExportGC( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnNoteBookFit( wxNotebookEvent& event ) { event.Skip(); }
+		virtual void OnConverttoDegree( wxCommandEvent& event ) { event.Skip(); }
+		
+	
+	public:
+		wxBoxSizer* bSframe;
+		
+		DlgDef( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Menu"), const wxPoint& pos = wxPoint( 20,20 ), const wxSize& size = wxSize( -1,-1 ), long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxRESIZE_BORDER|wxTAB_TRAVERSAL ); 
+		~DlgDef();
+	
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/// Class CfgDlgDef
+///////////////////////////////////////////////////////////////////////////////
+class CfgDlgDef : public wxDialog 
+{
+	private:
+	
+	protected:
+		wxStaticText* m_staticText17;
+		wxStdDialogButtonSizer* m_sdbSizer1;
+		wxButton* m_sdbSizer1OK;
+		wxButton* m_sdbSizer1Cancel;
+	
+	public:
+		wxSlider* m_sOpacity;
+		
+		CfgDlgDef( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Preferences"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE ); 
+		~CfgDlgDef();
+	
+};
+
+#endif //__ROUTEGUI_H__
