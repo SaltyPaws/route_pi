@@ -114,7 +114,7 @@ void Dlg::OnGCCalculate( wxCommandEvent& event ){
     if (std::abs(lon1)>180){ error_occured=true; }
     if (std::abs(lon2)>180){ error_occured=true; }
 
-    if(!distVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occured=true; };
+    if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occured=true; };
     this->m_distance_GC->SetValue(wxString::Format(wxT("%g"), dist));
 
     DistanceBearingMercator(lat1, lon1, lat2, lon2, &fwdAz, &dist);
@@ -170,7 +170,7 @@ void Dlg::OnExportGC( wxCommandEvent& event )
             if (std::abs(lon1)>180){ error_occured=true; }
             if (std::abs(lon2)>180){ error_occured=true; }
 
-            if(!distVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occured=true; };
+            if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occured=true; };
             this->m_distance_GC->SetValue(wxString::Format(wxT("%g"), dist));
 
            /* DistanceBearingMercator(lat1, lon1, lat2, lon2, &fwdAz, &dist);
@@ -213,40 +213,38 @@ void Dlg::OnExportGC( wxCommandEvent& event )
                 wxLogMessage(_("Route interval > Distance, 0 or negative") );
                 wxMessageBox(_("Route interval > Distance, 0 or negative") );
                 }
-
-            //start
-            Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("Start"),_T("diamond"),_T("WPT"));
-            double lati, loni;
-            for(double in_distance=step_size;in_distance<dist;in_distance=in_distance+step_size)
+            else
                 {
-                destVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
-                std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%f"),in_distance) ,_T("diamond"),_T("WPT"));
+
+                //start
+                Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("Start"),_T("diamond"),_T("WPT"));
+                double lati, loni;
+                for(double in_distance=step_size;in_distance<dist;in_distance=in_distance+step_size)
+                    {
+                    DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
+                    std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                    Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
+                    }
+                //Addpoint(Route,(double)10,(double)11,(wxString)_T("NAAM"),(wxString)_T("SYMBOL"),(wxString)_T("TYPE"));
+
+                //end
+                Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),_T("Finish"),_T("SYMBOL"),_T("WPT"));
+                //////////////////////////Close XML
+
+                root->LinkEndChild( Route );
+                //root->LinkEndChild(root );
+
+
+
+                wxString s=dlg.GetPath() +  _T(".gpx");
+                wxCharBuffer buffer=s.ToUTF8();
+               // foo( buffer.data() );  // data() returns const char *
+    //bar( buffer.data(), strlen(buffer.data()) );  // in case you need the length of the data
+
+                std::cout<< buffer.data()<<std::endl;
+                doc.SaveFile( buffer.data() );
                 }
-            //Addpoint(Route,(double)10,(double)11,(wxString)_T("NAAM"),(wxString)_T("SYMBOL"),(wxString)_T("TYPE"));
-
-            //end
-            Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),_T("Finish"),_T("SYMBOL"),_T("WPT"));
-            //////////////////////////Close XML
-
-            root->LinkEndChild( Route );
-            //root->LinkEndChild(root );
-
-
-
-            wxString s=dlg.GetPath() +  _T(".gpx");
-            wxCharBuffer buffer=s.ToUTF8();
-           // foo( buffer.data() );  // data() returns const char *
-//bar( buffer.data(), strlen(buffer.data()) );  // in case you need the length of the data
-
-            std::cout<< buffer.data()<<std::endl;
-            doc.SaveFile( buffer.data() );
-            }
-
-
-
-
-
+        }
 //TiXmlDocument doc;
 }
 
