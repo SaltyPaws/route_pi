@@ -25,7 +25,6 @@
 #include <wx/bitmap.h>
 #include <wx/image.h>
 #include <wx/icon.h>
-#include <wx/statbmp.h>
 #include <wx/notebook.h>
 #include <wx/choice.h>
 #include <wx/dialog.h>
@@ -57,21 +56,26 @@ class DlgDef : public wxDialog
 		wxStaticText* m_statictext234;
 		wxTextCtrl* m_distance_RH;
 		wxStaticText* m_staticText332111;
-		wxStaticBitmap* m_bitmap1;
-		wxPanel* m_panel2;
-		wxPanel* m_panel7;
-		wxStaticText* m_staticText151;
-		wxStaticText* m_staticText322;
-		wxTextCtrl* m_textCtrl252;
-		wxStaticText* m_staticText332;
-		wxStaticText* m_staticText3211;
-		wxTextCtrl* m_textCtrl2511;
-		wxStaticText* m_staticText3311;
-		wxStaticText* m_staticText32111;
-		wxTextCtrl* m_textCtrl25111;
-		wxStaticText* m_staticText33111;
-		wxButton* m_button31;
-		wxStaticBitmap* m_bitmap2;
+		wxPanel* m_panel12;
+		wxPanel* m_panel61;
+		wxStaticText* m_staticText15111;
+		wxStaticText* m_staticText32212;
+		wxTextCtrl* m_IntervalNM1;
+		wxStaticText* m_staticText33212;
+		wxStaticText* m_staticText322121;
+		wxTextCtrl* m_LatLimit;
+		wxStaticText* m_staticText332121;
+		wxButton* m_button112;
+		wxButton* m_button1111;
+		wxStaticText* m_staticText322111;
+		wxTextCtrl* m_distance_LC;
+		wxStaticText* m_staticText332112;
+		wxStaticText* m_statictext2341;
+		wxTextCtrl* m_distance_GC1;
+		wxStaticText* m_staticText3321111;
+		wxStaticText* m_statictext23411;
+		wxTextCtrl* m_distance_RH1;
+		wxStaticText* m_staticText33211111;
 		wxNotebook* m_wxNotebook234;
 		wxPanel* m_panel11;
 		wxStaticText* m_staticText3231;
@@ -124,6 +128,8 @@ class DlgDef : public wxDialog
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnGCCalculate( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnExportGC( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnGCLCalculate( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnExportGCL( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnNoteBookFit( wxNotebookEvent& event ) { event.Skip(); }
 		virtual void OnConverttoDegree( wxCommandEvent& event ) { event.Skip(); }
 		
@@ -131,7 +137,7 @@ class DlgDef : public wxDialog
 	public:
 		wxBoxSizer* bSframe;
 		
-		DlgDef( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Menu"), const wxPoint& pos = wxPoint( 20,20 ), const wxSize& size = wxSize( -1,-1 ), long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxRESIZE_BORDER|wxTAB_TRAVERSAL ); 
+		DlgDef( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Menu"), const wxPoint& pos = wxPoint( 20,20 ), const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxTAB_TRAVERSAL ); 
 		~DlgDef();
 	
 };

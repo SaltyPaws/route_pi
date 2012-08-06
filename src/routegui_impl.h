@@ -38,8 +38,8 @@
 #include "routegui.h"
 #include "route_pi.h"
 #include "NavFunc.h"
-#include "../../include/georef.h"
-#include "../../include/gpxdocument.h"
+//#include "../../include/georef.h"
+//#include "../../include/gpxdocument.h"
 #include "tinyxml.h"
 using namespace std;
 
@@ -51,6 +51,9 @@ public:
       CfgDlg( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Calculator preferences"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE );
 };
 
+
+
+
 class Dlg : public DlgDef
 {
 public:
@@ -60,14 +63,22 @@ public:
         void OnConverttoDegree( wxCommandEvent& event );
         void OnNoteBookFit( wxCommandEvent& event );
         void OnGCCalculate( wxCommandEvent& event );
+        void OnGCLCalculate( wxCommandEvent& event );
+        void OnGCLCalculate( wxCommandEvent& event, bool write_file );
         void OnFit( wxCommandEvent& event );
         void OnExportGC( wxCommandEvent& event );
+        void OnExportGCL( wxCommandEvent& event );
         //void Addpoint(TiXmlElement* Route, double ptlat, double ptlon, wxString ptname, wxString ptsym, wxString pttype);
         void Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString ptname, wxString ptsym, wxString pttype);
+        double BrentsMethodSolve(double lowerLimit, double upperLimit, double errorTol);
+        //friend class function;
         route_pi *plugin;
 private:
         wxPoint xy;
         wxSize  wh;
+        double lat1, lon1, lat2, lon2, targetAz;
+        double F(double x);
+        bool error_found;
 };
 
 #endif

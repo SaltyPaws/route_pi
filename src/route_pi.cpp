@@ -195,7 +195,7 @@ void route_pi::OnToolbarToolCallback(int id)
                 //printf("Just fitting window");
                 }*/
       }
-
+ m_pDialog->Fit();
       m_pDialog->Show(!m_pDialog->IsShown());
 }
 
@@ -210,6 +210,11 @@ bool route_pi::LoadConfig(void)
            // pConf->Read       dialog->m_cpConnectorColor->SetColour(m_sConnectorColor);
             m_route_dialog_x =  pConf->Read ( _T ( "DialogPosX" ), 20L );
             m_route_dialog_y =  pConf->Read ( _T ( "DialogPosY" ), 20L );
+         //   Dlg->m_IntervalNM1->SetValue (pConf->Read ( _T ( "m_IntervalNM1" ), 20L ));
+
+
+
+
            // m_route_dialog_width = pConf->Read ( _T ( "DialogPosW" ), 20L );
             //m_route_dialog_height = pConf->Read ( _T ( "DialogPosH" ), 20L );
 
@@ -239,6 +244,7 @@ bool route_pi::SaveConfig(void)
             pConf->Write ( _T ( "Opacity" ), m_iOpacity );
             pConf->Write ( _T ( "DialogPosX" ),   m_route_dialog_x );
             pConf->Write ( _T ( "DialogPosY" ),   m_route_dialog_y );
+         //   pConf->Write ( _T ( "m_IntervalNM1" ), Dlg->m_IntervalNM1->GetValue());
      /*       pConf->Write ( _T ( "DialogPosW" ),   m_route_dialog_width );
             pConf->Write ( _T ( "DialogPosH" ),   m_route_dialog_height );*/
 

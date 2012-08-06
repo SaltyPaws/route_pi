@@ -6,9 +6,13 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
-#include "../../../include/georef.h"
+#include <limits>
 
+//#include "../../../include/georef.h"
 
+//bool IsNumber(double x);
+
+#define M_2PI M_PI * 2.0
 
 	/*
 	*	\brief Ellipsoid Inverse Flattening constant
@@ -83,9 +87,55 @@ void doubletoDMS(double a, char *bufp, int bufplen);
 double toRad (double degree);
 double toDeg (double radians);
 double sqr (double radians);
-void DestVincenty(double lat1, double lon1, double brng, double dist, double* lat2, double* lon2, double* revAz);
+
+struct LLPoint{
+    double latitude;
+    double longitude;
+};
+
+    struct InverseResult {
+        double azimuth;			/**< calculated azimuth in radians */
+        double reverseAzimuth;	/**< calculated reverse azimuth in radians */
+        double distance;		/**< calculated distance in meters */
+    };
+
+void DestVincenty(double lat1, double lon1, double brng, double dist, double* lat2, double* lon2, double* revAz); //Decimal degrees, NM
+LLPoint DestVincenty(LLPoint pt, double brng, double dist,double* revAzrad); //rad, m
+LLPoint DestVincenty(LLPoint pt, double brng, double dist); //rad, m
+
 bool DistVincenty(double lat1, double lon1, double lat2, double lon2, double *dist, double *fwdAz, double *revAz);
+bool DistVincenty(LLPoint pt1, LLPoint pt2, InverseResult * result);
+void distVincenty(LLPoint pt1, LLPoint pt2, InverseResult * result);
+
 void distRhumb(double lat1,double lon1, double lat2, double lon2, double *distance, double *brng);
 bool destRhumb(double lat1, double lon1, double brng, double dist, double* lat2, double* lon2);
 bool destLoxodrome(double lat1, double lon1, double brng, double dist, double* lat2, double* lon2);
+
+void FindLinearRoot( double *x, double *errArray, double & root );
+double SignAzimuthDifference(double az1, double az2);
+double Mod(double a, double b);
+const inline double SphereRadius(void) { return 6367435.679716102288521224771085329133283527893713982476828820197; }
+
+inline bool IsNearZero(double a, double epsilon = 2e-6)
+{
+	return (fabs(a) < epsilon);
+}
+
+/*    bool IsFiniteNumber(double x)
+    {
+        return (x <= DBL_MAX && x >= -DBL_MAX);
+    }*/
+
+
+///new
+	bool CrsIntersect(double lat1, double lon1, double az13,
+		double lat2, double lon2, double az23, double dTol, double lati, double loni);
+
+	bool  CrsIntersect1(double lat1, double lon1, double az13,
+		double & az31, double & dist13, double lat2, double lon2, double az23,
+		double & az32, double & dist23, double dTol, double lati, double loni);
+
+
+
+
 #endif/* #define ROUTE_NAV_FUNC_H*/
