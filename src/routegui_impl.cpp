@@ -286,17 +286,18 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event ){
 
 
 void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
-
-
     bool error_occured=false;
     double dist, fwdAz, revAz;
     wxString s;
-       if (write_file){
-            wxFileDialog dlg(this, _("Export GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
-            dlg.ShowModal();
-            s=dlg.GetPath();
-          //  std::cout<<s<< std::endl;
+    if (write_file){
+        wxFileDialog dlg(this, _("Export GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
+        dlg.ShowModal();
+        s=dlg.GetPath();
+        //  std::cout<<s<< std::endl;
         if (dlg.GetPath() == wxEmptyString){ error_occured=true; printf("Empty Path\n");}
+        double step_size; //just checking. Value is picked up later
+            if(!this->m_IntervalNM->GetValue().ToDouble(&step_size)){ error_occured=true;}
+            if ((step_size>dist) || (step_size<dist*1/5000)) { error_occured=true; printf("Step Size too small or large\n");}
     }
 
     double lat1,lon1,lat2,lon2,limit;
@@ -305,32 +306,30 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ error_occured=true;}
     if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ error_occured=true; }
     if(!this->m_LatLimit->GetValue().ToDouble(&limit)){ error_occured=true; }
-    if (error_occured) printf("error in conversion of input coordinates\n");
-;
+   // if (error_occured) printf("error in conversion of input coordinates\n");
+error_occured=false;
     //Validate input ranges
-    if (std::abs(lat1)>90){ error_occured=true; }
-    if (std::abs(lat2)>90){ error_occured=true; }
-    if (std::abs(lon1)>180){ error_occured=true; }
-    if (std::abs(lon2)>180){ error_occured=true; }
-    if (error_occured) printf("error in input range validation\n");
-
+    if (std::abs(lat1)>90){ error_occured=true;printf("error in input range validation\n"); }
+    if (std::abs(lat2)>90){ error_occured=true;printf("error in input range validation\n"); }
+    if (std::abs(lon1)>180){ error_occured=true;printf("error in input range validation\n"); }
+    if (std::abs(lon2)>180){ error_occured=true;printf("error in input range validation\n"); }
 
     if ((lat1>0) && (lat1>std::abs(limit))){ //North
         error_occured=true;
         wxMessageBox(_("Start Latitude>Limit!") );
-        }
+    }
     if ((lat1<0) && (std::abs(lat1)>std::abs(limit))){ //south
         error_occured=true;
         wxMessageBox(_("Start Latitude>Limit!") );
-        }
+    }
     if ((lat2>0) && (lat2>std::abs(limit))){ //North
         error_occured=true;
         wxMessageBox(_("Start Latitude>Limit!") );
-        }
+    }
     if ((lat2<0) && (std::abs(lat2)>std::abs(limit))){ //south
         error_occured=true;
         wxMessageBox(_("Start Latitude>Limit!") );
-        }
+    }
     //Calculate RH dist
     DistanceBearingMercator(lat1, lon1, lat2, lon2, &fwdAz, &dist);
     this->m_distance_RH1->SetValue(wxString::Format(wxT("%g"), dist));
@@ -338,30 +337,22 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     //Calculate GC
     if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occured=true;    printf("error in DistVincenty\n"); };
     this->m_distance_GC1->SetValue(wxString::Format(wxT("%g"), dist));
-
-
-        TiXmlDocument doc;
-//        TiXmlElement* msg;
-        TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
-        doc.LinkEndChild( decl );
-
-        TiXmlElement * root = new TiXmlElement( "gpx" );
-
-        TiXmlElement * Route = new TiXmlElement( "rte" );
-
-        TiXmlElement * RouteName = new TiXmlElement( "name" );
-        TiXmlText * text4 = new TiXmlText( "Route01" );
+    TiXmlDocument doc;
+    TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
+    doc.LinkEndChild( decl );
+    TiXmlElement * root = new TiXmlElement( "gpx" );
+    TiXmlElement * Route = new TiXmlElement( "rte" );
+    TiXmlElement * RouteName = new TiXmlElement( "name" );
+    TiXmlText * text4 = new TiXmlText( "Route01" );
 
     if (write_file){
         doc.LinkEndChild( root );
-
         root->SetAttribute("version", "1.1");
         root->SetAttribute("creator", "Route_pi by SaltyPaws");
         root->SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
         root->SetAttribute("xmlns:gpxx","http://www.garmin.com/xmlschemas/GpxExtensions/v3" );
         root->SetAttribute("xsi:schemaLocation", "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
         root->SetAttribute("xmlns:opencpn","http://www.opencpn.org");
-
         Route->LinkEndChild( RouteName );
         RouteName->LinkEndChild( text4 );
     }
@@ -369,185 +360,222 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     //Calculate GCL
     double step_size=dist/100;
 
-            if ((step_size>dist) || (step_size<dist*1/5000)  ){
-                wxLogMessage(_("Route interval > Distance, 0 or negative") );
-                wxMessageBox(_("Route interval > Distance, 0 or negative") );
-                error_occured=true;
+    if (error_occured){
+        wxLogMessage(_("Error occured, aborting GCL calc!") );
+        //wxMessageBox(_("Route interval > Distance, 0 or negative") );
+        }
+    if (!error_occured){
+        //start
+        double lati=0, loni=0,latold=lat1,lonold=lon1,segment_distance=0,fwdAz_dummy=0,revAz_dummy=0;
+        double GCL_dist=0;
+        bool Lat_limit_found=false;
+        double Lat_int1=0, Lat_int2=999999, Lon_int1=0, Lon_int2=0;
+
+        for(double in_distance=0;in_distance<(dist+Tol());in_distance=in_distance+step_size)
+            {
+            DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
+
+            if ((lati>0) && (lati>std::abs(limit))){ //North
+                if (!Lat_limit_found){
+                    std::cout<<"First intersection point"<< std::endl;
+                    std::cout<<"------------->"<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                    Lat_int1=lati;
+                    Lon_int1=loni;
+                    Lat_limit_found=true;
+                    lati=limit;
+                    std::cout<<"------>N"<< std::endl;
                 }
 
-            if (error_occured){
-                wxLogMessage(_("Error occured, aborting GCL calc!") );
-                //wxMessageBox(_("Route interval > Distance, 0 or negative") );
+            }
+            else if ((lati<0) && (std::abs(lati)>std::abs(limit))){ //south
+                if (!Lat_limit_found){
+                    std::cout<<"First intersection point"<< std::endl;
+                    std::cout<<"------------->"<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                    Lat_int1=lati;
+                    Lon_int1=loni;
+                    Lat_limit_found=true;
+                    lati=-(std::abs(limit));
+                    std::cout<<"------>S"<< std::endl;
                 }
-            else
+
+            }
+            else{
+                if(Lat_limit_found && (Lat_int2 >99999)){
+                    std::cout<<"Second intersection point"<< std::endl;
+                    std::cout<<"------------->"<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                    Lat_int2=lati;
+                    Lon_int2=loni;
+                }
+            }
+
+            if(!DistVincenty(latold, lonold, lati, loni, &segment_distance, &fwdAz_dummy, &revAz_dummy)){ error_occured=true; printf("error in 2nd Vncenty\n"); };
+                GCL_dist += segment_distance;
+                //std::cout<<"Distance: "<<GCL_dist<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                latold=lati;
+                lonold=loni;
+            }
+
+            //if Lat_limit_found we will do a limited circle calc, otherwise revert to great circle FIXME
+            //first GC: (lat1 ,lat2, Lat_int1,x (>Lat_int1&&<Lat_int2) )
+            if (Lat_limit_found){
+                if (Lat_int1>0){
+                    Lat_int1=std::abs(limit);
+                    Lat_int2=std::abs(limit);
+                }
+                else if (Lat_int1<0){
+                    Lat_int1=-std::abs(limit);
+                    Lat_int2=-std::abs(limit);
+                }
+                else
+                    error_occured=true; //intersecting limit cannot be 0
+
+
+                int target_az=0;
+                if (fwdAz>0 && fwdAz<90) target_az = 270;
+                else if (fwdAz>90 && fwdAz<180) target_az = 270;
+                else if (fwdAz>180 && fwdAz<270) target_az = 90;
+                else if (fwdAz>270 && fwdAz<360) target_az = 90;
+                else {error_occured=1; std::cout<<"impossible course for GC!!! "<<fwdAz<<std::endl;}
+
+                //Find position of first section
+
+                this->lat1=lat1;
+                this->lon1=lon1;
+                this->lat2=Lat_int1;
+                //this->lon2=20;
+                this->targetAz=target_az;
                 {
-
-                //start
-                double lati=0, loni=0,latold=lat1,lonold=lon1,segment_distance=0,fwdAz_dummy=0,revAz_dummy=0;
-                double GCL_dist=0;
-                bool Lat_limit_found=false;
-                double Lat_int1=0, Lat_int2=999999, Lon_int1=0, Lon_int2=0;
-
-                for(double in_distance=0;in_distance<(dist+Tol());in_distance=in_distance+step_size)
-                    {
-                    DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
-
-                    if ((lati>0) && (lati>std::abs(limit))){ //North
-                        if (!Lat_limit_found){
-                            std::cout<<"First intersection point"<< std::endl;
-                            std::cout<<"------------->"<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                            Lat_int1=lati;
-                            Lon_int1=loni;
-                            Lat_limit_found=true;
-                            lati=limit;
-                            std::cout<<"------>N"<< std::endl;
+                    double low_Limit = lon2 > lon1 ? lon1 : lon2;
+                    double high_Limit = lon2 > lon1 ? lon2 : lon1;
+                    double difference=high_Limit-low_Limit;
+                    if (difference>180){
+                        double tmp=high_Limit;
+                        high_Limit=low_Limit+360;
+                        low_Limit=tmp;
                         }
 
-                    }
-                    else if ((lati<0) && (std::abs(lati)>std::abs(limit))){ //south
-                        if (!Lat_limit_found){
-                            std::cout<<"First intersection point"<< std::endl;
-                            std::cout<<"------------->"<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                            Lat_int1=lati;
-                            Lon_int1=loni;
-                            Lat_limit_found=true;
-                            lati=-(std::abs(limit));
-                            std::cout<<"------>S"<< std::endl;
-                        }
-
-                    }
-                    else{
-                        if(Lat_limit_found && (Lat_int2 >99999)){
-                            std::cout<<"Second intersection point"<< std::endl;
-                            std::cout<<"------------->"<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                            Lat_int2=lati;
-                            Lon_int2=loni;
-                        }
-                    }
-                    //nothing yet}
-
-                    if(!DistVincenty(latold, lonold, lati, loni, &segment_distance, &fwdAz_dummy, &revAz_dummy)){ error_occured=true; printf("error in 2nd Vncenty\n"); };
-                    if (write_file){ Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));}
-                        GCL_dist += segment_distance;
-                        //std::cout<<"Distance: "<<GCL_dist<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                        latold=lati;
-                        lonold=loni;
-                    }
-
-                    //if Lat_limit_found we will do a limited circle calc, otherwise revert to great circle FIXME
-                    //first GC: (lat1 ,lat2, Lat_int1,x (>Lat_int1&&<Lat_int2) )
-                    if (Lat_limit_found){
-                        if (Lat_int1>0){
-                            Lat_int1=std::abs(limit);
-                            Lat_int2=std::abs(limit);
-                        }
-                        else if (Lat_int1<0){
-                            Lat_int1=-std::abs(limit);
-                            Lat_int2=-std::abs(limit);
-                        }
-                        else
-                            error_occured=true; //intersecting limit cannot be 0
-
-
-                        int target_az=0;
-                        if (fwdAz>0 && fwdAz<90) target_az = 270;
-                        else if (fwdAz>90 && fwdAz<180) target_az = 270;
-                        else if (fwdAz>180 && fwdAz<270) target_az = 90;
-                        else if (fwdAz>270 && fwdAz<360) target_az = 90;
-                        else {error_occured=1; std::cout<<"impossible course for GC!!! "<<fwdAz<<std::endl;}
-
-                        //Find position of first section
-
-                        this->lat1=lat1;
-                        this->lon1=lon1;
-                        this->lat2=Lat_int1;
-                        //this->lon2=20;
-                        this->targetAz=target_az;
-                        {
-                            double low_Limit = lon2 > lon1 ? lon1 : lon2;
-                            double high_Limit = lon2 > lon1 ? lon2 : lon1;
-                            double difference=high_Limit-low_Limit;
-                            if (difference>180){
-                                double tmp=high_Limit;
-                                high_Limit=low_Limit+360;
-                                low_Limit=tmp;
-                                }
-
-                            Lon_int1=BrentsMethodSolve(low_Limit,high_Limit,1e-13);
-                            if (Lon_int1>180)
-                                Lon_int1=Lon_int1-360;
-                        }
-
-
-                        //Second section
-                        if (target_az==90)
-                            target_az=270;
-                        else if (target_az==270)
-                            target_az=90;
-                        else
-                            error_occured=true;
-
-                        this->lat1=lat2;
-                        this->lon1=lon2;
-                        this->lat2=Lat_int2;
-                        //this->lon2=20;
-                        this->targetAz=target_az;
-                       {
-                            double low_Limit = lon2 > lon1 ? lon1 : lon2;
-                            double high_Limit = lon2 > lon1 ? lon2 : lon1;
-                            double difference=high_Limit-low_Limit;
-                            if (difference>180){
-                                double tmp=high_Limit;
-                                high_Limit=low_Limit+360;
-                                low_Limit=tmp;
-                                }
-                            Lon_int2=BrentsMethodSolve(low_Limit,high_Limit,1e-13);
-                            if (Lon_int2>180)
-                                Lon_int2=Lon_int2-360;
-                        }
-                DistVincenty(lat1, lon1, Lat_int1, Lon_int1, &segment_distance, &fwdAz_dummy, &revAz_dummy);
-               double LC_distance=segment_distance;
-               DistVincenty(Lat_int1, Lon_int1, Lat_int2, Lon_int2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
-               LC_distance+=segment_distance;
-               DistVincenty(Lat_int2, Lon_int2, lat2, lon2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
-               LC_distance+=segment_distance;
-
-               //Write out distance to dialog box
-               this->m_distance_LC->SetValue(wxString::Format(wxT("%g"), LC_distance));
-
-                   }
-                   else{
-                   //no intersection, do normal GC
-                       this->m_distance_GC1->SetValue(wxString::Format(wxT("%g"), dist));
-                   this->m_distance_LC->SetValue(this->m_distance_GC1->GetValue());
-                   }
-
-               // Now we have found intersection, calculate length:
-
-
-
-                if (write_file){
-                    root->LinkEndChild( Route );
-                    //wxString s=dlg.GetPath().c_str();
-                   //std::cout<< s.c_str()<<std::endl;
-                    // check if string ends with .gpx or .GPX
-                    if (wxFileExists(s))
-                        std::cout<<"file exists: no action"<< std::endl;
-                    else{
-                        std::cout<<"File does not exist: add.gpx"<< std::endl;
-                         s = s + _T(".gpx");
-                    }
-
-
-                    wxCharBuffer buffer=s.ToUTF8();
-
-                    std::cout<< buffer.data()<<std::endl;
-                    doc.SaveFile( buffer.data() );}
+                    Lon_int1=BrentsMethodSolve(low_Limit,high_Limit,1e-13);
+                    if (Lon_int1>180)
+                        Lon_int1=Lon_int1-360;
                 }
+
+
+                //Second section
+                if (target_az==90)
+                    target_az=270;
+                else if (target_az==270)
+                    target_az=90;
+                else
+                    error_occured=true;
+
+                this->lat1=lat2;
+                this->lon1=lon2;
+                this->lat2=Lat_int2;
+                //this->lon2=20;
+                this->targetAz=target_az;
+               {
+                    double low_Limit = lon2 > lon1 ? lon1 : lon2;
+                    double high_Limit = lon2 > lon1 ? lon2 : lon1;
+                    double difference=high_Limit-low_Limit;
+                    if (difference>180){
+                        double tmp=high_Limit;
+                        high_Limit=low_Limit+360;
+                        low_Limit=tmp;
+                        }
+                    Lon_int2=BrentsMethodSolve(low_Limit,high_Limit,1e-13);
+                    if (Lon_int2>180)
+                        Lon_int2=Lon_int2-360;
+                }
+
+
+        //Section 1
+        DistVincenty(lat1, lon1, Lat_int1, Lon_int1, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+        std::cout<<"Section 1: lat1 "<<lat1<<" lon1: "<<lon1<<" lat2: "<<Lat_int1<<" Lon2: "<<Lon_int1<< std::endl;
+        double LC_distance=segment_distance;
+        int WPT_counter=0;
+        if (write_file){
+            //Start
+            Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1), _T("Start") ,_T("diamond"),_T("WPT"));
+            //First arc to interception
+            if(!this->m_IntervalNM1->GetValue().ToDouble(&step_size)){ error_occured=true;} //retrieve step-size
+            for(double in_distance=step_size;in_distance<segment_distance;in_distance=in_distance+step_size)
+                {
+                DestVincenty( lat1,  lon1,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
+                std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),++WPT_counter) ,_T("diamond"),_T("WPT"));
+            }
+            //Interception
+            Addpoint(Route, wxString::Format(wxT("%f"),Lat_int1), wxString::Format(wxT("%f"),Lon_int2), _T("Lat Limit1") ,_T("diamond"),_T("WPT"));
+       }
+
+        //Parallell sailing
+       //DistVincenty(Lat_int1, Lon_int1, Lat_int2, Lon_int2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+       DistanceBearingMercator(Lat_int1, Lon_int1, Lat_int2, Lon_int2, &fwdAz_dummy, &segment_distance);
+       LC_distance+=segment_distance;
+       //FIXME add wwaypoint writing
+       if (write_file){
+            for(double in_distance=step_size;in_distance<(segment_distance+Tol());in_distance=in_distance+step_size)
+                {
+                //DestVincenty( Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
+                destLoxodrome(Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni);
+                std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),++WPT_counter) ,_T("diamond"),_T("WPT"));
+            }
+       }
+
+        //Final section
+       DistVincenty(Lat_int2, Lon_int2, lat2, lon2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+       LC_distance+=segment_distance;
+
+       if (write_file){
+            //Add last point on intersecting limit
+            Addpoint(Route, wxString::Format(wxT("%f"),Lat_int2), wxString::Format(wxT("%f"),Lon_int2), _T("Lat_limit2") ,_T("diamond"),_T("WPT"));
+            for(double in_distance=step_size;in_distance<segment_distance;in_distance=in_distance+step_size)
+                {
+                DestVincenty( Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
+                std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),++WPT_counter) ,_T("diamond"),_T("WPT"));
+            }
+            //Add finish
+            Addpoint(Route, wxString::Format(wxT("%f"),lat2), wxString::Format(wxT("%f"),lon2), _T("Finish") ,_T("diamond"),_T("WPT"));
+       }
+
+       //Write out distance to dialog box
+       this->m_distance_LC->SetValue(wxString::Format(wxT("%g"), LC_distance));
+
+       }
+       if (!Lat_limit_found) {
+            //no intersection, do normal GC
+            //this->m_distance_GC1->SetValue(wxString::Format(wxT("%g"), dist));
+            this->m_distance_LC->SetValue(this->m_distance_GC1->GetValue());
+            //write file (call to GC function)
+            if (write_file){
+                std::cout<<"Calling GC function, nothing to limit."<< std::endl;
+                this->m_IntervalNM->SetValue(this->m_IntervalNM1->GetValue()); //Make sure right step-sizze is used
+                OnExportGC( event );
+            }
+       }
+
+       if (write_file){
+            root->LinkEndChild( Route );
+            //wxString s=dlg.GetPath().c_str();
+           //std::cout<< s.c_str()<<std::endl;
+            // check if string ends with .gpx or .GPX
+            if (wxFileExists(s))
+                std::cout<<"file exists: no action"<< std::endl;
+            else{
+                std::cout<<"File does not exist: add.gpx"<< std::endl;
+                 s = s + _T(".gpx");
+            }
+            wxCharBuffer buffer=s.ToUTF8();
+            std::cout<< buffer.data()<<std::endl;
+            doc.SaveFile( buffer.data() );}
+    } //end of if no error occured
 
     if (error_occured==true)  {
         wxLogMessage(_("Error in calculation. Please check input!") );
-        wxMessageBox(_("Error in calculation. Please check input!") );}
+        wxMessageBox(_("Error in calculation. Please check input!") );
+    }
 
 }
 
