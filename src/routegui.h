@@ -90,6 +90,12 @@ class DlgDef : public wxDialog
 		wxStaticText* m_staticText323111;
 		wxTextCtrl* m_Lon2;
 		wxStaticText* m_staticText333111;
+		wxStaticText* m_staticText323122;
+		wxTextCtrl* m_Route;
+		wxStaticText* m_staticText3231112;
+		wxTextCtrl* m_Start;
+		wxStaticText* m_staticText32311121;
+		wxTextCtrl* m_End;
 		wxPanel* m_panel15;
 		wxStaticText* m_staticText32313;
 		wxTextCtrl* m_Lat1_d;

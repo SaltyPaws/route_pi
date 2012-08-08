@@ -182,13 +182,10 @@ void Dlg::OnExportGC( wxCommandEvent& event )
 
             ////////////////////Start XML
             TiXmlDocument doc;
-//            TiXmlElement* msg;
             TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
             doc.LinkEndChild( decl );
-
             TiXmlElement * root = new TiXmlElement( "gpx" );
             doc.LinkEndChild( root );
-
             root->SetAttribute("version", "1.1");
             root->SetAttribute("creator", "Route_pi by SaltyPaws");
             root->SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
@@ -196,15 +193,25 @@ void Dlg::OnExportGC( wxCommandEvent& event )
             root->SetAttribute("xsi:schemaLocation", "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
             root->SetAttribute("xmlns:opencpn","http://www.opencpn.org");
 
-
             TiXmlElement * Route = new TiXmlElement( "rte" );
 
             TiXmlElement * RouteName = new TiXmlElement( "name" );
-            TiXmlText * text4 = new TiXmlText( "Route01" );
+            TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
             Route->LinkEndChild( RouteName );
             RouteName->LinkEndChild( text4 );
+            TiXmlElement * Extensions = new TiXmlElement( "extensions" );
 
+            TiXmlElement * StartN = new TiXmlElement( "opencpn:start" );
+            TiXmlText * text5 = new TiXmlText( this->m_Start->GetValue().ToUTF8() );
+            Extensions->LinkEndChild( StartN );
+            StartN->LinkEndChild( text5 );
 
+            TiXmlElement * EndN = new TiXmlElement( "opencpn:end" );
+            TiXmlText * text6 = new TiXmlText( this->m_End->GetValue().ToUTF8() );
+            Extensions->LinkEndChild( EndN );
+            EndN->LinkEndChild( text6 );
+
+            Route->LinkEndChild( Extensions );
             //////////////////////Add Points HERE
 
             double step_size;
@@ -235,10 +242,10 @@ void Dlg::OnExportGC( wxCommandEvent& event )
                 wxString s=dlg.GetPath();
 
 
-                    if (wxFileExists(dlg.GetPath()))
-                        std::cout<<"file exists: no action"<< std::endl;
-                    else{
-                        std::cout<<"File does not exist: add.gpx"<< std::endl;
+                    if (!wxFileExists(dlg.GetPath())) {
+                        //std::cout<<"file exists: no action"<< std::endl;
+                    //else{
+                        //std::cout<<"File does not exist: add.gpx"<< std::endl;
                          s = s + _T(".gpx");
                     }
 
@@ -343,9 +350,13 @@ error_occured=false;
     TiXmlElement * root = new TiXmlElement( "gpx" );
     TiXmlElement * Route = new TiXmlElement( "rte" );
     TiXmlElement * RouteName = new TiXmlElement( "name" );
-    TiXmlText * text4 = new TiXmlText( "Route01" );
+    TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
 
     if (write_file){
+        //TiXmlDocument doc;
+        //TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
+        //doc.LinkEndChild( decl );
+        //TiXmlElement * root = new TiXmlElement( "gpx" );
         doc.LinkEndChild( root );
         root->SetAttribute("version", "1.1");
         root->SetAttribute("creator", "Route_pi by SaltyPaws");
@@ -353,8 +364,26 @@ error_occured=false;
         root->SetAttribute("xmlns:gpxx","http://www.garmin.com/xmlschemas/GpxExtensions/v3" );
         root->SetAttribute("xsi:schemaLocation", "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
         root->SetAttribute("xmlns:opencpn","http://www.opencpn.org");
+
+        //TiXmlElement * Route = new TiXmlElement( "rte" );
+
+        //TiXmlElement * RouteName = new TiXmlElement( "name" );
+        //TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
         Route->LinkEndChild( RouteName );
         RouteName->LinkEndChild( text4 );
+        TiXmlElement * Extensions = new TiXmlElement( "extensions" );
+
+        TiXmlElement * StartN = new TiXmlElement( "opencpn:start" );
+        TiXmlText * text5 = new TiXmlText( this->m_Start->GetValue().ToUTF8() );
+        Extensions->LinkEndChild( StartN );
+        StartN->LinkEndChild( text5 );
+
+        TiXmlElement * EndN = new TiXmlElement( "opencpn:end" );
+        TiXmlText * text6 = new TiXmlText( this->m_End->GetValue().ToUTF8() );
+        Extensions->LinkEndChild( EndN );
+        EndN->LinkEndChild( text6 );
+
+        Route->LinkEndChild( Extensions );
     }
 
     //Calculate GCL

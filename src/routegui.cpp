@@ -329,7 +329,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	sbSizer7->Add( bSizer1321, 0, 0, 5 );
 	
 	
-	bSizer40->Add( sbSizer7, 0, 0, 5 );
+	bSizer40->Add( sbSizer7, 0, wxEXPAND, 5 );
 	
 	wxStaticBoxSizer* sbSizer71;
 	sbSizer71 = new wxStaticBoxSizer( new wxStaticBox( m_panel11, wxID_ANY, _("End of Route") ), wxVERTICAL );
@@ -375,7 +375,58 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	sbSizer71->Add( bSizer13211, 0, 0, 5 );
 	
 	
-	bSizer40->Add( sbSizer71, 0, 0, 5 );
+	bSizer40->Add( sbSizer71, 0, wxEXPAND, 5 );
+	
+	wxStaticBoxSizer* sbSizer712;
+	sbSizer712 = new wxStaticBoxSizer( new wxStaticBox( m_panel11, wxID_ANY, _("Naming") ), wxVERTICAL );
+	
+	wxBoxSizer* bSizer132112;
+	bSizer132112 = new wxBoxSizer( wxVERTICAL );
+	
+	wxBoxSizer* bSizer143122;
+	bSizer143122 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText323122 = new wxStaticText( m_panel11, wxID_ANY, _("Route"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText323122->Wrap( -1 );
+	bSizer143122->Add( m_staticText323122, 0, wxALL, 5 );
+	
+	m_Route = new wxTextCtrl( m_panel11, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer143122->Add( m_Route, 1, wxALL|wxALIGN_CENTER_VERTICAL|wxEXPAND, 5 );
+	
+	
+	bSizer132112->Add( bSizer143122, 0, wxEXPAND, 5 );
+	
+	wxBoxSizer* bSizer1431112;
+	bSizer1431112 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText3231112 = new wxStaticText( m_panel11, wxID_ANY, _("Start  "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3231112->Wrap( -1 );
+	bSizer1431112->Add( m_staticText3231112, 0, wxALL, 5 );
+	
+	m_Start = new wxTextCtrl( m_panel11, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer1431112->Add( m_Start, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	
+	bSizer132112->Add( bSizer1431112, 0, wxEXPAND, 5 );
+	
+	wxBoxSizer* bSizer14311121;
+	bSizer14311121 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText32311121 = new wxStaticText( m_panel11, wxID_ANY, _("End     "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText32311121->Wrap( -1 );
+	bSizer14311121->Add( m_staticText32311121, 0, wxALL, 5 );
+	
+	m_End = new wxTextCtrl( m_panel11, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer14311121->Add( m_End, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	
+	
+	bSizer132112->Add( bSizer14311121, 0, wxEXPAND, 5 );
+	
+	
+	sbSizer712->Add( bSizer132112, 0, wxEXPAND, 5 );
+	
+	
+	bSizer40->Add( sbSizer712, 0, wxEXPAND, 5 );
 	
 	
 	m_panel11->SetSizer( bSizer40 );
