@@ -65,6 +65,7 @@ public:
         void OnFit( wxCommandEvent& event );
         void OnExportGC( wxCommandEvent& event );
         void OnExportGCL( wxCommandEvent& event );
+        void OnExportRH( wxCommandEvent& event );
         //void Addpoint(TiXmlElement* Route, double ptlat, double ptlon, wxString ptname, wxString ptsym, wxString pttype);
         void Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString ptname, wxString ptsym, wxString pttype);
         double BrentsMethodSolve(double lowerLimit, double upperLimit, double errorTol);
@@ -76,6 +77,7 @@ private:
         double lat1, lon1, lat2, lon2, targetAz;
         double F(double x);
         bool error_found;
+        bool dbg;
 };
 
 #endif

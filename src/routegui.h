@@ -49,13 +49,14 @@ class DlgDef : public wxDialog
 		wxTextCtrl* m_IntervalNM;
 		wxStaticText* m_staticText3321;
 		wxButton* m_button11;
-		wxButton* m_button111;
 		wxStaticText* m_staticText32211;
 		wxTextCtrl* m_distance_GC;
 		wxStaticText* m_staticText33211;
 		wxStaticText* m_statictext234;
 		wxTextCtrl* m_distance_RH;
 		wxStaticText* m_staticText332111;
+		wxButton* m_button111;
+		wxButton* m_button6;
 		wxPanel* m_panel12;
 		wxPanel* m_panel61;
 		wxStaticText* m_staticText15111;
@@ -66,7 +67,6 @@ class DlgDef : public wxDialog
 		wxTextCtrl* m_LatLimit;
 		wxStaticText* m_staticText332121;
 		wxButton* m_button112;
-		wxButton* m_button1111;
 		wxStaticText* m_staticText322111;
 		wxTextCtrl* m_distance_LC;
 		wxStaticText* m_staticText332112;
@@ -76,6 +76,7 @@ class DlgDef : public wxDialog
 		wxStaticText* m_statictext23411;
 		wxTextCtrl* m_distance_RH1;
 		wxStaticText* m_staticText33211111;
+		wxButton* m_button1111;
 		wxNotebook* m_wxNotebook234;
 		wxPanel* m_panel11;
 		wxStaticText* m_staticText3231;
@@ -134,6 +135,7 @@ class DlgDef : public wxDialog
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnGCCalculate( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnExportGC( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnExportRH( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnGCLCalculate( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnExportGCL( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnNoteBookFit( wxNotebookEvent& event ) { event.Skip(); }
