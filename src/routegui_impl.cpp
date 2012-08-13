@@ -34,7 +34,7 @@ CfgDlg::CfgDlg( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 Dlg::Dlg( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : DlgDef( parent, id, title, pos, size, style )
 {
     this->Fit();
-    dbg=true; //for debug output set to true
+    dbg=false; //for debug output set to true
 }
 
 void Dlg::OnToggle( wxCommandEvent& event )
@@ -760,7 +760,7 @@ void Dlg::OnExportRH( wxCommandEvent& event )
                 for(double in_distance=step_size;in_distance<dist;in_distance=in_distance+step_size)
                     {
                     //DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
-                    std::cout<<"RH lat1 "<<lat1<<" lon1: " <<lon1<<"fwdAZ "<<fwdAz<<" dist " <<in_distance<< std::endl;
+                    if (dbg) std::cout<<"RH lat1 "<<lat1<<" lon1: " <<lon1<<"fwdAZ "<<fwdAz<<" dist " <<in_distance<< std::endl;
                     destLoxodrome(lat1,  lon1,  fwdAz,  in_distance, &lati, &loni);
                     //destRhumb(lat1, lon1, fwdAz,in_distance, &lati, &loni);
                     if (dbg) std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;

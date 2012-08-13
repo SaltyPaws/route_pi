@@ -257,7 +257,7 @@ bool route_pi::SaveConfig(void)
 
 void route_pi::ShowPreferencesDialog( wxWindow* parent )
 {
-      CfgDlg *dialog = new CfgDlg( parent, wxID_ANY, _("Calculator Preferences"), wxPoint( m_route_dialog_x, m_route_dialog_y), wxDefaultSize, wxDEFAULT_DIALOG_STYLE );
+      CfgDlg *dialog = new CfgDlg( parent, wxID_ANY, _("Route Preferences"), wxPoint( m_route_dialog_x, m_route_dialog_y), wxDefaultSize, wxDEFAULT_DIALOG_STYLE );
       dialog->Fit();
       wxColour cl;
       DimeWindow(dialog);

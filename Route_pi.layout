@@ -2,10 +2,10 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="src/NavFunc.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="12866" topLine="315" />
+		<Cursor position="10865" topLine="285" />
 	</File>
 	<File name="src/NavFunc.h" open="1" top="0" tabpos="8">
-		<Cursor position="2193" topLine="35" />
+		<Cursor position="2728" topLine="50" />
 	</File>
 	<File name="src/icons.cpp" open="1" top="0" tabpos="6">
 		<Cursor position="9154" topLine="0" />
@@ -17,15 +17,15 @@
 		<Cursor position="1035" topLine="0" />
 	</File>
 	<File name="src/routegui.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="956" topLine="0" />
+		<Cursor position="65" topLine="0" />
 	</File>
 	<File name="src/routegui.h" open="1" top="0" tabpos="4">
 		<Cursor position="592" topLine="0" />
 	</File>
 	<File name="src/routegui_impl.cpp" open="1" top="1" tabpos="5">
-		<Cursor position="9884" topLine="189" />
+		<Cursor position="33892" topLine="742" />
 	</File>
 	<File name="src/routegui_impl.h" open="1" top="0" tabpos="7">
-		<Cursor position="3565" topLine="34" />
+		<Cursor position="3729" topLine="21" />
 	</File>
 </CodeBlocks_layout_file>

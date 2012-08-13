@@ -345,7 +345,8 @@ bool destRhumb(double lat1, double lon1, double brng, double dist, double* lat2,
 
  */
 bool destLoxodrome(double lat1, double lon1, double brng, double dist, double* lat2, double* lon2) {
-    //std::cout<<"dL lat1 "<<lat1<<" lon1: " <<lon1<<"brng "<<brng<<" dist " <<dist<< std::endl;
+    bool dbg=false;
+    if (dbg) std::cout<<"dL lat1 "<<lat1<<" lon1: " <<lon1<<"brng "<<brng<<" dist " <<dist<< std::endl;
     //double ecc = 0.08181919084255; //The eccentricity ecc of the WGS84 ellipsoid is
     double ecc2 = 0.00669437999012962; //(ecc²)/1
     double ecc4 = 4.48147234522478E-05;//(ecc⁴)/3
@@ -361,10 +362,10 @@ bool destLoxodrome(double lat1, double lon1, double brng, double dist, double* l
     // Check Poles
     if (tolatdegree > 90) {
         tolatdegree = 90;
-        std::cout<<"You are on the North Pole"<<std::endl;
+        if (dbg) std::cout<<"You are on the North Pole"<<std::endl;
         }
     if (tolatdegree < -90) {
-        std::cout<<"You are on the South Pole. tolatdegree"<<tolatdegree<<std::endl;
+        if (dbg) std::cout<<"You are on the South Pole. tolatdegree"<<tolatdegree<<std::endl;
         tolatdegree = -90;
         }
 
