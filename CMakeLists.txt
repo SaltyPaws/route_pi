@@ -84,7 +84,8 @@ SET(SRC_ROUTE
 	)
 
 SET(SRC_FROM_OCPN 	
-
+	../../../include/cutil.h
+	../../../src/cutil.c
 	../../../include/georef.h
 	../../../src/georef.c
 	../../../include/gpxdocument.h
@@ -104,7 +105,7 @@ IF(TINYXML_FOUND)
     ADD_DEFINITIONS(-DTIXML_USE_STL)
 ELSE(TINYXML_FOUND)
     message (STATUS "tinyxml library not found")
-    SET(SRC_SURVEY ${SRC_SURVEY} ${SRC_TINYXML})
+    SET(SRC_ROUTE ${SRC_ROUTE} ${SRC_TINYXML})
     ADD_DEFINITIONS(-DTIXML_USE_STL)
 ENDIF(TINYXML_FOUND)
 
