@@ -1,4 +1,6 @@
 #include "NavFunc.h"
+#include "wx/math.h"
+
 //#include <string>
 double toRad (double degree) {
   return degree * M_PI / 180;
@@ -168,7 +170,7 @@ bool DistVincenty(double lat1, double lon1, double lat2, double lon2, double *di
         cosSqAlpha = 1.0 - sinAlpha * sinAlpha;
         cos2SigmaM = cosSigma - 2.0 * dSinU1SinU2 / cosSqAlpha;
 
-        if (isnan(cos2SigmaM))
+        if (wxIsNaN(cos2SigmaM))
             cos2SigmaM = 0.0;  // equatorial line: cosSqAlpha=0 (§6)
         C = Flattening() / 16.0 * cosSqAlpha * (4.0 + Flattening() * (4.0 - 3.0 * cosSqAlpha));
         lambdaP = lambda;

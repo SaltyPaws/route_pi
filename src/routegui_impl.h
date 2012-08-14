@@ -31,7 +31,7 @@
 //#include <cstdlib>
 //#include <cstdio>
 #ifdef WX_PRECOMP
-#include "wx_pch.h"
+#include "wx/wx.h"
 #endif
 //#include "parser.h"
 
