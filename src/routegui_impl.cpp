@@ -93,7 +93,6 @@ void Dlg::OnNoteBookFit( wxCommandEvent& event )
 
 void Dlg::OnGCCalculate( wxCommandEvent& event ){
 
-
     bool error_occured=false;
     double dist, fwdAz, revAz;
 
@@ -118,8 +117,6 @@ void Dlg::OnGCCalculate( wxCommandEvent& event ){
     if (error_occured==true)  {
         wxLogMessage(_("Error in calculation. Please check input!") );
         wxMessageBox(_("Error in calculation. Please check input!") );}
-
-
 }
 
 void Dlg::OnFit( wxCommandEvent& event )
@@ -140,8 +137,6 @@ void Dlg::OnExportGC( wxCommandEvent& event )
         error_occured=true;     // the user changed idea...
       if ((dlg.GetPath() != wxEmptyString) && (!error_occured)){
             //wxMessageBox(_("User entered text:"), dlg.GetPath());
-
-
 
             double dist, fwdAz, revAz;
 
@@ -202,36 +197,36 @@ void Dlg::OnExportGC( wxCommandEvent& event )
             //////////////////////Add Points HERE
 
             double step_size;
-            if(!this->m_IntervalNM->GetValue().ToDouble(&step_size)){ error_occured=true;}
-            if ((step_size>dist) || (step_size<dist*1/5000)){
-                wxLogMessage(_("Route interval > Distance, 0 or negative") );
-                wxMessageBox(_("Route interval > Distance, 0 or negative") );
+            bool m_IntervalNM_test=false;
+            if(!this->m_IntervalNM->GetValue().ToDouble(&step_size)){ m_IntervalNM_test=true;}
+            if ((step_size>dist) || (step_size<dist*1/5000) || (m_IntervalNM_test)){
+                m_IntervalNM->SetValue(wxString::Format(wxT("%g"), dist/100));
+                step_size=dist/100;
                 }
-            else
+
+            //start
+            Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("Start"),_T("diamond"),_T("WPT"));
+            double lati, loni;
+            for(double in_distance=step_size;in_distance<dist;in_distance=in_distance+step_size)
                 {
-                //start
-                Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("Start"),_T("diamond"),_T("WPT"));
-                double lati, loni;
-                for(double in_distance=step_size;in_distance<dist;in_distance=in_distance+step_size)
-                    {
-                    DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
-                    if (dbg) std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                    Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
-                    }
-                //end
-                Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),_T("Finish"),_T("SYMBOL"),_T("WPT"));
-                //////////////////////////Close XML
-
-                root->LinkEndChild( Route );
-                wxString s=dlg.GetPath();
-
-                if (!wxFileExists(dlg.GetPath())) {
-                     s = s + _T(".gpx");
+                DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
+                if (dbg) std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
                 }
-                wxCharBuffer buffer=s.ToUTF8();
-                if (dbg) std::cout<< buffer.data()<<std::endl;
-                doc.SaveFile( buffer.data() );
-                }
+            //end
+            Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),_T("Finish"),_T("SYMBOL"),_T("WPT"));
+            //////////////////////////Close XML
+
+            root->LinkEndChild( Route );
+            wxString s=dlg.GetPath();
+
+            if (!wxFileExists(dlg.GetPath())) {
+                 s = s + _T(".gpx");
+            }
+            wxCharBuffer buffer=s.ToUTF8();
+            if (dbg) std::cout<< buffer.data()<<std::endl;
+            doc.SaveFile( buffer.data() );
+
         }
 }
 
@@ -292,9 +287,6 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
         s=dlg.GetPath();
         //  std::cout<<s<< std::endl;
         if (dlg.GetPath() == wxEmptyString){ error_occured=true; if (dbg) printf("Empty Path\n");}
-        double step_size; //just checking. Value is picked up later
-            if(!this->m_IntervalNM1->GetValue().ToDouble(&step_size)){ error_occured=true;wxMessageBox(_("Error in stepsize conversion.") );}
-            if (step_size<1/60 ) { error_occured=true; wxMessageBox(_("Step Size too small") );}
     }
 
     //Validate input ranges
@@ -338,10 +330,6 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
 
     if (write_file){
-        //TiXmlDocument doc;
-        //TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
-        //doc.LinkEndChild( decl );
-        //TiXmlElement * root = new TiXmlElement( "gpx" );
         doc.LinkEndChild( root );
         root->SetAttribute("version", "1.1");
         root->SetAttribute("creator", "Route_pi by SaltyPaws");
@@ -349,11 +337,6 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
         root->SetAttribute("xmlns:gpxx","http://www.garmin.com/xmlschemas/GpxExtensions/v3" );
         root->SetAttribute("xsi:schemaLocation", "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
         root->SetAttribute("xmlns:opencpn","http://www.opencpn.org");
-
-        //TiXmlElement * Route = new TiXmlElement( "rte" );
-
-        //TiXmlElement * RouteName = new TiXmlElement( "name" );
-        //TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
         Route->LinkEndChild( RouteName );
         RouteName->LinkEndChild( text4 );
         TiXmlElement * Extensions = new TiXmlElement( "extensions" );
@@ -451,15 +434,12 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                 else {error_occured=1; if (dbg) std::cout<<"impossible course for GC!!! "<<fwdAz<<std::endl;}
 
                 //Find position of first section
-
                 this->lat1=lat1;
                 this->lon1=lon1;
                 this->lat2=Lat_int1;
                 //this->lon2=20;
                 this->targetAz=target_az;
                 {
-                    //double low_Limit = lon2 > lon1 ? lon1 : lon2;
-                    //double high_Limit = lon2 > lon1 ? lon2 : lon1;
                     double low_Limit = Lon_int2 > Lon_int1 ? Lon_int1 : Lon_int2;
                     double high_Limit = Lon_int2 > Lon_int1 ? Lon_int2 : Lon_int1;
                     double difference=high_Limit-low_Limit;
@@ -473,7 +453,6 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                     if (Lon_int1>180)
                         Lon_int1=Lon_int1-360;
                 }
-
 
                 //Second section
                 if (target_az==90)
@@ -489,8 +468,6 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                 //this->lon2=20;
                 this->targetAz=target_az;
                {
-                   // double low_Limit = lon2 > lon1 ? lon1 : lon2;
-                   // double high_Limit = lon2 > lon1 ? lon2 : lon1;
                     double low_Limit = Lon_int2 > Lon_int1 ? Lon_int1 : Lon_int2;
                     double high_Limit = Lon_int2 > Lon_int1 ? Lon_int2 : Lon_int1;
 
@@ -513,7 +490,15 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
             //Start
             Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1), _T("Start") ,_T("diamond"),_T("WPT"));
             //First arc to interception
-            if(!this->m_IntervalNM1->GetValue().ToDouble(&step_size)){ error_occured=true;} //retrieve step-size
+            //retrieve step-size
+            double step_size;
+            bool m_IntervalNM_test=false;
+            if(!this->m_IntervalNM1->GetValue().ToDouble(&step_size)){ m_IntervalNM_test=true;}
+            if ((step_size>dist) || (step_size<dist*1/5000) || (m_IntervalNM_test)){
+                m_IntervalNM1->SetValue(wxString::Format(wxT("%g"), dist/100));
+                step_size=dist/100;
+                }
+
             for(double in_distance=step_size;in_distance<segment_distance;in_distance=in_distance+step_size)
                 {
                 DestVincenty( lat1,  lon1,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
@@ -524,7 +509,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
             Addpoint(Route, wxString::Format(wxT("%f"),Lat_int1), wxString::Format(wxT("%f"),Lon_int1), _T("Lat Limit1") ,_T("diamond"),_T("WPT"));
        }
 
-        //Parallell sailing
+       //Parallell sailing
        //DistVincenty(Lat_int1, Lon_int1, Lat_int2, Lon_int2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
        DistanceBearingMercator(Lat_int2, Lon_int2, Lat_int1, Lon_int1, &fwdAz_dummy, &segment_distance);
        LC_distance+=segment_distance;
@@ -746,40 +731,38 @@ void Dlg::OnExportRH( wxCommandEvent& event )
             //////////////////////Add Points HERE
 
             double step_size;
-            if(!this->m_IntervalNM->GetValue().ToDouble(&step_size)){ error_occured=true;}
-            if ((step_size>dist) || (step_size<dist*1/5000)){
-                wxLogMessage(_("Route interval > Distance, 0 or negative") );
-                wxMessageBox(_("Route interval > Distance, 0 or negative") );
-                }
-            else
+            bool m_IntervalNM_test=false;
+            if(!this->m_IntervalNM->GetValue().ToDouble(&step_size)){ m_IntervalNM_test=true;}
+            //check step size distance
+            if ((step_size>dist) || (step_size<dist*1/5000) || (m_IntervalNM_test)){
+                m_IntervalNM->SetValue(wxString::Format(wxT("%g"), dist/100));
+                step_size=dist/100;
+            }
+            //start
+            Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("Start"),_T("diamond"),_T("WPT"));
+            double lati, loni;
+            for(double in_distance=step_size;in_distance<dist;in_distance=in_distance+step_size)
                 {
-
-                //start
-                Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("Start"),_T("diamond"),_T("WPT"));
-                double lati, loni;
-                for(double in_distance=step_size;in_distance<dist;in_distance=in_distance+step_size)
-                    {
-                    //DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
-                    if (dbg) std::cout<<"RH lat1 "<<lat1<<" lon1: " <<lon1<<"fwdAZ "<<fwdAz<<" dist " <<in_distance<< std::endl;
-                    destLoxodrome(lat1,  lon1,  fwdAz,  in_distance, &lati, &loni);
-                    //destRhumb(lat1, lon1, fwdAz,in_distance, &lati, &loni);
-                    if (dbg) std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                    Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
-                    }
-                //end
-                Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),_T("Finish"),_T("SYMBOL"),_T("WPT"));
-                //////////////////////////Close XML
-
-                root->LinkEndChild( Route );
-                wxString s=dlg.GetPath();
-
-                if (!wxFileExists(dlg.GetPath())) {
-                     s = s + _T(".gpx");
+                //DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
+                if (dbg) std::cout<<"RH lat1 "<<lat1<<" lon1: " <<lon1<<"fwdAZ "<<fwdAz<<" dist " <<in_distance<< std::endl;
+                destLoxodrome(lat1,  lon1,  fwdAz,  in_distance, &lati, &loni);
+                //destRhumb(lat1, lon1, fwdAz,in_distance, &lati, &loni);
+                if (dbg) std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
                 }
-                wxCharBuffer buffer=s.ToUTF8();
-                if (dbg) std::cout<< buffer.data()<<std::endl;
-                doc.SaveFile( buffer.data() );
-                }
+            //end
+            Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),_T("Finish"),_T("SYMBOL"),_T("WPT"));
+            //////////////////////////Close XML
+
+            root->LinkEndChild( Route );
+            wxString s=dlg.GetPath();
+
+            if (!wxFileExists(dlg.GetPath())) {
+                 s = s + _T(".gpx");
+            }
+            wxCharBuffer buffer=s.ToUTF8();
+            if (dbg) std::cout<< buffer.data()<<std::endl;
+            doc.SaveFile( buffer.data() );
         }
 }
 

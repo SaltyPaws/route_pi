@@ -73,9 +73,6 @@ int route_pi::Init(void)
       // Set some default private member parameters
       m_route_dialog_x = 0;
       m_route_dialog_y = 0;
-     /* m_route_dialog_width = 20;
-      m_route_dialog_height = 20;*/
-
       ::wxDisplaySize(&m_display_width, &m_display_height);
 
       //    Get a pointer to the opencpn display canvas, to use as a parent for the POI Manager dialog
@@ -110,11 +107,6 @@ bool route_pi::DeInit(void)
             wxPoint p = m_pDialog->GetPosition();
             SetCalculatorDialogX(p.x);
             SetCalculatorDialogY(p.y);
-            //Capture dialog size
-        /*    wxSize q = m_pDialog->GetSize();
-            SetCalculatorDialogWidth(q.x);
-            SetCalculatorDialogHeight(q.y);*/
-
             m_pDialog->Close();
             delete m_pDialog;
             m_pDialog = NULL;
@@ -184,16 +176,6 @@ void route_pi::OnToolbarToolCallback(int id)
             m_pDialog = new Dlg(m_parent_window);
             m_pDialog->plugin = this;
             m_pDialog->Move(wxPoint(m_route_dialog_x, m_route_dialog_y));
-           /* if ((m_route_dialog_width>60)||(m_route_dialog_height>25))
-            {
-                m_pDialog->SetSize(wxSize(m_route_dialog_width, m_route_dialog_height));
-                //printf("setting size to: %d %d\n", m_route_dialog_x,m_route_dialog_y);
-            }
-
-            else{
-                m_pDialog->Fit();
-                //printf("Just fitting window");
-                }*/
       }
  m_pDialog->Fit();
       m_pDialog->Show(!m_pDialog->IsShown());
@@ -210,24 +192,11 @@ bool route_pi::LoadConfig(void)
            // pConf->Read       dialog->m_cpConnectorColor->SetColour(m_sConnectorColor);
             m_route_dialog_x =  pConf->Read ( _T ( "DialogPosX" ), 20L );
             m_route_dialog_y =  pConf->Read ( _T ( "DialogPosY" ), 20L );
-         //   Dlg->m_IntervalNM1->SetValue (pConf->Read ( _T ( "m_IntervalNM1" ), 20L ));
-
-
-
-
-           // m_route_dialog_width = pConf->Read ( _T ( "DialogPosW" ), 20L );
-            //m_route_dialog_height = pConf->Read ( _T ( "DialogPosH" ), 20L );
 
             if((m_route_dialog_x < 0) || (m_route_dialog_x > m_display_width))
                   m_route_dialog_x = 5;
             if((m_route_dialog_y < 0) || (m_route_dialog_y > m_display_height))
-                  m_route_dialog_y = 5;/*
-            if((m_route_dialog_width < 0) || ((m_route_dialog_x + m_route_dialog_width) > m_display_width))
-                  m_route_dialog_width = 5;
-            if((m_route_dialog_width < 0) || ((m_route_dialog_y + m_route_dialog_height) > m_display_height))
-                  m_route_dialog_width = 5;*/
-
-
+                  m_route_dialog_y = 5;
             return true;
       }
       else
@@ -244,11 +213,6 @@ bool route_pi::SaveConfig(void)
             pConf->Write ( _T ( "Opacity" ), m_iOpacity );
             pConf->Write ( _T ( "DialogPosX" ),   m_route_dialog_x );
             pConf->Write ( _T ( "DialogPosY" ),   m_route_dialog_y );
-         //   pConf->Write ( _T ( "m_IntervalNM1" ), Dlg->m_IntervalNM1->GetValue());
-     /*       pConf->Write ( _T ( "DialogPosW" ),   m_route_dialog_width );
-            pConf->Write ( _T ( "DialogPosH" ),   m_route_dialog_height );*/
-
-
             return true;
       }
       else
