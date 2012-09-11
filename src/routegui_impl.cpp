@@ -117,10 +117,10 @@ void Dlg::OnGCCalculate( wxCommandEvent& event ){
 
     double lat1,lon1,lat2,lon2;
     //set value to 0
-    if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ m_Lat1=0;}
-    if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ m_Lon1=0;}
-    if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ m_Lat2=0;}
-    if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ m_Lon2=0;}
+    if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ lat1=0.0;}
+    if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ lon1=0.0;}
+    if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;}
+    if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;}
 
     //Validate input ranges
     if (std::abs(lat1)>90){ error_occured=true; }
@@ -161,11 +161,11 @@ void Dlg::OnExportGC( wxCommandEvent& event )
             double dist, fwdAz, revAz;
 
             double lat1,lon1,lat2,lon2;
-            if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ error_occured=true;}
-            if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ error_occured=true; }
-            if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ error_occured=true;}
-            if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ error_occured=true; }
-
+            //set value to 0
+            if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ lat1=0.0;}
+            if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ lon1=0.0;}
+            if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;}
+            if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;}
             //Validate input ranges
             if (std::abs(lat1)>90){ error_occured=true; }
             if (std::abs(lat2)>90){ error_occured=true; }
@@ -222,6 +222,7 @@ void Dlg::OnExportGC( wxCommandEvent& event )
             if ((step_size>dist) || (step_size<dist*1/5000) || (m_IntervalNM_test)){
                 m_IntervalNM->SetValue(wxString::Format(wxT("%g"), dist/100));
                 step_size=dist/100;
+                if (step_size<0.05) step_size=1; //prevent infinite loop
                 }
 
             //start
@@ -289,10 +290,11 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
 
 
     double lat1,lon1,lat2,lon2,limit;
-    if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ error_occured=true;}
-    if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ error_occured=true; }
-    if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ error_occured=true;}
-    if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ error_occured=true; }
+    //set value to 0
+    if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ lat1=0.0;}
+    if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ lon1=0.0;}
+    if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;}
+    if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;}
     if (error_occured) wxMessageBox(_T("error in conversion of input coordinates"));
     if(!error_occured && (!this->m_LatLimit->GetValue().ToDouble(&limit))){ error_occured=true; wxMessageBox(_("No Lat Limit!") ); }
 
@@ -377,6 +379,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
 
     //Calculate GCL
     double step_size=dist/100;
+    if (step_size<0.05) step_size=1; //prevent infinite loop
 
     if (error_occured){
         wxLogMessage(_("Error occured, aborting GCL calc!") );
@@ -518,6 +521,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
             if ((step_size>dist) || (step_size<dist*1/5000) || (m_IntervalNM_test)){
                 m_IntervalNM1->SetValue(wxString::Format(wxT("%g"), dist/100));
                 step_size=dist/100;
+                if (step_size<0.05) step_size=1; //prevent infinite loop
                 }
 
             for(double in_distance=step_size;in_distance<segment_distance;in_distance=in_distance+step_size)
@@ -759,6 +763,7 @@ void Dlg::OnExportRH( wxCommandEvent& event )
             if ((step_size>dist) || (step_size<dist*1/5000) || (m_IntervalNM_test)){
                 m_IntervalNM->SetValue(wxString::Format(wxT("%g"), dist/100));
                 step_size=dist/100;
+                if (step_size<0.05) step_size=1; //prevent infinite loop
             }
             //start
             Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("Start"),_T("diamond"),_T("WPT"));
