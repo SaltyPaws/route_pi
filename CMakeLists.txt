@@ -86,12 +86,12 @@ SET(SRC_ROUTE
 	)
 
 SET(SRC_FROM_OCPN 	
-	../../../include/cutil.h
-	../../../src/cutil.c
+#	../../../include/cutil.h
+#	../../../src/cutil.c
 	../../../include/georef.h
 	../../../src/georef.c
-	../../../include/gpxdocument.h
-	../../../src/gpxdocument.cpp	    	
+#	../../../include/gpxdocument.h
+#	../../../src/gpxdocument.cpp	    	
 	)
 
 SET(SRC_TINYXML

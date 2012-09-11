@@ -48,6 +48,25 @@ void Dlg::OnCalculate( wxCommandEvent& event )
 }
 void Dlg::OnConverttoDegree( wxCommandEvent& event )
 {
+    //set cell values to 0 if they are empty. This ensures conversion goes ok.
+    double test_value;
+    if(!this->m_Lat1_d->GetValue().ToDouble(&test_value)){m_Lat1_d->SetValue(wxString::Format(wxT("%i"),0 ));}
+    if(!this->m_Lat1_m->GetValue().ToDouble(&test_value)){m_Lat1_m->SetValue(wxString::Format(wxT("%i"),0 ));}
+    if(!this->m_Lat1_s->GetValue().ToDouble(&test_value)){m_Lat1_s->SetValue(wxString::Format(wxT("%i"),0 ));}
+
+    if(!this->m_Lat2_d->GetValue().ToDouble(&test_value)){m_Lat2_d->SetValue(wxString::Format(wxT("%i"),0 ));}
+    if(!this->m_Lat2_m->GetValue().ToDouble(&test_value)){m_Lat2_m->SetValue(wxString::Format(wxT("%i"),0 ));}
+    if(!this->m_Lat2_s->GetValue().ToDouble(&test_value)){m_Lat2_s->SetValue(wxString::Format(wxT("%i"),0 ));}
+
+    if(!this->m_Lon1_d->GetValue().ToDouble(&test_value)){m_Lon1_d->SetValue(wxString::Format(wxT("%i"),0 ));}
+    if(!this->m_Lon1_m->GetValue().ToDouble(&test_value)){m_Lon1_m->SetValue(wxString::Format(wxT("%i"),0 ));}
+    if(!this->m_Lon1_s->GetValue().ToDouble(&test_value)){m_Lon1_s->SetValue(wxString::Format(wxT("%i"),0 ));}
+
+    if(!this->m_Lon2_d->GetValue().ToDouble(&test_value)){m_Lon2_d->SetValue(wxString::Format(wxT("%i"),0 ));}
+    if(!this->m_Lon2_m->GetValue().ToDouble(&test_value)){m_Lon2_m->SetValue(wxString::Format(wxT("%i"),0 ));}
+    if(!this->m_Lon2_s->GetValue().ToDouble(&test_value)){m_Lon2_s->SetValue(wxString::Format(wxT("%i"),0 ));}
+
+
     //Lat1
     wxString Lat1 = this->m_Lat1_d->GetValue() + _T(" ")  + this->m_Lat1_m->GetValue() + _T(" ")  + this->m_Lat1_s->GetValue() + _T(" ");// + this->m_Lon1_EW->GetCurrentSelection();
     if(this->m_Lat1_NS->GetCurrentSelection()) //S=1
@@ -97,10 +116,11 @@ void Dlg::OnGCCalculate( wxCommandEvent& event ){
     double dist, fwdAz, revAz;
 
     double lat1,lon1,lat2,lon2;
-    if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ error_occured=true;}
-    if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ error_occured=true; }
-    if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ error_occured=true;}
-    if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ error_occured=true; }
+    //set value to 0
+    if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ m_Lat1=0;}
+    if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ m_Lon1=0;}
+    if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ m_Lat2=0;}
+    if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ m_Lon2=0;}
 
     //Validate input ranges
     if (std::abs(lat1)>90){ error_occured=true; }
@@ -176,11 +196,11 @@ void Dlg::OnExportGC( wxCommandEvent& event )
             root->SetAttribute("xmlns:opencpn","http://www.opencpn.org");
 
             TiXmlElement * Route = new TiXmlElement( "rte" );
-
             TiXmlElement * RouteName = new TiXmlElement( "name" );
             TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
             Route->LinkEndChild( RouteName );
             RouteName->LinkEndChild( text4 );
+
             TiXmlElement * Extensions = new TiXmlElement( "extensions" );
 
             TiXmlElement * StartN = new TiXmlElement( "opencpn:start" );
@@ -339,6 +359,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
         root->SetAttribute("xmlns:opencpn","http://www.opencpn.org");
         Route->LinkEndChild( RouteName );
         RouteName->LinkEndChild( text4 );
+
         TiXmlElement * Extensions = new TiXmlElement( "extensions" );
 
         TiXmlElement * StartN = new TiXmlElement( "opencpn:start" );
@@ -715,6 +736,7 @@ void Dlg::OnExportRH( wxCommandEvent& event )
             TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
             Route->LinkEndChild( RouteName );
             RouteName->LinkEndChild( text4 );
+
             TiXmlElement * Extensions = new TiXmlElement( "extensions" );
 
             TiXmlElement * StartN = new TiXmlElement( "opencpn:start" );

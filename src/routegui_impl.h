@@ -38,8 +38,6 @@
 #include "routegui.h"
 #include "route_pi.h"
 #include "NavFunc.h"
-//#include "../../include/georef.h"
-//#include "../../include/gpxdocument.h"
 #include "tinyxml.h"
 using namespace std;
 
