@@ -7,7 +7,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include "georef.h"
-#include "vincente.h"
+#include "vincenty.h"
 
 
 const inline double Tol(void) { return 1.0e-9; }

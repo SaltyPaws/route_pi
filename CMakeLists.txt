@@ -81,8 +81,8 @@ SET(SRC_ROUTE
 	    src/routegui_impl.h
 	    src/NavFunc.h
 	    src/NavFunc.cpp
-	    src/vincente.h
-	    src/vincente.cpp
+	    src/vincenty.h
+	    src/vincenty.cpp
 	    src/georef.h
 	    src/georef.c
 	)

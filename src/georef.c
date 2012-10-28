@@ -42,7 +42,8 @@
 
 
 #ifdef __MSVC__
-#define snprintf mysnprintf
+//#define snprintf mysnprintf
+#define snprintf _snprintf
 #endif
 
 
