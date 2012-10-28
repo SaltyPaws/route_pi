@@ -1,5 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Apr 11 2012)
+// C++ code generated with wxFormBuilder (version Oct  8 2012)
 // http://www.wxformbuilder.org/
 //
 // PLEASE DO "NOT" EDIT THIS FILE!
@@ -65,7 +65,7 @@ class DlgDef : public wxDialog
 		wxStaticText* m_staticText33212;
 		wxStaticText* m_staticText322121;
 		wxTextCtrl* m_LatLimit;
-		wxStaticText* m_staticText332121;
+		wxStaticText* m_staticText3331112;
 		wxButton* m_button112;
 		wxStaticText* m_staticText322111;
 		wxTextCtrl* m_distance_LC;
