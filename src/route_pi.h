@@ -25,8 +25,8 @@
  ***************************************************************************
  */
 
-#ifndef _CALCULATOR_PI_H_
-#define _CALCULATOR_PI_H_
+#ifndef _ROUTE_PI_H_
+#define _ROUTE_PI_H_
 
 #include "wx/wxprec.h"
 
