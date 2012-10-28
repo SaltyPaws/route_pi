@@ -1,3 +1,12 @@
+#ifdef __MSVC__ //Patch from Nohal to make Route compile under MSVC
+#define _USE_MATH_DEFINES
+#include <cmath>
+#ifndef isnan
+#define isnan(x) ((x)!=(x))
+#endif
+#endif
+
+
 #include "vincenty.h"
 
 /*

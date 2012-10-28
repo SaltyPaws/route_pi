@@ -33,16 +33,8 @@
 		</Compiler>
 		<Unit filename="src/NavFunc.cpp" />
 		<Unit filename="src/NavFunc.h" />
-		<Unit filename="src/expression_parser/constants.h" />
-		<Unit filename="src/expression_parser/error.cpp" />
-		<Unit filename="src/expression_parser/error.h" />
-		<Unit filename="src/expression_parser/functions.cpp" />
-		<Unit filename="src/expression_parser/functions.h" />
-		<Unit filename="src/expression_parser/main.cpp" />
-		<Unit filename="src/expression_parser/parser.cpp" />
-		<Unit filename="src/expression_parser/parser.h" />
-		<Unit filename="src/expression_parser/variablelist.cpp" />
-		<Unit filename="src/expression_parser/variablelist.h" />
+		<Unit filename="src/UIDialog.cpp" />
+		<Unit filename="src/UIDialog.h" />
 		<Unit filename="src/georef.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -55,8 +47,8 @@
 		<Unit filename="src/routegui.h" />
 		<Unit filename="src/routegui_impl.cpp" />
 		<Unit filename="src/routegui_impl.h" />
-		<Unit filename="src/vincente.cpp" />
-		<Unit filename="src/vincente.h" />
+		<Unit filename="src/vincenty.cpp" />
+		<Unit filename="src/vincenty.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

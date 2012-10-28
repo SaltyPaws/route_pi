@@ -14,9 +14,9 @@ IF (COMMAND cmake_policy)
   CMAKE_POLICY(SET CMP0011 OLD)
 ENDIF (COMMAND cmake_policy)
 
-PROJECT(ROUTE_pi)
+PROJECT(route_pi)
 
-SET(PACKAGE_NAME ROUTE_pi)
+SET(PACKAGE_NAME route_pi)
 SET(PLUGIN_SOURCE_DIR .)
 MESSAGE (STATUS "*** Building ${PACKAGE_NAME} ***")
 
@@ -25,9 +25,6 @@ MESSAGE (STATUS "*** Building ${PACKAGE_NAME} ***")
 INCLUDE_DIRECTORIES(
 	${CMAKE_SOURCE_DIR}/include 
 	${CMAKE_SOURCE_DIR}/src
-	${CMAKE_SOURCE_DIR}/plugins/route_pi/src/expression_parser
-
-
 )
 
 

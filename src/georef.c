@@ -43,7 +43,7 @@
 
 #ifdef __MSVC__
 //#define snprintf mysnprintf
-#define snprintf _snprintf
+//#define snprintf _snprintf //snprintf is not used in the code....
 #endif
 
 
