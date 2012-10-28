@@ -83,13 +83,15 @@ SET(SRC_ROUTE
 	    src/NavFunc.cpp
 	    src/vincente.h
 	    src/vincente.cpp
+	    src/georef.h
+	    src/georef.c
 	)
 
 SET(SRC_FROM_OCPN 	
 #	../../../include/cutil.h
 #	../../../src/cutil.c
-	../../../include/georef.h
-	../../../src/georef.c
+#	../../../include/georef.h
+#	../../../src/georef.c
 #	../../../include/gpxdocument.h
 #	../../../src/gpxdocument.cpp	    	
 	)

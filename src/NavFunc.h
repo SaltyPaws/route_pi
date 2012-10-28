@@ -6,7 +6,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
-#include "../../../include/georef.h"
+#include "georef.h"
 #include "vincente.h"
 
 
