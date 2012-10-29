@@ -3,14 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: ../src/route_pi.cpp:83 ../src/route_pi.cpp:84 ../src/route_pi.cpp:227
-#: ../src/route_pi.cpp:261
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: route_pi 3.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-09 21:37+0200\n"
+"POT-Creation-Date: 2012-10-29 19:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,76 +17,264 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/route_pi.cpp:42 ../src/route_pi.cpp:47
-msgid "C"
+#: src/route_pi.cpp:89 src/routegui.cpp:416
+msgid "Route"
 msgstr ""
 
-#: ../src/route_pi.cpp:70
-msgid "opencpn-route_pi"
-msgstr ""
-
-#: ../src/route_pi.cpp:84
-msgid "Plot Route"
-msgstr ""
-
-#: ../src/route_pi.cpp:151 ../src/route_pi.cpp:242
+#: src/route_pi.cpp:145
 msgid "ROUTE"
 msgstr ""
 
-#: ../src/route_pi.cpp:157
+#: src/route_pi.cpp:150
 msgid "Route Plotting plugin for OpenCPN"
 msgstr ""
 
-#: ../src/route_pi.cpp:162
+#: src/route_pi.cpp:155
 msgid ""
 "Route Plotting plugin for OpenCPN\n"
 "Plots Great Circle routes, Limited Circle Routes and Rhumb lines."
 msgstr ""
 
-#: ../src/route_pi.cpp:189
-msgid "\r\n"
+#: src/route_pi.cpp:224
+msgid "Route Preferences"
 msgstr ""
 
-#: ../src/route_pi.cpp:227 ../src/route_pi.cpp:261
-msgid "Choose a file"
+#: src/routegui.h:148
+msgid "Menu"
 msgstr ""
 
-#: ../src/route_pi.cpp:227 ../src/route_pi.cpp:261
-msgid "*.*"
+#: src/routegui.h:169
+msgid "Preferences"
 msgstr ""
 
-#: ../src/route_pi.cpp:242
-msgid "ROUTE replay"
+#: src/routegui_impl.cpp:138 src/routegui_impl.cpp:139
+#: src/routegui_impl.cpp:182 src/routegui_impl.cpp:183
+#: src/routegui_impl.cpp:598 src/routegui_impl.cpp:599
+#: src/routegui_impl.cpp:721 src/routegui_impl.cpp:722
+msgid "Error in calculation. Please check input!"
 msgstr ""
 
-#: ../src/route_pi.cpp:293 ../src/route_pi.cpp:311
-msgid "/PlugIns/ROUTE"
+#: src/routegui_impl.cpp:155
+msgid "Export GPX file as"
 msgstr ""
 
-#: ../src/route_pi.cpp:295 ../src/route_pi.cpp:313
-msgid "InputFilename"
+#: src/routegui_impl.cpp:299
+msgid "No Lat Limit!"
 msgstr ""
 
-#: ../src/route_pi.cpp:296 ../src/route_pi.cpp:314
-msgid "OutputFilename"
+#: src/routegui_impl.cpp:305
+msgid "Export Great Circle GPX file as"
 msgstr ""
 
-#: ../src/route_pi.cpp:297 ../src/route_pi.cpp:315
-msgid "Interval"
+#: src/routegui_impl.cpp:320
+msgid "error in input range validation"
 msgstr ""
 
-#: ../src/route_pi.cpp:330
-msgid "Dashboard"
+#: src/routegui_impl.cpp:325 src/routegui_impl.cpp:329
+#: src/routegui_impl.cpp:333 src/routegui_impl.cpp:337
+msgid "Start Latitude>Limit!"
 msgstr ""
 
-#: ../src/route_pi.cpp:333 ../src/route_pi.cpp:360
-msgid "DILG1"
+#: src/routegui_impl.cpp:385
+msgid "Error occured, aborting GCL calc!"
 msgstr ""
 
-#: ../src/route_pi.cpp:339
-msgid "Speed:"
+#: src/routegui_impl.cpp:693
+msgid "Brent's method not converging, check result"
 msgstr ""
 
-#: ../src/route_pi.cpp:346
-msgid "Progress:"
+#: src/routegui_impl.cpp:700
+msgid "Export Rhumb Line GPX file as"
+msgstr ""
+
+#: src/routegui_impl.h:49
+msgid "Route preferences"
+msgstr ""
+
+#: src/routegui_impl.h:55
+msgid "Route Plugin by SaltyPaws"
+msgstr ""
+
+#: src/routegui.cpp:27
+msgid ""
+"Great Circle\n"
+"Route"
+msgstr ""
+
+#: src/routegui.cpp:40 src/routegui.cpp:164
+msgid "Input"
+msgstr ""
+
+#: src/routegui.cpp:45 src/routegui.cpp:169
+msgid ""
+"Waypoint\n"
+"Distance"
+msgstr ""
+
+#: src/routegui.cpp:53 src/routegui.cpp:86 src/routegui.cpp:104
+#: src/routegui.cpp:177 src/routegui.cpp:228 src/routegui.cpp:246
+#: src/routegui.cpp:264
+msgid "NM"
+msgstr ""
+
+#: src/routegui.cpp:63 src/routegui.cpp:205
+msgid "Calculate"
+msgstr ""
+
+#: src/routegui.cpp:73 src/routegui.cpp:215
+msgid "Result"
+msgstr ""
+
+#: src/routegui.cpp:78
+msgid ""
+"Great Circle\n"
+"Distance"
+msgstr ""
+
+#: src/routegui.cpp:96
+msgid ""
+"Rhumb Line\n"
+"Distance"
+msgstr ""
+
+#: src/routegui.cpp:115 src/routegui.cpp:275
+msgid "Export"
+msgstr ""
+
+#: src/routegui.cpp:117
+msgid "Great Circle (shortest) GPX"
+msgstr ""
+
+#: src/routegui.cpp:120
+msgid "Rhumb Line (fixed heading) GPX"
+msgstr ""
+
+#: src/routegui.cpp:142
+msgid "Great Circle"
+msgstr ""
+
+#: src/routegui.cpp:151
+msgid ""
+"Limited Circle\n"
+"Route"
+msgstr ""
+
+#: src/routegui.cpp:187
+msgid ""
+"Latitude  \n"
+"Limit"
+msgstr ""
+
+#: src/routegui.cpp:195 src/routegui.cpp:328 src/routegui.cpp:346
+#: src/routegui.cpp:376 src/routegui.cpp:394 src/routegui.cpp:487
+#: src/routegui.cpp:527 src/routegui.cpp:579 src/routegui.cpp:619
+msgid "\\u00b0"
+msgstr ""
+
+#: src/routegui.cpp:220
+msgid ""
+"Limited Circle\n"
+"Distance"
+msgstr ""
+
+#: src/routegui.cpp:238
+msgid ""
+"Great Circle     \n"
+"Distance"
+msgstr ""
+
+#: src/routegui.cpp:256
+msgid ""
+"Rhumb Line     \n"
+"Distance"
+msgstr ""
+
+#: src/routegui.cpp:277
+msgid "Limited Circle GPX"
+msgstr ""
+
+#: src/routegui.cpp:299
+msgid "Limited Circle"
+msgstr ""
+
+#: src/routegui.cpp:312 src/routegui.cpp:471
+msgid "Start of Route"
+msgstr ""
+
+#: src/routegui.cpp:320 src/routegui.cpp:368
+msgid "Lattitude  "
+msgstr ""
+
+#: src/routegui.cpp:338 src/routegui.cpp:386
+msgid "Longitude"
+msgstr ""
+
+#: src/routegui.cpp:360 src/routegui.cpp:563
+msgid "End of Route"
+msgstr ""
+
+#: src/routegui.cpp:408
+msgid "Naming"
+msgstr ""
+
+#: src/routegui.cpp:430
+msgid "Start  "
+msgstr ""
+
+#: src/routegui.cpp:444
+msgid "End     "
+msgstr ""
+
+#: src/routegui.cpp:465
+msgid "Decimal Degree"
+msgstr ""
+
+#: src/routegui.cpp:479 src/routegui.cpp:571
+msgid "Lat "
+msgstr ""
+
+#: src/routegui.cpp:495 src/routegui.cpp:535 src/routegui.cpp:587
+#: src/routegui.cpp:627
+msgid "'"
+msgstr ""
+
+#: src/routegui.cpp:503 src/routegui.cpp:543 src/routegui.cpp:595
+#: src/routegui.cpp:635
+msgid "\""
+msgstr ""
+
+#: src/routegui.cpp:507 src/routegui.cpp:599
+msgid "N"
+msgstr ""
+
+#: src/routegui.cpp:507 src/routegui.cpp:599
+msgid "S"
+msgstr ""
+
+#: src/routegui.cpp:519 src/routegui.cpp:611
+msgid "Lon"
+msgstr ""
+
+#: src/routegui.cpp:547 src/routegui.cpp:639
+msgid "E"
+msgstr ""
+
+#: src/routegui.cpp:547 src/routegui.cpp:639
+msgid "W"
+msgstr ""
+
+#: src/routegui.cpp:657
+msgid "Convert to Degree"
+msgstr ""
+
+#: src/routegui.cpp:667
+msgid "\\u00b0 ' \""
+msgstr ""
+
+#: src/routegui.cpp:715
+msgid "General settings"
+msgstr ""
+
+#: src/routegui.cpp:725
+msgid "Opacity"
 msgstr ""

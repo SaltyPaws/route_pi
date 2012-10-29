@@ -148,9 +148,9 @@ ADD_CUSTOM_COMMAND(
    COMMAND ${GETTEXT_XGETTEXT_EXECUTABLE} --force-po --package-name=${PACKAGE_NAME} --package-version="${PACKAGE_VERSION}" --output=po/${PACKAGE_NAME}.pot  --keyword=_ --width=80 --files-from=${CMAKE_CURRENT_SOURCE_DIR}/po/POTFILES.in
    DEPENDS po/POTFILES.in po/${PACKAGE_NAME}.pot
    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-   COMMENT "ROUTE-pot-update [${PACKAGE_NAME}]: Generated pot file."
+   COMMENT "route-pot-update [${PACKAGE_NAME}]: Generated pot file."
 )
-ADD_CUSTOM_TARGET(ROUTE-pot-update COMMENT "ROUTE-pot-update: Done." DEPENDS po/${PACKAGE_NAME}.pot.dummy)
+ADD_CUSTOM_TARGET(route-pot-update COMMENT "route-pot-update: Done." DEPENDS po/${PACKAGE_NAME}.pot.dummy)
 
 ENDIF(GETTEXT_XGETTEXT_EXECUTABLE )
 
@@ -166,14 +166,14 @@ MACRO(GETTEXT_UPDATE_PO _potFile)
          OUTPUT ${_absFile}.dummy
          COMMAND ${GETTEXT_MSGMERGE_EXECUTABLE} --width=80 --strict --quiet --update --backup=none --no-location -s ${_absFile} ${_absPotFile}
          DEPENDS ${_absPotFile} ${_absFile}
-         COMMENT "ROUTE-po-update [${_poBasename}]: Updated po file."
+         COMMENT "route-po-update [${_poBasename}]: Updated po file."
       )
 
       SET(_poFiles ${_poFiles} ${_absFile}.dummy)
 
    ENDFOREACH (_currentPoFile )
 
-   ADD_CUSTOM_TARGET(ROUTE-po-update COMMENT "ROUTE-po-update: Done." DEPENDS ${_poFiles})
+   ADD_CUSTOM_TARGET(route-po-update COMMENT "route-po-update: Done." DEPENDS ${_poFiles})
 ENDMACRO(GETTEXT_UPDATE_PO)
 
 IF (GETTEXT_MSGMERGE_EXECUTABLE)

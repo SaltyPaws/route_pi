@@ -5,11 +5,11 @@ src/route_pi.h
 src/routegui.h
 src/vincenty.h
 src/routegui_impl.cpp
-src/UIDialog.cpp
+src/Nav_func_new/NavFunc.cpp
+src/Nav_func_new/NavFunc.h
 src/georef.h
 src/routegui_impl.h
 src/NavFunc.cpp
 src/icons.cpp
 src/NavFunc.h
-src/UIDialog.h
 src/routegui.cpp
