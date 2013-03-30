@@ -1,7 +1,7 @@
 Route Plot Plugin for OpenCPN
 =======================================
 
-The purpose of this plugin is to provide Great Circle, Limited Circle and Rhumb line plotting capability to OpenCPN
+The purpose of this plugin is to provide Great Circle, Limited Circle and Rhumb line plotting capability to OpenCPN. The plugin adds functionality over the existing route plotting capability (ie, you can change the distance of the way-points, plot limited circles, and compare distances).
 
 The aims are to:
 
@@ -22,6 +22,11 @@ Build as normally:
 * cmake ../
 * make
 * sudo make install
+
+ToDo
+=======
+Once the Navobject becomes available to the plugin API, will update to also enable direct route plotting.
+
 
 License
 =======
