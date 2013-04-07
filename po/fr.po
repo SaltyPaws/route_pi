@@ -1,0 +1,439 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-29 19:15+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Gilletarom <contact@gilletarom.fr>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.3\n"
+
+#: src/route_pi.cpp:89 src/routegui.cpp:416
+msgid "Route"
+msgstr "Route"
+
+#: src/route_pi.cpp:145
+msgid "ROUTE"
+msgstr "Route"
+
+#: src/route_pi.cpp:150
+msgid "Route Plotting plugin for OpenCPN"
+msgstr "Complément \"Créateur de routes pour openCPN\""
+
+#: src/route_pi.cpp:155
+msgid ""
+"Route Plotting plugin for OpenCPN\n"
+"Plots Great Circle routes, Limited Circle Routes and Rhumb lines."
+msgstr ""
+"Complément pour OpenCPN : Créateur de routes\n"
+"Créateur de routes orthodromiques, de routes loxodromiques et de routes "
+"limitées en latitude."
+
+#: src/route_pi.cpp:224
+msgid "Route Preferences"
+msgstr "Préférences"
+
+#: src/routegui.h:148
+msgid "Menu"
+msgstr "Menu"
+
+#: src/routegui.h:169
+msgid "Preferences"
+msgstr "Préférences"
+
+#: src/routegui_impl.cpp:138 src/routegui_impl.cpp:139
+#: src/routegui_impl.cpp:182 src/routegui_impl.cpp:183
+#: src/routegui_impl.cpp:598 src/routegui_impl.cpp:599
+#: src/routegui_impl.cpp:721 src/routegui_impl.cpp:722
+msgid "Error in calculation. Please check input!"
+msgstr "Erreur dans le calcul. Vérifier vos entrées."
+
+#: src/routegui_impl.cpp:155
+msgid "Export GPX file as"
+msgstr "Exporter comme un fichier GPX"
+
+#: src/routegui_impl.cpp:299
+msgid "No Lat Limit!"
+msgstr "Pas de limite de latitude"
+
+#: src/routegui_impl.cpp:305
+msgid "Export Great Circle GPX file as"
+msgstr "Exporter la route orthodromique comme un fichier GPX"
+
+#: src/routegui_impl.cpp:320
+msgid "error in input range validation"
+msgstr "Erreur de validation de donnée entrée"
+
+#: src/routegui_impl.cpp:325 src/routegui_impl.cpp:329
+#: src/routegui_impl.cpp:333 src/routegui_impl.cpp:337
+msgid "Start Latitude>Limit!"
+msgstr "Latitude de début > Latitude limite"
+
+#: src/routegui_impl.cpp:385
+msgid "Error occured, aborting GCL calc!"
+msgstr "Une erreur s'est produite. Calcul avorté du grand cercle"
+
+#: src/routegui_impl.cpp:693
+msgid "Brent's method not converging, check result"
+msgstr "Brent's method not converging, check result"
+
+#: src/routegui_impl.cpp:700
+msgid "Export Rhumb Line GPX file as"
+msgstr "Exporter la route loxodromique comme un fichier GPX"
+
+#: src/routegui_impl.h:49
+msgid "Route preferences"
+msgstr "Préférences de la route"
+
+#: src/routegui_impl.h:55
+msgid "Route Plugin by SaltyPaws"
+msgstr "Complément \"Routes\" par Salty Paws"
+
+#: src/routegui.cpp:27
+msgid ""
+"Great Circle\n"
+"Route"
+msgstr ""
+"Routes naturelles\n"
+" "
+
+#: src/routegui.cpp:40 src/routegui.cpp:164
+msgid "Input"
+msgstr "Entrée"
+
+#: src/routegui.cpp:45 src/routegui.cpp:169
+msgid ""
+"Waypoint\n"
+"Distance"
+msgstr ""
+"Distance entre\n"
+"waypoint"
+
+#: src/routegui.cpp:53 src/routegui.cpp:86 src/routegui.cpp:104
+#: src/routegui.cpp:177 src/routegui.cpp:228 src/routegui.cpp:246
+#: src/routegui.cpp:264
+msgid "NM"
+msgstr "NM"
+
+#: src/routegui.cpp:63 src/routegui.cpp:205
+msgid "Calculate"
+msgstr "Calculer"
+
+#: src/routegui.cpp:73 src/routegui.cpp:215
+msgid "Result"
+msgstr "Résultat"
+
+#: src/routegui.cpp:78
+msgid ""
+"Great Circle\n"
+"Distance"
+msgstr ""
+"Orthodromie\n"
+"Longueur"
+
+#: src/routegui.cpp:96
+msgid ""
+"Rhumb Line\n"
+"Distance"
+msgstr ""
+"Loxodromie\n"
+"Longueur"
+
+#: src/routegui.cpp:115 src/routegui.cpp:275
+msgid "Export"
+msgstr "Exporter"
+
+#: src/routegui.cpp:117
+msgid "Great Circle (shortest) GPX"
+msgstr "Orthodromie (Plus courte)   ---> GPX"
+
+#: src/routegui.cpp:120
+msgid "Rhumb Line (fixed heading) GPX"
+msgstr "Loxodromie (Cap constant) ---> GPX"
+
+#: src/routegui.cpp:142
+msgid "Great Circle"
+msgstr "Routes directes"
+
+#: src/routegui.cpp:151
+msgid ""
+"Limited Circle\n"
+"Route"
+msgstr ""
+"Route limitée\n"
+"(en latitude N ou S)"
+
+#: src/routegui.cpp:187
+msgid ""
+"Latitude  \n"
+"Limit"
+msgstr ""
+"Latitude   \n"
+"Limite"
+
+#: src/routegui.cpp:195 src/routegui.cpp:328 src/routegui.cpp:346
+#: src/routegui.cpp:376 src/routegui.cpp:394 src/routegui.cpp:487
+#: src/routegui.cpp:527 src/routegui.cpp:579 src/routegui.cpp:619
+msgid "\\u00b0"
+msgstr "\\u00b0"
+
+#: src/routegui.cpp:220
+msgid ""
+"Limited Circle\n"
+"Distance"
+msgstr ""
+"Route limitée\n"
+"Longueur"
+
+#: src/routegui.cpp:238
+msgid ""
+"Great Circle     \n"
+"Distance"
+msgstr ""
+"Orthodromie   \n"
+"Longueur"
+
+#: src/routegui.cpp:256
+msgid ""
+"Rhumb Line     \n"
+"Distance"
+msgstr ""
+"Loxodromie   \n"
+"Longueur"
+
+#: src/routegui.cpp:277
+msgid "Limited Circle GPX"
+msgstr "Route avec limite ---> GPX"
+
+#: src/routegui.cpp:299
+msgid "Limited Circle"
+msgstr "Route limitée"
+
+#: src/routegui.cpp:312 src/routegui.cpp:471
+msgid "Start of Route"
+msgstr "Début de la route"
+
+#: src/routegui.cpp:320 src/routegui.cpp:368
+msgid "Lattitude  "
+msgstr "Latitude"
+
+#: src/routegui.cpp:338 src/routegui.cpp:386
+msgid "Longitude"
+msgstr "Longitude"
+
+#: src/routegui.cpp:360 src/routegui.cpp:563
+msgid "End of Route"
+msgstr "Fin de la route"
+
+#: src/routegui.cpp:408
+msgid "Naming"
+msgstr "Nom"
+
+#: src/routegui.cpp:430
+msgid "Start  "
+msgstr "Début"
+
+#: src/routegui.cpp:444
+msgid "End     "
+msgstr "Fin"
+
+#: src/routegui.cpp:465
+msgid "Decimal Degree"
+msgstr "Degré décimal"
+
+#: src/routegui.cpp:479 src/routegui.cpp:571
+msgid "Lat "
+msgstr "Lat."
+
+#: src/routegui.cpp:495 src/routegui.cpp:535 src/routegui.cpp:587
+#: src/routegui.cpp:627
+msgid "'"
+msgstr "'"
+
+#: src/routegui.cpp:503 src/routegui.cpp:543 src/routegui.cpp:595
+#: src/routegui.cpp:635
+msgid "\""
+msgstr "\""
+
+#: src/routegui.cpp:507 src/routegui.cpp:599
+msgid "N"
+msgstr "N"
+
+#: src/routegui.cpp:507 src/routegui.cpp:599
+msgid "S"
+msgstr "S"
+
+#: src/routegui.cpp:519 src/routegui.cpp:611
+msgid "Lon"
+msgstr "Lon"
+
+#: src/routegui.cpp:547 src/routegui.cpp:639
+msgid "E"
+msgstr "E"
+
+#: src/routegui.cpp:547 src/routegui.cpp:639
+msgid "W"
+msgstr "O"
+
+#: src/routegui.cpp:657
+msgid "Convert to Degree"
+msgstr "Convertir en degré"
+
+#: src/routegui.cpp:667
+msgid "\\u00b0 ' \""
+msgstr "\\u00b0 ' \""
+
+#: src/routegui.cpp:715
+msgid "General settings"
+msgstr "Réglage"
+
+#: src/routegui.cpp:725
+msgid "Opacity"
+msgstr "Opacité"
+
+#~ msgid "C"
+#~ msgstr "C"
+
+#~ msgid "opencpn-route_pi"
+#~ msgstr "opencpn-route_pi"
+
+#~ msgid "\r\n"
+#~ msgstr "\r\n"
+
+#~ msgid "Choose a file"
+#~ msgstr "Choisir un fichier"
+
+#~ msgid "*.*"
+#~ msgstr "*.*"
+
+#~ msgid "ROUTE replay"
+#~ msgstr "Refaire un route"
+
+#~ msgid "/PlugIns/ROUTE"
+#~ msgstr "/PlugIns/ROUTE"
+
+#~ msgid "InputFilename"
+#~ msgstr "Nom de fichier source"
+
+#~ msgid "OutputFilename"
+#~ msgstr "Nom de fichier but"
+
+#~ msgid "Interval"
+#~ msgstr "Intervalle"
+
+#~ msgid "Dashboard"
+#~ msgstr "Tableau de bord"
+
+#~ msgid "DILG1"
+#~ msgstr "DILG1"
+
+#~ msgid "Speed:"
+#~ msgstr "Vitesse :"
+
+#~ msgid "Progress:"
+#~ msgstr "Progression :"
+
+#~ msgid "FindIt"
+#~ msgstr "FindIt"
+
+#~ msgid "Stowage PlugIn for OpenCPN\n"
+#~ msgstr "Complément \"Gestionnaire d'organisation interne\"\n"
+
+#~ msgid "FindIt Options"
+#~ msgstr "Options du FindIt"
+
+#~ msgid "Add Line"
+#~ msgstr "Ajouter une ligne"
+
+#~ msgid ""
+#~ "Append a row\n"
+#~ "Delete a row = Key <Del>"
+#~ msgstr ""
+#~ "Ajouter une ligne\n"
+#~ "Supprimer une ligne = Touche <Del>"
+
+#~ msgid "Enter Searchstring:"
+#~ msgstr "Entrer le texte cherché :"
+
+#~ msgid "Separate more than one string with a blank"
+#~ msgstr "Separer chaque mot cherché par un espace"
+
+#~ msgid "Buy it"
+#~ msgstr "Acheter ceci"
+
+#~ msgid ""
+#~ "If the logbook-plugin is installed send a list\n"
+#~ "with checked items to 'Logbook/Maintenace/Buy Parts'"
+#~ msgstr ""
+#~ "Si le complément \"Journal de bord\" est installé, transférer une liste\n"
+#~ "avec les articles cochés à 'Livre de bord / Maintenance / Pièces "
+#~ "achetées''"
+
+#~ msgid "Buy"
+#~ msgstr "Acheter"
+
+#~ msgid "Priority"
+#~ msgstr "Priorité"
+
+#~ msgid "Quota"
+#~ msgstr ""
+#~ "Stock\n"
+#~ "nécessaire"
+
+#~ msgid "Actuell"
+#~ msgstr ""
+#~ "Stock\n"
+#~ "actuel"
+
+#~ msgid "Balance"
+#~ msgstr ""
+#~ "Complément\n"
+#~ "nécessaire"
+
+#~ msgid "Unit"
+#~ msgstr "Unité"
+
+#~ msgid "Text"
+#~ msgstr "Texte"
+
+#~ msgid "Location"
+#~ msgstr "Emplacement"
+
+#~ msgid "Material"
+#~ msgstr "Matériel"
+
+#~ msgid "Provisions"
+#~ msgstr "Provisions"
+
+#~ msgid "Locations"
+#~ msgstr "Emplacement"
+
+#~ msgid "Units"
+#~ msgstr "Unités"
+
+#~ msgid "Show FindIt Icon"
+#~ msgstr "Afficher l'icône du complément FindIt"
+
+#~ msgid "blank"
+#~ msgstr "Blanc"
+
+#~ msgid "If Value of Column \"Balance\" = 0, set Value to"
+#~ msgstr "Si valeur de la colonne \"à acheter\"= 0, écrire"
+
+#~ msgid "\"No\""
+#~ msgstr "\"Non\""
+
+#~ msgid "If Value of Column \"Buy\" = No, set Value to"
+#~ msgstr "Si la valeur de la colonne \"Acheter\"= Non, écrire"
+
+#~ msgid "Yes"
+#~ msgstr "Oui"
+
+#~ msgid "Use last row values  as default for new row"
+#~ msgstr "Dupliquer la ligne précédente"
+
+#~ msgid "To Buy"
+#~ msgstr "A acheter"
