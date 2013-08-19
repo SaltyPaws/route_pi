@@ -23,7 +23,7 @@ MESSAGE (STATUS "*** Building ${PACKAGE_NAME} ***")
 #SET(CMAKE_BUILD_TYPE Debug)
 
 INCLUDE_DIRECTORIES(
-	${CMAKE_SOURCE_DIR}/include 
+	${CMAKE_SOURCE_DIR}/include
 	${CMAKE_SOURCE_DIR}/src
 )
 
@@ -53,9 +53,14 @@ IF(WIN32)
 ENDIF(WIN32)
 
 
-#SET(wxWidgets_USE_LIBS base core net xml html adv)
-#SET(BUILD_SHARED_LIBS TRUE)
-#FIND_PACKAGE(wxWidgets REQUIRED)
+IF(UNIX AND NOT APPLE)
+  SET(PREFIX_PLUGINS /usr/lib/opencpn)
+  SET(PREFIX_DATA /usr/share)
+ENDIF(UNIX AND NOT APPLE)
+
+SET(wxWidgets_USE_LIBS base core net xml html adv)
+SET(BUILD_SHARED_LIBS TRUE)
+FIND_PACKAGE(wxWidgets REQUIRED)
 
 INCLUDE(${wxWidgets_USE_FILE})
 
@@ -84,20 +89,21 @@ SET(SRC_ROUTE
 	    src/georef.c
 	)
 
-SET(SRC_FROM_OCPN 	
+SET(SRC_FROM_OCPN
 #	../../../include/cutil.h
 #	../../../src/cutil.c
 #	../../../include/georef.h
 #	../../../src/georef.c
 #	../../../include/gpxdocument.h
-#	../../../src/gpxdocument.cpp	    	
+#	../../../src/gpxdocument.cpp
 	)
 
 SET(SRC_TINYXML
-	../../../include/tinyxml.h
-        ../../../src/tinyxml.cpp
-        ../../../src/tinyxmlparser.cpp
-        ../../../src/tinyxmlerror.cpp
+	include/tinyxml.h
+	include/cutil.h
+        src/tinyxml.cpp
+        src/tinyxmlparser.cpp
+        src/tinyxmlerror.cpp
 	)
 
 IF(TINYXML_FOUND)
