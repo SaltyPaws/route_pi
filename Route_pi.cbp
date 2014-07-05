@@ -33,10 +33,17 @@
 		</Compiler>
 		<Unit filename="src/NavFunc.cpp" />
 		<Unit filename="src/NavFunc.h" />
-		<Unit filename="src/georef.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="src/georef.h" />
+		<Unit filename="src/OpenCPN/cutil.cpp" />
+		<Unit filename="src/OpenCPN/cutil.h" />
+		<Unit filename="src/OpenCPN/georef.cpp" />
+		<Unit filename="src/OpenCPN/georef.h" />
+		<Unit filename="src/OpenCPN/gpxdocument.cpp" />
+		<Unit filename="src/OpenCPN/gpxdocument.h" />
+		<Unit filename="src/OpenCPN/ocpn_plugin.h" />
+		<Unit filename="src/TinyXML/tinyxml.cpp" />
+		<Unit filename="src/TinyXML/tinyxml.h" />
+		<Unit filename="src/TinyXML/tinyxmlerror.cpp" />
+		<Unit filename="src/TinyXML/tinyxmlparser.cpp" />
 		<Unit filename="src/icons.cpp" />
 		<Unit filename="src/icons.h" />
 		<Unit filename="src/route_pi.cpp" />

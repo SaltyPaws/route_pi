@@ -80,24 +80,25 @@ SET(SRC_ROUTE
 	    src/NavFunc.cpp
 	    src/vincenty.h
 	    src/vincenty.cpp
-	    src/georef.h
-	    src/georef.c
+#	    src/georef.h
+#	    src/georef.c
+	    src/OpenCPN/ocpn_plugin.h
 	)
 
 SET(SRC_FROM_OCPN 	
-#	../../../include/cutil.h
-#	../../../src/cutil.c
-#	../../../include/georef.h
-#	../../../src/georef.c
-#	../../../include/gpxdocument.h
-#	../../../src/gpxdocument.cpp	    	
+	src/OpenCPN/cutil.h
+	src/OpenCPN/cutil.cpp
+	src/OpenCPN/georef.h
+	src/OpenCPN/georef.cpp
+	src/OpenCPN/gpxdocument.h
+	src/OpenCPN/gpxdocument.cpp	    	
 	)
 
 SET(SRC_TINYXML
-	../../../include/tinyxml.h
-        ../../../src/tinyxml.cpp
-        ../../../src/tinyxmlparser.cpp
-        ../../../src/tinyxmlerror.cpp
+	src/TinyXML/tinyxml.h
+        src/TinyXML/tinyxml.cpp
+        src/TinyXML/tinyxmlparser.cpp
+        src/TinyXML/src/tinyxmlerror.cpp
 	)
 
 IF(TINYXML_FOUND)

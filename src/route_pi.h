@@ -37,7 +37,7 @@
 
 #include <wx/fileconf.h>
 
-#include "../../../include/ocpn_plugin.h"
+#include "OpenCPN/ocpn_plugin.h"
 #include "routegui_impl.h"
 
 #define     PLUGIN_VERSION_MAJOR    1
