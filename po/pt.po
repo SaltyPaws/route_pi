@@ -3,38 +3,38 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-29 19:15+0100\n"
-"PO-Revision-Date: 2015-04-21 14:53-0400\n"
+"PO-Revision-Date: 2015-04-07 11:23-0400\n"
 "Last-Translator: nohal <pavel@kalian.cz>\n"
-"Language-Team: French\n"
-"Language: fr_FR\n"
+"Language-Team: Portuguese, Brazilian\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: opencpn\n"
-"X-Crowdin-Language: fr\n"
+"X-Crowdin-Language: pt-BR\n"
 "X-Crowdin-File: /plugins/route_pi/po/route_pi.pot\n"
 
 #: src/route_pi.cpp:89 src/routegui.cpp:416
 msgid "Route"
-msgstr "Route"
+msgstr "Rota"
 
 #: src/route_pi.cpp:145
 msgid "ROUTE"
-msgstr "ROUTE"
+msgstr "ROTA"
 
 #: src/route_pi.cpp:150
 msgid "Route Plotting plugin for OpenCPN"
-msgstr "Complément \"Créateur de routes pour OpenCPN\""
+msgstr "Plotagem de Rota plugin para OpenCPN"
 
 #: src/route_pi.cpp:155
 msgid "Route Plotting plugin for OpenCPN\nPlots Great Circle routes, Limited Circle Routes and Rhumb lines."
-msgstr "Complément pour OpenCPN : Créateur de routes\nCréateur de routes orthodromiques, de routes loxodromiques et de routes limitées en latitude."
+msgstr "Plotagem de Rota plugin para OpenCPN\nPlota rotas grande círculo, rotas círculo limitado e linhas de rumo."
 
 #: src/route_pi.cpp:224
 msgid "Route Preferences"
-msgstr "Préférences de Route"
+msgstr "Preferências de rota"
 
 #: src/routegui.h:148
 msgid "Menu"
@@ -42,113 +42,113 @@ msgstr "Menu"
 
 #: src/routegui.h:169
 msgid "Preferences"
-msgstr "Préférences"
+msgstr "Preferências"
 
 #: src/routegui_impl.cpp:138 src/routegui_impl.cpp:139
 #: src/routegui_impl.cpp:182 src/routegui_impl.cpp:183
 #: src/routegui_impl.cpp:598 src/routegui_impl.cpp:599
 #: src/routegui_impl.cpp:721 src/routegui_impl.cpp:722
 msgid "Error in calculation. Please check input!"
-msgstr "Erreur dans le calcul. Vérifier vos entrées."
+msgstr "Erro no cálculo. Por favor, verifique a entrada!"
 
 #: src/routegui_impl.cpp:155
 msgid "Export GPX file as"
-msgstr "Exporter comme un fichier GPX"
+msgstr "Exportar arquivo GPX como"
 
 #: src/routegui_impl.cpp:299
 msgid "No Lat Limit!"
-msgstr "Pas de limite de latitude"
+msgstr "Sem limite de Lat!"
 
 #: src/routegui_impl.cpp:305
 msgid "Export Great Circle GPX file as"
-msgstr "Exporter la route orthodromique comme un fichier GPX"
+msgstr "Exportar arquivo Grande Círculo GPX como"
 
 #: src/routegui_impl.cpp:320
 msgid "error in input range validation"
-msgstr "Erreur de validation de donnée entrée"
+msgstr "erro na validação de entrada de intervalo"
 
 #: src/routegui_impl.cpp:325 src/routegui_impl.cpp:329
 #: src/routegui_impl.cpp:333 src/routegui_impl.cpp:337
 msgid "Start Latitude>Limit!"
-msgstr "Latitude de début > Latitude limite"
+msgstr "Começar a Latitude > limite!"
 
 #: src/routegui_impl.cpp:385
 msgid "Error occured, aborting GCL calc!"
-msgstr "Une erreur s'est produite. Calcul avorté du grand cercle"
+msgstr "Ocorreu erro, anulando GCL calc!"
 
 #: src/routegui_impl.cpp:693
 msgid "Brent's method not converging, check result"
-msgstr "La méthode de Brent ne converge ne pas, résultat du contrôle"
+msgstr "Método de Brent não convergentes, Verifique resultado"
 
 #: src/routegui_impl.cpp:700
 msgid "Export Rhumb Line GPX file as"
-msgstr "Exporter la route loxodromique comme un fichier GPX"
+msgstr "Exportar arquivo GPX Linha de Rumo como"
 
 #: src/routegui_impl.h:49
 msgid "Route preferences"
-msgstr "Préférences de la route"
+msgstr "Preferências de rota"
 
 #: src/routegui_impl.h:55
 msgid "Route Plugin by SaltyPaws"
-msgstr "Complément \"Routes\" par Salty Paws"
+msgstr "Plugin de Rota por SaltyPaws"
 
 #: src/routegui.cpp:27
 msgid "Great Circle\nRoute"
-msgstr "Routes naturelles\n "
+msgstr "Grande Círculo\nRota"
 
 #: src/routegui.cpp:40 src/routegui.cpp:164
 msgid "Input"
-msgstr "Entrée"
+msgstr "Entrada"
 
 #: src/routegui.cpp:45 src/routegui.cpp:169
 msgid "Waypoint\nDistance"
-msgstr "Distance entre\nwaypoint"
+msgstr "Waypoint\nDistancia"
 
 #: src/routegui.cpp:53 src/routegui.cpp:86 src/routegui.cpp:104
 #: src/routegui.cpp:177 src/routegui.cpp:228 src/routegui.cpp:246
 #: src/routegui.cpp:264
 msgid "NM"
-msgstr "Nm"
+msgstr "NM"
 
 #: src/routegui.cpp:63 src/routegui.cpp:205
 msgid "Calculate"
-msgstr "Calculer"
+msgstr "Calcular"
 
 #: src/routegui.cpp:73 src/routegui.cpp:215
 msgid "Result"
-msgstr "Résultat"
+msgstr "Resultado"
 
 #: src/routegui.cpp:78
 msgid "Great Circle\nDistance"
-msgstr "Orthodromie\nLongueur"
+msgstr "GrandeCírculo\nDistancia"
 
 #: src/routegui.cpp:96
 msgid "Rhumb Line\nDistance"
-msgstr "Loxodromie\nLongueur"
+msgstr "Line de Rumo\nDistancia"
 
 #: src/routegui.cpp:115 src/routegui.cpp:275
 msgid "Export"
-msgstr "Exporter"
+msgstr "Exportar"
 
 #: src/routegui.cpp:117
 msgid "Great Circle (shortest) GPX"
-msgstr "Orthodromie (Plus courte)   ---> GPX"
+msgstr "Grande Círculo (mais curta) GPX"
 
 #: src/routegui.cpp:120
 msgid "Rhumb Line (fixed heading) GPX"
-msgstr "Loxodromie (Cap constant) ---> GPX"
+msgstr "Linha de rumo (posição fixa) GPX"
 
 #: src/routegui.cpp:142
 msgid "Great Circle"
-msgstr "Routes directes"
+msgstr "Grande círculo"
 
 #: src/routegui.cpp:151
 msgid "Limited Circle\nRoute"
-msgstr "Route limitée\n(en latitude N ou S)"
+msgstr "Limitado Círculo\nRota"
 
 #: src/routegui.cpp:187
 msgid "Latitude  \nLimit"
-msgstr "Latitude   \nLimite"
+msgstr "Latitude \nLimit"
 
 #: src/routegui.cpp:195 src/routegui.cpp:328 src/routegui.cpp:346
 #: src/routegui.cpp:376 src/routegui.cpp:394 src/routegui.cpp:487
@@ -158,31 +158,31 @@ msgstr "\\u00b0"
 
 #: src/routegui.cpp:220
 msgid "Limited Circle\nDistance"
-msgstr "Route limitée\nLongueur"
+msgstr "Limitado Círculo\nDistancia"
 
 #: src/routegui.cpp:238
 msgid "Great Circle     \nDistance"
-msgstr "Orthodromie   \nLongueur"
+msgstr "Grande círculo \nDistancia"
 
 #: src/routegui.cpp:256
 msgid "Rhumb Line     \nDistance"
-msgstr "Loxodromie   \nLongueur"
+msgstr "Linha de Rumo\nDistancia"
 
 #: src/routegui.cpp:277
 msgid "Limited Circle GPX"
-msgstr "Route avec limite ---> GPX"
+msgstr "Círculo limitado GPX"
 
 #: src/routegui.cpp:299
 msgid "Limited Circle"
-msgstr "Route limitée"
+msgstr "Círculo limitado"
 
 #: src/routegui.cpp:312 src/routegui.cpp:471
 msgid "Start of Route"
-msgstr "Début de la route"
+msgstr "Início da rota"
 
 #: src/routegui.cpp:320 src/routegui.cpp:368
 msgid "Lattitude  "
-msgstr "Latitude"
+msgstr "Lattitude  "
 
 #: src/routegui.cpp:338 src/routegui.cpp:386
 msgid "Longitude"
@@ -190,27 +190,27 @@ msgstr "Longitude"
 
 #: src/routegui.cpp:360 src/routegui.cpp:563
 msgid "End of Route"
-msgstr "Fin de la route"
+msgstr "Fim da rota"
 
 #: src/routegui.cpp:408
 msgid "Naming"
-msgstr "Nom"
+msgstr "Nomeação"
 
 #: src/routegui.cpp:430
 msgid "Start  "
-msgstr "Début"
+msgstr "Iniciar  "
 
 #: src/routegui.cpp:444
 msgid "End     "
-msgstr "Fin"
+msgstr "Fim     "
 
 #: src/routegui.cpp:465
 msgid "Decimal Degree"
-msgstr "Degré décimal"
+msgstr "Graus decimais"
 
 #: src/routegui.cpp:479 src/routegui.cpp:571
 msgid "Lat "
-msgstr "Lat."
+msgstr "Lat "
 
 #: src/routegui.cpp:495 src/routegui.cpp:535 src/routegui.cpp:587
 #: src/routegui.cpp:627
@@ -240,11 +240,11 @@ msgstr "E"
 
 #: src/routegui.cpp:547 src/routegui.cpp:639
 msgid "W"
-msgstr "O"
+msgstr "W"
 
 #: src/routegui.cpp:657
 msgid "Convert to Degree"
-msgstr "Convertir en degré"
+msgstr "Converter para grau"
 
 #: src/routegui.cpp:667
 msgid "\\u00b0 ' \""
@@ -252,9 +252,9 @@ msgstr "\\u00b0 ' \""
 
 #: src/routegui.cpp:715
 msgid "General settings"
-msgstr "Réglages généraux"
+msgstr "Definições gerais"
 
 #: src/routegui.cpp:725
 msgid "Opacity"
-msgstr "Opacité"
+msgstr "Opacidade"
 
