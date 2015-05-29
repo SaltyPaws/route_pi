@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-29 19:15+0100\n"
-"PO-Revision-Date: 2015-04-21 14:54-0400\n"
+"PO-Revision-Date: 2015-05-19 07:22-0400\n"
 "Last-Translator: nohal <pavel@kalian.cz>\n"
 "Language-Team: Estonian\n"
 "Language: et_EE\n"
@@ -29,8 +29,10 @@ msgid "Route Plotting plugin for OpenCPN"
 msgstr "Teekonna planeerimise plugin OpenCPN'i jaoks"
 
 #: src/route_pi.cpp:155
-msgid "Route Plotting plugin for OpenCPN\nPlots Great Circle routes, Limited Circle Routes and Rhumb lines."
-msgstr "Teekonna planeerimise plugin OpenCPN'i jaoks\nPlaneerib suurringi teekondi, piiratud ringi teekondi ja loksodroomi."
+msgid "Route Plotting plugin for OpenCPN\n"
+"Plots Great Circle routes, Limited Circle Routes and Rhumb lines."
+msgstr "Teekonna planeerimise plugin OpenCPN'i jaoks\n"
+"Planeerib suurringi teekondi, piiratud ringi teekondi ja loksodroomi."
 
 #: src/route_pi.cpp:224
 msgid "Route Preferences"
@@ -93,16 +95,20 @@ msgid "Route Plugin by SaltyPaws"
 msgstr "SaltyPaw teekonna plugin"
 
 #: src/routegui.cpp:27
-msgid "Great Circle\nRoute"
-msgstr "Suurring\nTeekond"
+msgid "Great Circle\n"
+"Route"
+msgstr "Suurring\n"
+"Teekond"
 
 #: src/routegui.cpp:40 src/routegui.cpp:164
 msgid "Input"
 msgstr "Sisend"
 
 #: src/routegui.cpp:45 src/routegui.cpp:169
-msgid "Waypoint\nDistance"
-msgstr "Teepunkt\nVahemaa"
+msgid "Waypoint\n"
+"Distance"
+msgstr "Teepunkt\n"
+"Vahemaa"
 
 #: src/routegui.cpp:53 src/routegui.cpp:86 src/routegui.cpp:104
 #: src/routegui.cpp:177 src/routegui.cpp:228 src/routegui.cpp:246
@@ -119,12 +125,16 @@ msgid "Result"
 msgstr "Tulemus"
 
 #: src/routegui.cpp:78
-msgid "Great Circle\nDistance"
-msgstr "Suurring\nVahemaa"
+msgid "Great Circle\n"
+"Distance"
+msgstr "Suurring\n"
+"Vahemaa"
 
 #: src/routegui.cpp:96
-msgid "Rhumb Line\nDistance"
-msgstr "Loksodroom\nVahemaa"
+msgid "Rhumb Line\n"
+"Distance"
+msgstr "Loksodroom\n"
+"Vahemaa"
 
 #: src/routegui.cpp:115 src/routegui.cpp:275
 msgid "Export"
@@ -143,12 +153,16 @@ msgid "Great Circle"
 msgstr "Suurring"
 
 #: src/routegui.cpp:151
-msgid "Limited Circle\nRoute"
-msgstr "Piiratud ring\nTeekond"
+msgid "Limited Circle\n"
+"Route"
+msgstr "Piiratud ring\n"
+"Teekond"
 
 #: src/routegui.cpp:187
-msgid "Latitude  \nLimit"
-msgstr "Laius\nPiir"
+msgid "Latitude  \n"
+"Limit"
+msgstr "Laius\n"
+"Piir"
 
 #: src/routegui.cpp:195 src/routegui.cpp:328 src/routegui.cpp:346
 #: src/routegui.cpp:376 src/routegui.cpp:394 src/routegui.cpp:487
@@ -157,16 +171,22 @@ msgid "\\u00b0"
 msgstr "\\u00b0"
 
 #: src/routegui.cpp:220
-msgid "Limited Circle\nDistance"
-msgstr "Piiratud ring\nVahemaa"
+msgid "Limited Circle\n"
+"Distance"
+msgstr "Piiratud ring\n"
+"Vahemaa"
 
 #: src/routegui.cpp:238
-msgid "Great Circle     \nDistance"
-msgstr "Suurring\nVahemaa"
+msgid "Great Circle     \n"
+"Distance"
+msgstr "Suurring\n"
+"Vahemaa"
 
 #: src/routegui.cpp:256
-msgid "Rhumb Line     \nDistance"
-msgstr "Loksodroom \nVahemaa"
+msgid "Rhumb Line     \n"
+"Distance"
+msgstr "Loksodroom \n"
+"Vahemaa"
 
 #: src/routegui.cpp:277
 msgid "Limited Circle GPX"

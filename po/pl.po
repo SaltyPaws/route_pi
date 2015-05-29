@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-29 19:15+0100\n"
-"PO-Revision-Date: 2015-04-21 14:54-0400\n"
+"PO-Revision-Date: 2015-05-29 14:05-0400\n"
 "Last-Translator: nohal <pavel@kalian.cz>\n"
 "Language-Team: Polish\n"
 "Language: pl_PL\n"
@@ -29,7 +29,8 @@ msgid "Route Plotting plugin for OpenCPN"
 msgstr ""
 
 #: src/route_pi.cpp:155
-msgid "Route Plotting plugin for OpenCPN\nPlots Great Circle routes, Limited Circle Routes and Rhumb lines."
+msgid "Route Plotting plugin for OpenCPN\n"
+"Plots Great Circle routes, Limited Circle Routes and Rhumb lines."
 msgstr ""
 
 #: src/route_pi.cpp:224
@@ -93,7 +94,8 @@ msgid "Route Plugin by SaltyPaws"
 msgstr ""
 
 #: src/routegui.cpp:27
-msgid "Great Circle\nRoute"
+msgid "Great Circle\n"
+"Route"
 msgstr ""
 
 #: src/routegui.cpp:40 src/routegui.cpp:164
@@ -101,7 +103,8 @@ msgid "Input"
 msgstr ""
 
 #: src/routegui.cpp:45 src/routegui.cpp:169
-msgid "Waypoint\nDistance"
+msgid "Waypoint\n"
+"Distance"
 msgstr ""
 
 #: src/routegui.cpp:53 src/routegui.cpp:86 src/routegui.cpp:104
@@ -119,11 +122,13 @@ msgid "Result"
 msgstr ""
 
 #: src/routegui.cpp:78
-msgid "Great Circle\nDistance"
+msgid "Great Circle\n"
+"Distance"
 msgstr ""
 
 #: src/routegui.cpp:96
-msgid "Rhumb Line\nDistance"
+msgid "Rhumb Line\n"
+"Distance"
 msgstr ""
 
 #: src/routegui.cpp:115 src/routegui.cpp:275
@@ -143,11 +148,13 @@ msgid "Great Circle"
 msgstr ""
 
 #: src/routegui.cpp:151
-msgid "Limited Circle\nRoute"
+msgid "Limited Circle\n"
+"Route"
 msgstr ""
 
 #: src/routegui.cpp:187
-msgid "Latitude  \nLimit"
+msgid "Latitude  \n"
+"Limit"
 msgstr ""
 
 #: src/routegui.cpp:195 src/routegui.cpp:328 src/routegui.cpp:346
@@ -157,15 +164,18 @@ msgid "\\u00b0"
 msgstr ""
 
 #: src/routegui.cpp:220
-msgid "Limited Circle\nDistance"
+msgid "Limited Circle\n"
+"Distance"
 msgstr ""
 
 #: src/routegui.cpp:238
-msgid "Great Circle     \nDistance"
+msgid "Great Circle     \n"
+"Distance"
 msgstr ""
 
 #: src/routegui.cpp:256
-msgid "Rhumb Line     \nDistance"
+msgid "Rhumb Line     \n"
+"Distance"
 msgstr ""
 
 #: src/routegui.cpp:277
