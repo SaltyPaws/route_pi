@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-10-29 19:15+0100\n"
-"PO-Revision-Date: 2015-06-02 20:34-0400\n"
+"PO-Revision-Date: 2016-02-27 08:04-0500\n"
 "Last-Translator: nohal <pavel@kalian.cz>\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
@@ -18,20 +18,20 @@ msgstr ""
 
 #: src/route_pi.cpp:89 src/routegui.cpp:416
 msgid "Route"
-msgstr "Route"
+msgstr "Routeberekening"
 
 #: src/route_pi.cpp:145
 msgid "ROUTE"
-msgstr "ROUTE"
+msgstr "Route"
 
 #: src/route_pi.cpp:150
 msgid "Route Plotting plugin for OpenCPN"
-msgstr "Route PlugIn voor OpenCPN"
+msgstr "Routeberekening PlugIn voor OpenCPN"
 
 #: src/route_pi.cpp:155
 msgid "Route Plotting plugin for OpenCPN\n"
 "Plots Great Circle routes, Limited Circle Routes and Rhumb lines."
-msgstr "Route PlugIn voor OpenCPN\n"
+msgstr "Routeberekening PlugIn voor OpenCPN.\n"
 "Maakt loxodroom-, grootcirkel- en samengestelde routes."
 
 #: src/route_pi.cpp:224
@@ -92,13 +92,12 @@ msgstr "Routevoorkeuren"
 
 #: src/routegui_impl.h:55
 msgid "Route Plugin by SaltyPaws"
-msgstr "Route Plugin door SaltyPaws"
+msgstr "Routeberekening PlugIn door SaltyPaws"
 
 #: src/routegui.cpp:27
 msgid "Great Circle\n"
 "Route"
-msgstr "Grootcirkel-\n"
-"route"
+msgstr "Grootcirkelroute"
 
 #: src/routegui.cpp:40 src/routegui.cpp:164
 msgid "Input"
@@ -107,7 +106,7 @@ msgstr "Input"
 #: src/routegui.cpp:45 src/routegui.cpp:169
 msgid "Waypoint\n"
 "Distance"
-msgstr "Waypoint-\n"
+msgstr "Routepunt-\n"
 "afstand"
 
 #: src/routegui.cpp:53 src/routegui.cpp:86 src/routegui.cpp:104
@@ -229,7 +228,7 @@ msgstr "Decimale graden"
 
 #: src/routegui.cpp:479 src/routegui.cpp:571
 msgid "Lat "
-msgstr "Br"
+msgstr "Breedte"
 
 #: src/routegui.cpp:495 src/routegui.cpp:535 src/routegui.cpp:587
 #: src/routegui.cpp:627
@@ -251,7 +250,7 @@ msgstr "Z"
 
 #: src/routegui.cpp:519 src/routegui.cpp:611
 msgid "Lon"
-msgstr "Len"
+msgstr "Lengte"
 
 #: src/routegui.cpp:547 src/routegui.cpp:639
 msgid "E"
