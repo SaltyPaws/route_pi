@@ -317,7 +317,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	wxBoxSizer* bSizer1431;
 	bSizer1431 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText3231 = new wxStaticText( m_panel11, wxID_ANY, _("Lattitude  "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3231 = new wxStaticText( m_panel11, wxID_ANY, _("Latitude  "), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText3231->Wrap( -1 );
 	bSizer1431->Add( m_staticText3231, 0, wxALL, 5 );
 	
@@ -365,7 +365,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	wxBoxSizer* bSizer14312;
 	bSizer14312 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText32312 = new wxStaticText( m_panel11, wxID_ANY, _("Lattitude  "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText32312 = new wxStaticText( m_panel11, wxID_ANY, _("Latitude  "), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText32312->Wrap( -1 );
 	bSizer14312->Add( m_staticText32312, 0, wxALL, 5 );
 	
