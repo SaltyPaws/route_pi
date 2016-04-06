@@ -152,10 +152,11 @@ void Dlg::OnFit( wxCommandEvent& event )
 void Dlg::OnExportGC( wxCommandEvent& event )
 {
       bool error_occured=false;
+      bool user_canceled=false;
       wxFileDialog dlg(this, _("Export GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
       if (dlg.ShowModal() == wxID_CANCEL)
-        error_occured=true;     // the user changed idea...
-      if ((dlg.GetPath() != wxEmptyString) && (!error_occured)){
+        user_canceled=true;     // the user changed idea...
+      if (!user_canceled && !dlg.GetPath().IsEmpty()){
             //wxMessageBox(_("User entered text:"), dlg.GetPath());
 
             double dist, fwdAz, revAz;
@@ -286,6 +287,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     //20, 80, -40, -80 is a problem
 
     bool error_occured=false;
+    bool user_canceled=false;
     double dist, fwdAz, revAz;
 
 
@@ -304,15 +306,15 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     if (write_file){
         wxFileDialog dlg(this, _("Export Great Circle GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
         if (dlg.ShowModal() == wxID_CANCEL)
-            error_occured=true;     // the user changed idea...
+            user_canceled=true;     // the user changed idea...
         //dlg.ShowModal();
         s=dlg.GetPath();
         //  std::cout<<s<< std::endl;
-        if (dlg.GetPath() == wxEmptyString){ error_occured=true; if (dbg) printf("Empty Path\n");}
+        if (!user_canceled && s.IsEmpty()) { error_occured=true; if (dbg) printf("Empty Path\n");}
     }
 
     //Validate input ranges
-    if (!error_occured){
+    if (!user_canceled && !error_occured){
         if (std::abs(lat1)>90){ error_occured=true; }
         if (std::abs(lat2)>90){ error_occured=true; }
         if (std::abs(lon1)>180){ error_occured=true; }
@@ -320,19 +322,19 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
         if (error_occured) wxMessageBox(_("error in input range validation"));
     }
 
-    if ((lat1>0) && (lat1>std::abs(limit)) && (!error_occured) ){ //North
+    if ((!user_canceled && !error_occured) && (lat1>0) && (lat1>std::abs(limit))){ //North
         error_occured=true;
         wxMessageBox(_("Start Latitude>Limit!") );
     }
-    if ((lat1<0) && (std::abs(lat1)>std::abs(limit))&& (!error_occured)){ //south
+    if ((!user_canceled && !error_occured) && (lat1<0) && (std::abs(lat1)>std::abs(limit))){ //south
         error_occured=true;
         wxMessageBox(_("Start Latitude>Limit!") );
     }
-    if ((lat2>0) && (lat2>std::abs(limit))&& (!error_occured)){ //North
+    if ((!user_canceled && !error_occured) && (lat2>0) && (lat2>std::abs(limit))){ //North
         error_occured=true;
         wxMessageBox(_("Start Latitude>Limit!") );
     }
-    if ((lat2<0) && (std::abs(lat2)>std::abs(limit))&& (!error_occured)){ //south
+    if ((!user_canceled && !error_occured) && (lat2<0) && (std::abs(lat2)>std::abs(limit))){ //south
         error_occured=true;
         wxMessageBox(_("Start Latitude>Limit!") );
     }
@@ -381,11 +383,11 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     double step_size=dist/100;
     if (step_size<0.05) step_size=1; //prevent infinite loop
 
-    if (error_occured){
+    if (!user_canceled && !error_occured){
         wxLogMessage(_("Error occured, aborting GCL calc!") );
         //wxMessageBox(_("Route interval > Distance, 0 or negative") );
         }
-    if (!error_occured){
+    if (!user_canceled && !error_occured){
         //start
         double lati=0, loni=0,latold=lat1,lonold=lon1,segment_distance=0,fwdAz_dummy=0,revAz_dummy=0;
         double GCL_dist=0;
@@ -697,10 +699,11 @@ double Dlg::BrentsMethodSolve(double lowerLimit, double upperLimit, double error
 void Dlg::OnExportRH( wxCommandEvent& event )
 {
     bool error_occured=false;
+    bool user_canceled=false;
     wxFileDialog dlg(this, _("Export Rhumb Line GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
     if (dlg.ShowModal() == wxID_CANCEL)
-        error_occured=true;     // the user changed idea...
-    if ((dlg.GetPath() != wxEmptyString) &&(!error_occured)){
+        user_canceled=true;     // the user changed idea...
+    if (!user_canceled && !dlg.GetPath().IsEmpty()){
             double dist, fwdAz;//, revAz;
 
             double lat1,lon1,lat2,lon2;
