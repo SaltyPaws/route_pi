@@ -6,7 +6,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
-#include "georef.h"
+#include "OpenCPN/georef.h"
 #include "vincenty.h"
 
 
