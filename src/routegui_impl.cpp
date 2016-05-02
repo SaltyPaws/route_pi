@@ -241,7 +241,7 @@ void Dlg::OnExportGC( wxCommandEvent& event )
             root->LinkEndChild( Route );
             wxString s=dlg.GetPath();
 
-            if (!wxFileExists(dlg.GetPath())) {
+            if (!s.EndsWith(_T(".gpx"))) {
                  s = s + _T(".gpx");
             }
             wxCharBuffer buffer=s.ToUTF8();
@@ -586,7 +586,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
        if (write_file){
             root->LinkEndChild( Route );
             // check if string ends with .gpx or .GPX
-            if (!wxFileExists(s)){
+            if (!s.EndsWith(_T(".gpx"))) {
                  s = s + _T(".gpx");
             }
             wxCharBuffer buffer=s.ToUTF8();
@@ -784,7 +784,7 @@ void Dlg::OnExportRH( wxCommandEvent& event )
             root->LinkEndChild( Route );
             wxString s=dlg.GetPath();
 
-            if (!wxFileExists(dlg.GetPath())) {
+            if (!s.EndsWith(_T(".gpx"))) {
                  s = s + _T(".gpx");
             }
             wxCharBuffer buffer=s.ToUTF8();
