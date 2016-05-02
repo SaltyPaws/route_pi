@@ -217,7 +217,7 @@ msgid "Start of Route"
 msgstr "Début de la route"
 
 #: src/routegui.cpp:320 src/routegui.cpp:368
-msgid "Lattitude  "
+msgid "Latitude  "
 msgstr "Latitude"
 
 #: src/routegui.cpp:338 src/routegui.cpp:386
