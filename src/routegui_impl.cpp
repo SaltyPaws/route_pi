@@ -112,7 +112,8 @@ void Dlg::OnNoteBookFit( wxCommandEvent& event )
 
 void Dlg::OnGCCalculate( wxCommandEvent& event ){
 
-    bool error_occured=false;
+    bool error_occurred=false;
+    bool user_canceled=false;
     double dist, fwdAz, revAz;
 
     double lat1,lon1,lat2,lon2;
@@ -123,18 +124,18 @@ void Dlg::OnGCCalculate( wxCommandEvent& event ){
     if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;}
 
     //Validate input ranges
-    if (std::abs(lat1)>90){ error_occured=true; }
-    if (std::abs(lat2)>90){ error_occured=true; }
-    if (std::abs(lon1)>180){ error_occured=true; }
-    if (std::abs(lon2)>180){ error_occured=true; }
+    if (std::abs(lat1)>90){ error_occurred=true; }
+    if (std::abs(lat2)>90){ error_occurred=true; }
+    if (std::abs(lon1)>180){ error_occurred=true; }
+    if (std::abs(lon2)>180){ error_occurred=true; }
 
-    if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occured=true; };
+    if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occurred=true; };
     this->m_distance_GC->SetValue(wxString::Format(wxT("%g"), dist));
 
     DistanceBearingMercator(lat1, lon1, lat2, lon2, &fwdAz, &dist);
     this->m_distance_RH->SetValue(wxString::Format(wxT("%g"), dist));
 
-    if (error_occured==true)  {
+    if (error_occurred==true)  {
         wxLogMessage(_("Error in calculation. Please check input!") );
         wxMessageBox(_("Error in calculation. Please check input!") );}
 }
@@ -151,11 +152,13 @@ void Dlg::OnFit( wxCommandEvent& event )
 
 void Dlg::OnExportGC( wxCommandEvent& event )
 {
-      bool error_occured=false;
+      bool error_occurred=false;
+      bool user_canceled=false;
       wxFileDialog dlg(this, _("Export GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
       if (dlg.ShowModal() == wxID_CANCEL)
-        error_occured=true;     // the user changed idea...
-      if ((dlg.GetPath() != wxEmptyString) && (!error_occured)){
+        user_canceled=true;     // the user changed idea...
+ 	if (!user_canceled && !dlg.GetPath().IsEmpty()){
+
             //wxMessageBox(_("User entered text:"), dlg.GetPath());
 
             double dist, fwdAz, revAz;
@@ -167,18 +170,18 @@ void Dlg::OnExportGC( wxCommandEvent& event )
             if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;}
             if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;}
             //Validate input ranges
-            if (std::abs(lat1)>90){ error_occured=true; }
-            if (std::abs(lat2)>90){ error_occured=true; }
-            if (std::abs(lon1)>180){ error_occured=true; }
-            if (std::abs(lon2)>180){ error_occured=true; }
+            if (std::abs(lat1)>90){ error_occurred=true; }
+            if (std::abs(lat2)>90){ error_occurred=true; }
+            if (std::abs(lon1)>180){ error_occurred=true; }
+            if (std::abs(lon2)>180){ error_occurred=true; }
 
-            if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occured=true; };
+            if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occurred=true; };
             this->m_distance_GC->SetValue(wxString::Format(wxT("%g"), dist));
 
            /* DistanceBearingMercator(lat1, lon1, lat2, lon2, &fwdAz, &dist);
             this->m_distance_RH->SetValue(wxString::Format(wxT("%g"), dist));*/
 
-            if (error_occured==true)  {
+            if (error_occurred==true)  {
                 wxLogMessage(_("Error in calculation. Please check input!") );
                 wxMessageBox(_("Error in calculation. Please check input!") );}
 
@@ -285,9 +288,9 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     //-40,80,20, 20, -80 is a problem
     //20, 80, -40, -80 is a problem
 
-    bool error_occured=false;
+    bool error_occurred=false;
+    bool user_canceled=false;
     double dist, fwdAz, revAz;
-
 
     double lat1,lon1,lat2,lon2,limit;
     //set value to 0
@@ -295,45 +298,45 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ lon1=0.0;}
     if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;}
     if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;}
-    if (error_occured) wxMessageBox(_T("error in conversion of input coordinates"));
-    if(!error_occured && (!this->m_LatLimit->GetValue().ToDouble(&limit))){ error_occured=true; wxMessageBox(_("No Lat Limit!") ); }
+    if (error_occurred) wxMessageBox(_T("error in conversion of input coordinates"));
+    if(!error_occurred && (!this->m_LatLimit->GetValue().ToDouble(&limit))){ error_occurred=true; wxMessageBox(_("No Lat Limit!") ); }
 
-    //error_occured=false;
+    //error_occurred=false;
 
     wxString s;
-    if (write_file){
+    if (write_file&&!error_occurred){
         wxFileDialog dlg(this, _("Export Great Circle GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
         if (dlg.ShowModal() == wxID_CANCEL)
-            error_occured=true;     // the user changed idea...
+            user_canceled=true;     // the user changed idea...
         //dlg.ShowModal();
         s=dlg.GetPath();
         //  std::cout<<s<< std::endl;
-        if (dlg.GetPath() == wxEmptyString){ error_occured=true; if (dbg) printf("Empty Path\n");}
+        if (!user_canceled && s.IsEmpty()){ error_occurred=true; if (dbg) printf("Empty Path\n");}
     }
 
     //Validate input ranges
-    if (!error_occured){
-        if (std::abs(lat1)>90){ error_occured=true; }
-        if (std::abs(lat2)>90){ error_occured=true; }
-        if (std::abs(lon1)>180){ error_occured=true; }
-        if (std::abs(lon2)>180){ error_occured=true; }
-        if (error_occured) wxMessageBox(_("error in input range validation"));
+    if (!error_occurred && !user_canceled){
+        if (std::abs(lat1)>90){ error_occurred=true; }
+        if (std::abs(lat2)>90){ error_occurred=true; }
+        if (std::abs(lon1)>180){ error_occurred=true; }
+        if (std::abs(lon2)>180){ error_occurred=true; }
+        if (error_occurred) wxMessageBox(_("error in input range validation"));
     }
 
-    if ((lat1>0) && (lat1>std::abs(limit)) && (!error_occured) ){ //North
-        error_occured=true;
+    if ((!user_canceled && !error_occurred) && (lat1>0) && (lat1>std::abs(limit))){ //North
+        error_occurred=true;
         wxMessageBox(_("Start Latitude>Limit!") );
     }
-    if ((lat1<0) && (std::abs(lat1)>std::abs(limit))&& (!error_occured)){ //south
-        error_occured=true;
+    if ((!user_canceled && !error_occurred) && (lat1<0) && (std::abs(lat1)>std::abs(limit))){ //South
+        error_occurred=true;
         wxMessageBox(_("Start Latitude>Limit!") );
     }
-    if ((lat2>0) && (lat2>std::abs(limit))&& (!error_occured)){ //North
-        error_occured=true;
+    if ((!user_canceled && !error_occurred) && (lat2>0) && (lat2>std::abs(limit))){ //North
+        error_occurred=true;
         wxMessageBox(_("Start Latitude>Limit!") );
     }
-    if ((lat2<0) && (std::abs(lat2)>std::abs(limit))&& (!error_occured)){ //south
-        error_occured=true;
+    if ((!user_canceled && !error_occurred) && (lat2<0) && (std::abs(lat2)>std::abs(limit))){ //South
+        error_occurred=true;
         wxMessageBox(_("Start Latitude>Limit!") );
     }
     //Calculate RH dist
@@ -341,7 +344,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     this->m_distance_RH1->SetValue(wxString::Format(wxT("%g"), dist));
 
     //Calculate GC
-    if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occured=true;    if (dbg) printf("error in DistVincenty\n"); };
+    if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occurred=true;    if (dbg) printf("error in DistVincenty\n"); };
     this->m_distance_GC1->SetValue(wxString::Format(wxT("%g"), dist));
     TiXmlDocument doc;
     TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
@@ -381,11 +384,11 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     double step_size=dist/100;
     if (step_size<0.05) step_size=1; //prevent infinite loop
 
-    if (error_occured){
-        wxLogMessage(_("Error occured, aborting GCL calc!") );
+    if (!user_canceled && error_occurred){
+        wxLogMessage(_("Error occurred, aborting GCL calc!") );
         //wxMessageBox(_("Route interval > Distance, 0 or negative") );
         }
-    if (!error_occured){
+    if (!user_canceled &&!error_occurred){
         //start
         double lati=0, loni=0,latold=lat1,lonold=lon1,segment_distance=0,fwdAz_dummy=0,revAz_dummy=0;
         double GCL_dist=0;
@@ -428,7 +431,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                 }
             }
 
-            if(!DistVincenty(latold, lonold, lati, loni, &segment_distance, &fwdAz_dummy, &revAz_dummy)){ error_occured=true; if (dbg) printf("error in 2nd Vncenty\n"); };
+            if(!DistVincenty(latold, lonold, lati, loni, &segment_distance, &fwdAz_dummy, &revAz_dummy)){ error_occurred=true; if (dbg) printf("error in 2nd Vncenty\n"); };
                 GCL_dist += segment_distance;
                 //std::cout<<"Distance: "<<GCL_dist<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
                 latold=lati;
@@ -447,7 +450,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                     Lat_int2=-std::abs(limit);
                 }
                 else
-                    error_occured=true; //intersecting limit cannot be 0
+                    error_occurred=true; //intersecting limit cannot be 0
 
 
                 int target_az=0;
@@ -455,7 +458,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                 else if (fwdAz>90 && fwdAz<180) target_az = 270;
                 else if (fwdAz>180 && fwdAz<270) target_az = 90;
                 else if (fwdAz>270 && fwdAz<360) target_az = 90;
-                else {error_occured=1; if (dbg) std::cout<<"impossible course for GC!!! "<<fwdAz<<std::endl;}
+                else {error_occurred=1; if (dbg) std::cout<<"impossible course for GC!!! "<<fwdAz<<std::endl;}
 
                 //Find position of first section
                 this->lat1=lat1;
@@ -484,7 +487,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                 else if (target_az==270)
                     target_az=90;
                 else
-                    error_occured=true;
+                    error_occurred=true;
 
                 this->lat1=lat2;
                 this->lon1=lon2;
@@ -592,9 +595,9 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
             wxCharBuffer buffer=s.ToUTF8();
             if (dbg) std::cout<< buffer.data()<<std::endl;
             doc.SaveFile( buffer.data() );}
-    } //end of if no error occured
+    } //end of if no error occurred
 
-    if (error_occured==true)  {
+    if (error_occurred==true && !user_canceled)  {
         wxLogMessage(_("Error in calculation. Please check input!") );
         wxMessageBox(_("Error in calculation. Please check input!") );
     }
@@ -696,28 +699,29 @@ double Dlg::BrentsMethodSolve(double lowerLimit, double upperLimit, double error
 
 void Dlg::OnExportRH( wxCommandEvent& event )
 {
-    bool error_occured=false;
+    bool error_occurred=false;
+    bool user_canceled=false;
     wxFileDialog dlg(this, _("Export Rhumb Line GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
     if (dlg.ShowModal() == wxID_CANCEL)
-        error_occured=true;     // the user changed idea...
-    if ((dlg.GetPath() != wxEmptyString) &&(!error_occured)){
+        user_canceled=true;     // the user changed idea...
+    if (!user_canceled && !dlg.GetPath().IsEmpty()){
             double dist, fwdAz;//, revAz;
 
             double lat1,lon1,lat2,lon2;
-            if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ error_occured=true;}
-            if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ error_occured=true; }
-            if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ error_occured=true;}
-            if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ error_occured=true; }
+            if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ error_occurred=true;}
+            if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ error_occurred=true; }
+            if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ error_occurred=true;}
+            if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ error_occurred=true; }
 
             //Validate input ranges
-            if (std::abs(lat1)>90){ error_occured=true; }
-            if (std::abs(lat2)>90){ error_occured=true; }
-            if (std::abs(lon1)>180){ error_occured=true; }
-            if (std::abs(lon2)>180){ error_occured=true; }
+            if (std::abs(lat1)>90){ error_occurred=true; }
+            if (std::abs(lat2)>90){ error_occurred=true; }
+            if (std::abs(lon1)>180){ error_occurred=true; }
+            if (std::abs(lon2)>180){ error_occurred=true; }
 
             DistanceBearingMercator(lat2, lon2, lat1, lon1, &fwdAz, &dist);
 
-            if (error_occured==true)  {
+            if (error_occurred==true)  {
                 wxLogMessage(_("Error in calculation. Please check input!") );
                 wxMessageBox(_("Error in calculation. Please check input!") );}
 
