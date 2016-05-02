@@ -4,8 +4,10 @@
 #ifndef isnan
 #define isnan(x) ((x)!=(x))
 #endif
-#endif
+#else
+using namespace std;
 
+#endif
 
 #include "vincenty.h"
 
