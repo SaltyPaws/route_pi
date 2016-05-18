@@ -8,6 +8,17 @@ The aims are to:
 1. Generate GPX files for Great Circle, Limited Circle and Rhumb line route plotting methods.
 2. Calculate route distance using above methods.
 
+
+Changelog
+=========
+Changes to 1.1:
+- Update to new build system
+- Remove error message on cancelled save (FS#1069)
+- Fix doubled ".gpx" file extension (FS#1070).
+- Fix typos FS#1071
+
+
+
 Compiling
 =========
 You have to be able to compile OpenCPN itself - Get the info at http://opencpn.org/ocpn/developers_manual
