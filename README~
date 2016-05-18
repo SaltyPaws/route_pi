@@ -1,0 +1,46 @@
+Route Plot Plugin for OpenCPN
+=======================================
+
+The purpose of this plugin is to provide Great Circle, Limited Circle and Rhumb line plotting capability to OpenCPN. The plugin adds functionality over the existing route plotting capability (ie, you can change the distance of the way-points, plot limited circles, and compare distances).
+
+The aims are to:
+
+1. Generate GPX files for Great Circle, Limited Circle and Rhumb line route plotting methods.
+2. Calculate route distance using above methods.
+
+
+Changelog
+=========
+Changes to 1.1:
+- Update to new build system
+- Remove error message on cancelled save (FS#1069)
+- Fix doubled ".gpx" file extension (FS#1070).
+- Fix typos FS#1071
+- Fix bug where GCL did not produce GPX if limit was not met FS#2020
+
+
+
+
+Compiling
+=========
+You have to be able to compile OpenCPN itself - Get the info at http://opencpn.org/ocpn/developers_manual
+
+* go to the plugin subdirectory in your OpenCPN source tree
+* git clone https://github.com/SaltyPaws/route_pi.git
+
+Build as normally:
+
+* cd ..
+* cd build
+* cmake ../
+* make
+* sudo make install
+
+ToDo
+=======
+Once the Navobject becomes available to the plugin API, will update to also enable direct route plotting.
+
+
+License
+=======
+The plugin is licensed under the terms of GPL v2 or, at your will, later. vincente.cpp and .h is licenced under Apace licence.
