@@ -34,7 +34,7 @@ CfgDlg::CfgDlg( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 Dlg::Dlg( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : DlgDef( parent, id, title, pos, size, style )
 {
     this->Fit();
-    dbg=false; //for debug output set to true
+    dbg=true; //for debug output set to true
 }
 
 void Dlg::OnToggle( wxCommandEvent& event )
@@ -290,6 +290,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
 
     bool error_occurred=false;
     bool user_canceled=false;
+    bool Lat_limit_found=false;
     double dist, fwdAz, revAz;
 
     double lat1,lon1,lat2,lon2,limit;
@@ -303,16 +304,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
 
     //error_occurred=false;
 
-    wxString s;
-    if (write_file&&!error_occurred){
-        wxFileDialog dlg(this, _("Export Great Circle GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
-        if (dlg.ShowModal() == wxID_CANCEL)
-            user_canceled=true;     // the user changed idea...
-        //dlg.ShowModal();
-        s=dlg.GetPath();
-        //  std::cout<<s<< std::endl;
-        if (!user_canceled && s.IsEmpty()){ error_occurred=true; if (dbg) printf("Empty Path\n");}
-    }
+
 
     //Validate input ranges
     if (!error_occurred && !user_canceled){
@@ -346,39 +338,6 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     //Calculate GC
     if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occurred=true;    if (dbg) printf("error in DistVincenty\n"); };
     this->m_distance_GC1->SetValue(wxString::Format(wxT("%g"), dist));
-    TiXmlDocument doc;
-    TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
-    doc.LinkEndChild( decl );
-    TiXmlElement * root = new TiXmlElement( "gpx" );
-    TiXmlElement * Route = new TiXmlElement( "rte" );
-    TiXmlElement * RouteName = new TiXmlElement( "name" );
-    TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
-
-    if (write_file){
-        doc.LinkEndChild( root );
-        root->SetAttribute("version", "1.1");
-        root->SetAttribute("creator", "Route_pi by SaltyPaws");
-        root->SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-        root->SetAttribute("xmlns:gpxx","http://www.garmin.com/xmlschemas/GpxExtensions/v3" );
-        root->SetAttribute("xsi:schemaLocation", "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
-        root->SetAttribute("xmlns:opencpn","http://www.opencpn.org");
-        Route->LinkEndChild( RouteName );
-        RouteName->LinkEndChild( text4 );
-
-        TiXmlElement * Extensions = new TiXmlElement( "extensions" );
-
-        TiXmlElement * StartN = new TiXmlElement( "opencpn:start" );
-        TiXmlText * text5 = new TiXmlText( this->m_Start->GetValue().ToUTF8() );
-        Extensions->LinkEndChild( StartN );
-        StartN->LinkEndChild( text5 );
-
-        TiXmlElement * EndN = new TiXmlElement( "opencpn:end" );
-        TiXmlText * text6 = new TiXmlText( this->m_End->GetValue().ToUTF8() );
-        Extensions->LinkEndChild( EndN );
-        EndN->LinkEndChild( text6 );
-
-        Route->LinkEndChild( Extensions );
-    }
 
     //Calculate GCL
     double step_size=dist/100;
@@ -392,7 +351,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
         //start
         double lati=0, loni=0,latold=lat1,lonold=lon1,segment_distance=0,fwdAz_dummy=0,revAz_dummy=0;
         double GCL_dist=0;
-        bool Lat_limit_found=false;
+
         double Lat_int1=0, Lat_int2=999999, Lon_int1=0, Lon_int2=0;
 
         for(double in_distance=0;in_distance<(dist+Tol());in_distance=in_distance+step_size)
@@ -438,9 +397,59 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                 lonold=loni;
             }
 
-            //if Lat_limit_found we will do a limited circle calc, otherwise revert to great circle FIXME
+
+            //If we found the limit, go for the dialog box else revert to GC
+                wxString s;
+    if (write_file&&!error_occurred&&Lat_limit_found){
+        wxFileDialog dlg(this, _("Export Great Circle GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
+        if (dlg.ShowModal() == wxID_CANCEL)
+            user_canceled=true;     // the user changed idea...
+        //dlg.ShowModal();
+        s=dlg.GetPath();
+        //  std::cout<<s<< std::endl;
+        if (!user_canceled && s.IsEmpty()){ error_occurred=true; if (dbg) printf("Empty Path\n");}
+    }
+
+
+
             //first GC: (lat1 ,lat2, Lat_int1,x (>Lat_int1&&<Lat_int2) )
-            if (Lat_limit_found){
+            if (Lat_limit_found&&!error_occurred&&!user_canceled){
+             TiXmlDocument doc;
+    TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
+    doc.LinkEndChild( decl );
+    TiXmlElement * root = new TiXmlElement( "gpx" );
+    TiXmlElement * Route = new TiXmlElement( "rte" );
+    TiXmlElement * RouteName = new TiXmlElement( "name" );
+    TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
+
+    if (write_file){
+        doc.LinkEndChild( root );
+        root->SetAttribute("version", "1.1");
+        root->SetAttribute("creator", "Route_pi by SaltyPaws");
+        root->SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+        root->SetAttribute("xmlns:gpxx","http://www.garmin.com/xmlschemas/GpxExtensions/v3" );
+        root->SetAttribute("xsi:schemaLocation", "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
+        root->SetAttribute("xmlns:opencpn","http://www.opencpn.org");
+        Route->LinkEndChild( RouteName );
+        RouteName->LinkEndChild( text4 );
+
+        TiXmlElement * Extensions = new TiXmlElement( "extensions" );
+
+        TiXmlElement * StartN = new TiXmlElement( "opencpn:start" );
+        TiXmlText * text5 = new TiXmlText( this->m_Start->GetValue().ToUTF8() );
+        Extensions->LinkEndChild( StartN );
+        StartN->LinkEndChild( text5 );
+
+        TiXmlElement * EndN = new TiXmlElement( "opencpn:end" );
+        TiXmlText * text6 = new TiXmlText( this->m_End->GetValue().ToUTF8() );
+        Extensions->LinkEndChild( EndN );
+        EndN->LinkEndChild( text6 );
+
+        Route->LinkEndChild( Extensions );
+    }
+
+
+
                 if (Lat_int1>0){
                     Lat_int1=std::abs(limit);
                     Lat_int2=std::abs(limit);
@@ -541,7 +550,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
        //DistVincenty(Lat_int1, Lon_int1, Lat_int2, Lon_int2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
        DistanceBearingMercator(Lat_int2, Lon_int2, Lat_int1, Lon_int1, &fwdAz_dummy, &segment_distance);
        LC_distance+=segment_distance;
-       //FIXME add wwaypoint writing
+       //FIXME add waypoint writing
        if (write_file){
             for(double in_distance=step_size;in_distance<(segment_distance+Tol());in_distance=in_distance+step_size)
                 {
@@ -573,20 +582,8 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
        //Write out distance to dialog box
        this->m_distance_LC->SetValue(wxString::Format(wxT("%g"), LC_distance));
 
-       }
-       if (!Lat_limit_found) {
-            //no intersection, do normal GC
-            //this->m_distance_GC1->SetValue(wxString::Format(wxT("%g"), dist));
-            this->m_distance_LC->SetValue(this->m_distance_GC1->GetValue());
-            //write file (call to GC function)
-            if (write_file){
-                if (dbg) std::cout<<"Calling GC function, nothing to limit."<< std::endl;
-                this->m_IntervalNM->SetValue(this->m_IntervalNM1->GetValue()); //Make sure right step-sizze is used
-                OnExportGC( event );
-            }
-       }
 
-       if (write_file){
+              if (write_file){
             root->LinkEndChild( Route );
             // check if string ends with .gpx or .GPX
             if (!s.EndsWith(_T(".gpx"))) {
@@ -596,6 +593,18 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
             if (dbg) std::cout<< buffer.data()<<std::endl;
             doc.SaveFile( buffer.data() );}
     } //end of if no error occurred
+
+
+       }
+       if (!Lat_limit_found) {
+            //no intersection, do normal GC
+            //this->m_distance_GC1->SetValue(wxString::Format(wxT("%g"), dist));
+            this->m_distance_LC->SetValue(this->m_distance_GC1->GetValue());
+            if (write_file) OnExportGC(event);
+
+            //write file (call to GC function)
+       }
+
 
     if (error_occurred==true && !user_canceled)  {
         wxLogMessage(_("Error in calculation. Please check input!") );

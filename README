@@ -16,6 +16,8 @@ Changes to 1.1:
 - Remove error message on cancelled save (FS#1069)
 - Fix doubled ".gpx" file extension (FS#1070).
 - Fix typos FS#1071
+- Fix bug where GCL did not produce GPX if limit was not met FS#2020
+
 
 
 
