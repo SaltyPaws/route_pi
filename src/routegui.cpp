@@ -189,7 +189,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_LatLimit = new wxTextCtrl( sbSizer222->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer9311->Add( m_LatLimit, 0, wxALL, 5 );
 	
-	m_staticText3331112 = new wxStaticText( sbSizer222->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3331112 = new wxStaticText( sbSizer222->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText3331112->Wrap( -1 );
 	bSizer9311->Add( m_staticText3331112, 0, wxALL, 5 );
 	
@@ -320,7 +320,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lat1 = new wxTextCtrl( sbSizer7->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer1431->Add( m_Lat1, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	m_staticText3331 = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3331 = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText3331->Wrap( -1 );
 	bSizer1431->Add( m_staticText3331, 0, wxALL, 5 );
 	
@@ -337,7 +337,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lon1 = new wxTextCtrl( sbSizer7->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer14311->Add( m_Lon1, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	m_staticText33311 = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText33311 = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText33311->Wrap( -1 );
 	bSizer14311->Add( m_staticText33311, 0, wxALL, 5 );
 	
@@ -366,7 +366,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lat2 = new wxTextCtrl( sbSizer71->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer14312->Add( m_Lat2, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	m_staticText33312 = new wxStaticText( sbSizer71->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText33312 = new wxStaticText( sbSizer71->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText33312->Wrap( -1 );
 	bSizer14312->Add( m_staticText33312, 0, wxALL, 5 );
 	
@@ -383,7 +383,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lon2 = new wxTextCtrl( sbSizer71->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer143111->Add( m_Lon2, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	m_staticText333111 = new wxStaticText( sbSizer71->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText333111 = new wxStaticText( sbSizer71->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText333111->Wrap( -1 );
 	bSizer143111->Add( m_staticText333111, 0, wxALL, 5 );
 	
@@ -451,7 +451,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_panel11->SetSizer( bSizer40 );
 	m_panel11->Layout();
 	bSizer40->Fit( m_panel11 );
-	m_wxNotebook234->AddPage( m_panel11, _("Decimal Degree"), false );
+	m_wxNotebook234->AddPage( m_panel11, _("Decimal Degree"), true );
 	m_panel15 = new wxPanel( m_wxNotebook234, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer401;
 	bSizer401 = new wxBoxSizer( wxVERTICAL );
@@ -472,7 +472,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lat1_d = new wxTextCtrl( sbSizer72->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
 	bSizer14313->Add( m_Lat1_d, 0, wxALL, 5 );
 	
-	m_staticText33313 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	m_staticText33313 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
 	m_staticText33313->Wrap( -1 );
 	bSizer14313->Add( m_staticText33313, 0, wxALL, 5 );
 	
@@ -509,7 +509,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lon1_d = new wxTextCtrl( sbSizer72->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
 	bSizer143112->Add( m_Lon1_d, 0, wxALL, 5 );
 	
-	m_staticText333112 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText333112 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText333112->Wrap( -1 );
 	bSizer143112->Add( m_staticText333112, 0, wxALL, 5 );
 	
@@ -558,7 +558,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lat2_d = new wxTextCtrl( sbSizer711->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
 	bSizer143121->Add( m_Lat2_d, 0, wxALL, 5 );
 	
-	m_staticText333121 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText333121 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText333121->Wrap( -1 );
 	bSizer143121->Add( m_staticText333121, 0, wxALL, 5 );
 	
@@ -595,7 +595,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lon2_d = new wxTextCtrl( sbSizer711->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
 	bSizer1431111->Add( m_Lon2_d, 0, wxALL, 5 );
 	
-	m_staticText3331111 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3331111 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText3331111->Wrap( -1 );
 	bSizer1431111->Add( m_staticText3331111, 0, wxALL, 5 );
 	
@@ -632,6 +632,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer481 = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_button81 = new wxButton( m_panel15, wxID_ANY, _("Convert to Degree"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_button81->SetToolTip( _("Degrees, minutes and seconds can be entered as fraction or as decimal.") );
+	
 	bSizer481->Add( m_button81, 0, wxALL, 5 );
 	
 	
@@ -641,7 +643,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_panel15->SetSizer( bSizer401 );
 	m_panel15->Layout();
 	bSizer401->Fit( m_panel15 );
-	m_wxNotebook234->AddPage( m_panel15, _("\u00b0 ' \""), true );
+	m_wxNotebook234->AddPage( m_panel15, _("° ' \""), false );
 	
 	bSizer35->Add( m_wxNotebook234, 0, wxALL, 5 );
 	
