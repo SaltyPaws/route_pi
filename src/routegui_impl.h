@@ -67,7 +67,6 @@ public:
         //void Addpoint(TiXmlElement* Route, double ptlat, double ptlon, wxString ptname, wxString ptsym, wxString pttype);
         void Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString ptname, wxString ptsym, wxString pttype);
         double BrentsMethodSolve(double lowerLimit, double upperLimit, double errorTol);
-        double Fraction_string_to_Decimal(wxString fraction_string);
         //friend class function;
         route_pi *plugin;
 private:
