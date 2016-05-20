@@ -302,10 +302,6 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
     if (error_occurred) wxMessageBox(_T("error in conversion of input coordinates"));
     if(!error_occurred && (!this->m_LatLimit->GetValue().ToDouble(&limit))){ error_occurred=true; wxMessageBox(_("No Lat Limit!") ); }
 
-    //error_occurred=false;
-
-
-
     //Validate input ranges
     if (!error_occurred && !user_canceled){
         if (std::abs(lat1)>90){ error_occurred=true; }
@@ -341,7 +337,13 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
 
     //Calculate GCL
     double step_size=dist/100;
-    if (step_size<0.05) step_size=1; //prevent infinite loop
+    bool m_IntervalNM_test=false;
+    if(!this->m_IntervalNM1->GetValue().ToDouble(&step_size)){ m_IntervalNM_test=true;}
+    if ((step_size>dist) || (step_size<dist*1/5000) || (m_IntervalNM_test)){
+        m_IntervalNM1->SetValue(wxString::Format(wxT("%g"), dist/100));
+        step_size=dist/100;
+        if (step_size<0.05) step_size=1; //prevent infinite loop
+    }
 
     if (!user_canceled && error_occurred){
         wxLogMessage(_("Error occurred, aborting GCL calc!") );
@@ -397,58 +399,53 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                 lonold=loni;
             }
 
-
             //If we found the limit, go for the dialog box else revert to GC
                 wxString s;
-    if (write_file&&!error_occurred&&Lat_limit_found){
-        wxFileDialog dlg(this, _("Export Great Circle GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
-        if (dlg.ShowModal() == wxID_CANCEL)
-            user_canceled=true;     // the user changed idea...
-        //dlg.ShowModal();
-        s=dlg.GetPath();
-        //  std::cout<<s<< std::endl;
-        if (!user_canceled && s.IsEmpty()){ error_occurred=true; if (dbg) printf("Empty Path\n");}
-    }
-
-
+                if (write_file&&!error_occurred&&Lat_limit_found){
+                    wxFileDialog dlg(this, _("Export Great Circle GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
+                    if (dlg.ShowModal() == wxID_CANCEL)
+                        user_canceled=true;     // the user changed idea...
+                    //dlg.ShowModal();
+                    s=dlg.GetPath();
+                    //  std::cout<<s<< std::endl;
+                    if (!user_canceled && s.IsEmpty()){ error_occurred=true; if (dbg) printf("Empty Path\n");}
+                }
 
             //first GC: (lat1 ,lat2, Lat_int1,x (>Lat_int1&&<Lat_int2) )
             if (Lat_limit_found&&!error_occurred&&!user_canceled){
-             TiXmlDocument doc;
-    TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
-    doc.LinkEndChild( decl );
-    TiXmlElement * root = new TiXmlElement( "gpx" );
-    TiXmlElement * Route = new TiXmlElement( "rte" );
-    TiXmlElement * RouteName = new TiXmlElement( "name" );
-    TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
+                TiXmlDocument doc;
+                TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
+                doc.LinkEndChild( decl );
+                TiXmlElement * root = new TiXmlElement( "gpx" );
+                TiXmlElement * Route = new TiXmlElement( "rte" );
+                TiXmlElement * RouteName = new TiXmlElement( "name" );
+                TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
 
-    if (write_file){
-        doc.LinkEndChild( root );
-        root->SetAttribute("version", "1.1");
-        root->SetAttribute("creator", "Route_pi by SaltyPaws");
-        root->SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-        root->SetAttribute("xmlns:gpxx","http://www.garmin.com/xmlschemas/GpxExtensions/v3" );
-        root->SetAttribute("xsi:schemaLocation", "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
-        root->SetAttribute("xmlns:opencpn","http://www.opencpn.org");
-        Route->LinkEndChild( RouteName );
-        RouteName->LinkEndChild( text4 );
+                if (write_file){
+                    doc.LinkEndChild( root );
+                    root->SetAttribute("version", "1.1");
+                    root->SetAttribute("creator", "Route_pi by SaltyPaws");
+                    root->SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+                    root->SetAttribute("xmlns:gpxx","http://www.garmin.com/xmlschemas/GpxExtensions/v3" );
+                    root->SetAttribute("xsi:schemaLocation", "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
+                    root->SetAttribute("xmlns:opencpn","http://www.opencpn.org");
+                    Route->LinkEndChild( RouteName );
+                    RouteName->LinkEndChild( text4 );
 
-        TiXmlElement * Extensions = new TiXmlElement( "extensions" );
+                    TiXmlElement * Extensions = new TiXmlElement( "extensions" );
 
-        TiXmlElement * StartN = new TiXmlElement( "opencpn:start" );
-        TiXmlText * text5 = new TiXmlText( this->m_Start->GetValue().ToUTF8() );
-        Extensions->LinkEndChild( StartN );
-        StartN->LinkEndChild( text5 );
+                    TiXmlElement * StartN = new TiXmlElement( "opencpn:start" );
+                    TiXmlText * text5 = new TiXmlText( this->m_Start->GetValue().ToUTF8() );
+                    Extensions->LinkEndChild( StartN );
+                    StartN->LinkEndChild( text5 );
 
-        TiXmlElement * EndN = new TiXmlElement( "opencpn:end" );
-        TiXmlText * text6 = new TiXmlText( this->m_End->GetValue().ToUTF8() );
-        Extensions->LinkEndChild( EndN );
-        EndN->LinkEndChild( text6 );
+                    TiXmlElement * EndN = new TiXmlElement( "opencpn:end" );
+                    TiXmlText * text6 = new TiXmlText( this->m_End->GetValue().ToUTF8() );
+                    Extensions->LinkEndChild( EndN );
+                    EndN->LinkEndChild( text6 );
 
-        Route->LinkEndChild( Extensions );
-    }
-
-
+                    Route->LinkEndChild( Extensions );
+                }
 
                 if (Lat_int1>0){
                     Lat_int1=std::abs(limit);
@@ -460,7 +457,6 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                 }
                 else
                     error_occurred=true; //intersecting limit cannot be 0
-
 
                 int target_az=0;
                 if (fwdAz>0 && fwdAz<90) target_az = 270;
@@ -517,94 +513,84 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                     if (Lon_int2>180)
                         Lon_int2=Lon_int2-360;
                 }
-        //Section 1
-        DistVincenty(lat1, lon1, Lat_int1, Lon_int1, &segment_distance, &fwdAz_dummy, &revAz_dummy);
-        if (dbg) std::cout<<"Section 1: lat1 "<<lat1<<" lon1: "<<lon1<<" lat2: "<<Lat_int1<<" Lon2: "<<Lon_int1<< std::endl;
-        double LC_distance=segment_distance;
-        int WPT_counter=0;
-        if (write_file){
-            //Start
-            Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1), _T("Start") ,_T("diamond"),_T("WPT"));
-            //First arc to interception
-            //retrieve step-size
-            double step_size;
-            bool m_IntervalNM_test=false;
-            if(!this->m_IntervalNM1->GetValue().ToDouble(&step_size)){ m_IntervalNM_test=true;}
-            if ((step_size>dist) || (step_size<dist*1/5000) || (m_IntervalNM_test)){
-                m_IntervalNM1->SetValue(wxString::Format(wxT("%g"), dist/100));
-                step_size=dist/100;
-                if (step_size<0.05) step_size=1; //prevent infinite loop
+                //Section 1
+                DistVincenty(lat1, lon1, Lat_int1, Lon_int1, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+                if (dbg) std::cout<<"Section 1 - First LC: lat1 "<<lat1<<" lon1: "<<lon1<<" lat2: "<<Lat_int1<<" Lon2: "<<Lon_int1<< std::endl;
+                double LC_distance=segment_distance;
+                int WPT_counter=0;
+                if (write_file){
+                    //Start
+                    Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1), _T("Start") ,_T("diamond"),_T("WPT"));
+                    //First arc to interception
+                    //retrieve step-size
+
+                    for(double in_distance=step_size;in_distance<segment_distance;in_distance=in_distance+step_size)
+                        {
+                        DestVincenty( lat1,  lon1,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
+                        if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                        Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),++WPT_counter) ,_T("diamond"),_T("WPT"));
+                    }
+                    //Interception
+                    Addpoint(Route, wxString::Format(wxT("%f"),Lat_int1), wxString::Format(wxT("%f"),Lon_int1), _T("Lat Limit1") ,_T("diamond"),_T("WPT"));
+               }
+
+               //Parallel sailing
+               //DistVincenty(Lat_int1, Lon_int1, Lat_int2, Lon_int2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+               DistanceBearingMercator(Lat_int2, Lon_int2, Lat_int1, Lon_int1, &fwdAz_dummy, &segment_distance);
+                if (dbg) std::cout<<"Section 2 - Rhumb line: lat1 "<<Lat_int2<<" lon1: "<<Lon_int2<<" lat2: "<<lat2<<" Lon2: "<<lon2<< std::endl;
+               LC_distance+=segment_distance;
+               //FIXME add waypoint writing
+               if (write_file){
+                    for(double in_distance=step_size;in_distance<(segment_distance+Tol());in_distance=in_distance+step_size)
+                        {
+                        //DestVincenty( Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
+                        destLoxodrome(Lat_int1,  Lon_int1,  fwdAz_dummy,  in_distance, &lati, &loni);
+                        if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                        Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),++WPT_counter) ,_T("diamond"),_T("WPT"));
+                    }
+               }
+
+                //Final section
+               DistVincenty(Lat_int2, Lon_int2, lat2, lon2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+               if (dbg) std::cout<<"Section 3 - Final GC lat1 "<<Lat_int2<<" lon1: "<<Lon_int2<<" lat2: "<<lat2<<" Lon2: "<<lon2<< std::endl;
+               LC_distance+=segment_distance;
+
+               if (write_file){
+                    //Add last point on intersecting limit
+                    Addpoint(Route, wxString::Format(wxT("%f"),Lat_int2), wxString::Format(wxT("%f"),Lon_int2), _T("Lat_limit2") ,_T("diamond"),_T("WPT"));
+                    if (dbg) std::cout<<"step size: "<<step_size<< std::endl;
+                    for(double in_distance=step_size;in_distance<segment_distance;in_distance=in_distance+step_size)
+                        {
+                        DestVincenty( Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
+                        if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+                        Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),++WPT_counter) ,_T("diamond"),_T("WPT"));
+                    }
+                    //Add finish
+                    Addpoint(Route, wxString::Format(wxT("%f"),lat2), wxString::Format(wxT("%f"),lon2), _T("Finish") ,_T("diamond"),_T("WPT"));
+               }
+                //Write out distance to dialog box
+                this->m_distance_LC->SetValue(wxString::Format(wxT("%g"), LC_distance));
+
+                if (write_file){
+                root->LinkEndChild( Route );
+                // check if string ends with .gpx or .GPX
+                if (!s.EndsWith(_T(".gpx"))) {
+                     s = s + _T(".gpx");
                 }
-
-            for(double in_distance=step_size;in_distance<segment_distance;in_distance=in_distance+step_size)
-                {
-                DestVincenty( lat1,  lon1,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
-                if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),++WPT_counter) ,_T("diamond"),_T("WPT"));
+                wxCharBuffer buffer=s.ToUTF8();
+                if (dbg) std::cout<< buffer.data()<<std::endl;
+                doc.SaveFile( buffer.data() );
+                }
             }
-            //Interception
-            Addpoint(Route, wxString::Format(wxT("%f"),Lat_int1), wxString::Format(wxT("%f"),Lon_int1), _T("Lat Limit1") ,_T("diamond"),_T("WPT"));
-       }
+        //end of if no error occurred
 
-       //Parallell sailing
-       //DistVincenty(Lat_int1, Lon_int1, Lat_int2, Lon_int2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
-       DistanceBearingMercator(Lat_int2, Lon_int2, Lat_int1, Lon_int1, &fwdAz_dummy, &segment_distance);
-       LC_distance+=segment_distance;
-       //FIXME add waypoint writing
-       if (write_file){
-            for(double in_distance=step_size;in_distance<(segment_distance+Tol());in_distance=in_distance+step_size)
-                {
-                //DestVincenty( Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
-                destLoxodrome(Lat_int1,  Lon_int1,  fwdAz_dummy,  in_distance, &lati, &loni);
-                if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),++WPT_counter) ,_T("diamond"),_T("WPT"));
-            }
-       }
-
-        //Final section
-       DistVincenty(Lat_int2, Lon_int2, lat2, lon2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
-       if (dbg) std::cout<<"Section 2: lat1 "<<Lat_int2<<" lon1: "<<Lon_int2<<" lat2: "<<lat2<<" Lon2: "<<lon2<< std::endl;
-       LC_distance+=segment_distance;
-
-       if (write_file){
-            //Add last point on intersecting limit
-            Addpoint(Route, wxString::Format(wxT("%f"),Lat_int2), wxString::Format(wxT("%f"),Lon_int2), _T("Lat_limit2") ,_T("diamond"),_T("WPT"));
-            for(double in_distance=step_size;in_distance<segment_distance;in_distance=in_distance+step_size)
-                {
-                DestVincenty( Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
-                if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),++WPT_counter) ,_T("diamond"),_T("WPT"));
-            }
-            //Add finish
-            Addpoint(Route, wxString::Format(wxT("%f"),lat2), wxString::Format(wxT("%f"),lon2), _T("Finish") ,_T("diamond"),_T("WPT"));
-       }
-
-       //Write out distance to dialog box
-       this->m_distance_LC->SetValue(wxString::Format(wxT("%g"), LC_distance));
-
-
-              if (write_file){
-            root->LinkEndChild( Route );
-            // check if string ends with .gpx or .GPX
-            if (!s.EndsWith(_T(".gpx"))) {
-                 s = s + _T(".gpx");
-            }
-            wxCharBuffer buffer=s.ToUTF8();
-            if (dbg) std::cout<< buffer.data()<<std::endl;
-            doc.SaveFile( buffer.data() );}
-    } //end of if no error occurred
-
-
-       }
-       if (!Lat_limit_found) {
-            //no intersection, do normal GC
-            //this->m_distance_GC1->SetValue(wxString::Format(wxT("%g"), dist));
-            this->m_distance_LC->SetValue(this->m_distance_GC1->GetValue());
-            if (write_file) OnExportGC(event);
-
-            //write file (call to GC function)
-       }
-
+    }
+   if (!Lat_limit_found) {
+        //no intersection, do normal GC
+        this->m_distance_LC->SetValue(this->m_distance_GC1->GetValue());
+        if (write_file) OnExportGC(event);
+        //write file (call to GC function)
+   }
 
     if (error_occurred==true && !user_canceled)  {
         wxLogMessage(_("Error in calculation. Please check input!") );
