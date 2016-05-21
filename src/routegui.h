@@ -82,12 +82,14 @@ class DlgDef : public wxDialog
 		wxStaticText* m_staticText3231;
 		wxTextCtrl* m_Lat1;
 		wxStaticText* m_staticText3331;
+		wxButton* m_button7;
 		wxStaticText* m_staticText32311;
 		wxTextCtrl* m_Lon1;
 		wxStaticText* m_staticText33311;
 		wxStaticText* m_staticText32312;
 		wxTextCtrl* m_Lat2;
 		wxStaticText* m_staticText33312;
+		wxButton* m_button9;
 		wxStaticText* m_staticText323111;
 		wxTextCtrl* m_Lon2;
 		wxStaticText* m_staticText333111;
@@ -139,6 +141,8 @@ class DlgDef : public wxDialog
 		virtual void OnGCLCalculate( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnExportGCL( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnNoteBookFit( wxNotebookEvent& event ) { event.Skip(); }
+		virtual void OnStartPaste( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnEndPaste( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnConverttoDegree( wxCommandEvent& event ) { event.Skip(); }
 		
 	

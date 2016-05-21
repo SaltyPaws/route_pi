@@ -324,6 +324,11 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_staticText3331->Wrap( -1 );
 	bSizer1431->Add( m_staticText3331, 0, wxALL, 5 );
 	
+	m_button7 = new wxButton( sbSizer7->GetStaticBox(), wxID_ANY, _("Paste"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_button7->SetToolTip( _("Paste coordinate pair (38.8897,-77.0089) or (38.8897\u00b0, -77.0089\u00b0) or (38\u00b0 53′ 23″ N, 77\u00b0 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)") );
+	
+	bSizer1431->Add( m_button7, 0, wxALL, 5 );
+	
 	
 	bSizer1321->Add( bSizer1431, 0, 0, 5 );
 	
@@ -369,6 +374,11 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_staticText33312 = new wxStaticText( sbSizer71->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText33312->Wrap( -1 );
 	bSizer14312->Add( m_staticText33312, 0, wxALL, 5 );
+	
+	m_button9 = new wxButton( sbSizer71->GetStaticBox(), wxID_ANY, _("Paste"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_button9->SetToolTip( _("Paste coordinate pair (38.8897,-77.0089) or (38.8897\u00b0, -77.0089\u00b0) or (38\u00b0 53′ 23″ N, 77\u00b0 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)") );
+	
+	bSizer14312->Add( m_button9, 0, wxALL, 5 );
 	
 	
 	bSizer13211->Add( bSizer14312, 0, 0, 5 );
@@ -664,6 +674,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_button112->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnGCLCalculate ), NULL, this );
 	m_button1111->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnExportGCL ), NULL, this );
 	m_wxNotebook234->Connect( wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGED, wxNotebookEventHandler( DlgDef::OnNoteBookFit ), NULL, this );
+	m_button7->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnStartPaste ), NULL, this );
+	m_button9->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnEndPaste ), NULL, this );
 	m_button81->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnConverttoDegree ), NULL, this );
 }
 
@@ -676,6 +688,8 @@ DlgDef::~DlgDef()
 	m_button112->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnGCLCalculate ), NULL, this );
 	m_button1111->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnExportGCL ), NULL, this );
 	m_wxNotebook234->Disconnect( wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGED, wxNotebookEventHandler( DlgDef::OnNoteBookFit ), NULL, this );
+	m_button7->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnStartPaste ), NULL, this );
+	m_button9->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnEndPaste ), NULL, this );
 	m_button81->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnConverttoDegree ), NULL, this );
 	
 }

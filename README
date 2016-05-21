@@ -19,6 +19,7 @@ Changes to 1.1:
 - Fix bug where GCL did not produce GPX if limit was not met FS#2020
 - GCL distance is now respected in all segments (FS#1068)
 - When entering waypoint in degree, minute and second format fractions can now be used (FS#1075)
+- Pasting of coordinate pairs now implemented FS#1131-1
 
 
 

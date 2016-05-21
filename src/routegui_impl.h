@@ -30,6 +30,7 @@
 
 //#include <cstdlib>
 //#include <cstdio>
+#include <wx/clipbrd.h>
 #include "tinyxml.h"
 #include "NavFunc.h"
 
@@ -38,6 +39,7 @@
 #ifdef WX_PRECOMP
 #include "wx/wx.h"
 #endif
+
 //#include "parser.h"
 
 
@@ -56,6 +58,8 @@ class Dlg : public DlgDef
 public:
         Dlg( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Route Plugin by SaltyPaws"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxRESIZE_BORDER );
         void OnCalculate( wxCommandEvent& event );
+        void OnStartPaste( wxCommandEvent& event );
+        void OnEndPaste( wxCommandEvent& event );
         void OnToggle( wxCommandEvent& event );
         void OnConverttoDegree( wxCommandEvent& event );
         void OnNoteBookFit( wxCommandEvent& event );
@@ -70,6 +74,7 @@ public:
         void Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString ptname, wxString ptsym, wxString pttype);
         double BrentsMethodSolve(double lowerLimit, double upperLimit, double errorTol);
         double Fraction_string_to_Decimal(wxString fraction_string);
+        void Import_coordinate_pair_from_clipboard(bool start);
         //friend class function;
         route_pi *plugin;
 private:

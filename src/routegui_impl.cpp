@@ -47,6 +47,84 @@ void Dlg::OnCalculate( wxCommandEvent& event )
 
 }
 
+void Dlg::OnStartPaste( wxCommandEvent& event )
+{
+Import_coordinate_pair_from_clipboard(true);
+}
+
+void Dlg::OnEndPaste( wxCommandEvent& event )
+{
+Import_coordinate_pair_from_clipboard(false);
+}
+
+void Dlg::Import_coordinate_pair_from_clipboard(bool start)
+{
+wxString Paste_string="";
+wxString Paste_Lat="";
+wxString Paste_Lon="";
+// Read coordinates from clipboard
+if (wxTheClipboard->Open())
+    {
+    if (wxTheClipboard->IsSupported( wxDF_TEXT ))
+        {
+        wxTextDataObject data;
+        wxTheClipboard->GetData( data );
+        Paste_string=data.GetText();
+        //wxMessageBox( Paste_string);
+        //std::cout<<"Paste_string: "<<Paste_string<<"."<< std::endl;
+        }
+    wxTheClipboard->Close();
+
+    //We now have data
+    if (Paste_string.Contains(wxT(","))) //Test if data contains comma
+        {
+        //strip characters not required
+        Paste_string.Replace("\u00b0"," ");
+        Paste_string.Replace("′"," ");
+        Paste_string.Replace("\""," ");
+        Paste_string.Replace("″"," ");
+
+        Paste_Lat=Paste_string.BeforeFirst(',');  //if yes, split in left and right part for lat and lon
+        Paste_Lon=Paste_string.AfterFirst(',');
+        //std::cout<<"Paste_Lat: "<<Paste_Lat<<"Paste_Lon: "<<Paste_Lon<<"."<< std::endl;
+        //test if lat contains NSEWnsew
+        if ( Paste_Lat.Contains(wxT("N")) || Paste_Lat.Contains(wxT("n")) || Paste_Lat.Contains(wxT("S")) || Paste_Lat.Contains(wxT("s")) || Paste_Lat.Contains(wxT("E")) || Paste_Lat.Contains(wxT("e")) || Paste_Lat.Contains(wxT("W")) || Paste_Lat.Contains(wxT("w")) )
+            {//parse using DMS
+
+            Paste_Lat=wxString::Format(wxT("%g"), fromDMStodouble((char*)Paste_Lat.mb_str().data()));
+            //std::cout<<"Paste_Lat: "<<Paste_Lat<<"."<< std::endl;
+            }
+
+         //test if Lon contains NSEWnsew
+        if ( Paste_Lon.Contains(wxT("N")) || Paste_Lon.Contains(wxT("n")) || Paste_Lon.Contains(wxT("S")) || Paste_Lon.Contains(wxT("s")) || Paste_Lon.Contains(wxT("E")) || Paste_Lon.Contains(wxT("e")) || Paste_Lon.Contains(wxT("W")) || Paste_Lon.Contains(wxT("w")) )
+          {//parse using DMS
+            Paste_Lon=wxString::Format(wxT("%g"), fromDMStodouble((char*)Paste_Lon.mb_str().data()));
+            //std::cout<<"Paste_Lon: "<<Paste_Lon<<"."<< std::endl;
+            }
+
+        if(start)//check bool start and write back in relevant coordinate boxes
+            { //start point
+            m_Lat1->SetValue(Paste_Lat);
+            m_Lon1->SetValue(Paste_Lon);
+            }
+        else
+            {//end point
+            m_Lat2->SetValue(Paste_Lat);
+            m_Lon2->SetValue(Paste_Lon);
+            }
+        }
+    else
+        {//error, no comma so no coordinate pair
+            wxMessageBox( "Error: Clipboard does not contain comma, so no coordinate pair could be identified.");
+        }
+    }
+else{
+    wxMessageBox( "Error: Clipboard Locked");
+    //error can't read clipboard'
+    }
+}
+
+
 double Dlg::Fraction_string_to_Decimal(wxString fraction_string)
 {
 double D_WholePart=0;
