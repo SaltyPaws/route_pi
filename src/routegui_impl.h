@@ -30,15 +30,17 @@
 
 //#include <cstdlib>
 //#include <cstdio>
+#include "tinyxml.h"
+#include "NavFunc.h"
+
+#include "route_pi.h"
+#include "routegui.h"
 #ifdef WX_PRECOMP
 #include "wx/wx.h"
 #endif
 //#include "parser.h"
 
-#include "routegui.h"
-#include "route_pi.h"
-#include "NavFunc.h"
-#include "tinyxml.h"
+
 using namespace std;
 
 class route_pi;
@@ -67,6 +69,7 @@ public:
         //void Addpoint(TiXmlElement* Route, double ptlat, double ptlon, wxString ptname, wxString ptsym, wxString pttype);
         void Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString ptname, wxString ptsym, wxString pttype);
         double BrentsMethodSolve(double lowerLimit, double upperLimit, double errorTol);
+        double Fraction_string_to_Decimal(wxString fraction_string);
         //friend class function;
         route_pi *plugin;
 private:

@@ -46,58 +46,129 @@ void Dlg::OnCalculate( wxCommandEvent& event )
 {
 
 }
+
+double Dlg::Fraction_string_to_Decimal(wxString fraction_string)
+{
+double D_WholePart=0;
+double D_Numerator=0;
+double D_Denominator=0;
+double result=0;
+wxString S_WholePart="";
+wxString S_Numerator="";
+wxString S_Denominator="";
+//bool dbg=true;
+
+if (fraction_string.Contains(wxT("/"))) //test if string contains "/" if yes, run through fraction test
+    {
+    //if (dbg) std::cout<<"Fraction: "<<fraction_string<<"."<< std::endl;
+    if (fraction_string.Contains(wxT(" ")))//test if string contains " "
+        {
+        S_WholePart=fraction_string.BeforeFirst(' ');   //if yes, take left part and use as whole number.
+        fraction_string=fraction_string.AfterFirst(' ');// Take left part and space away from string
+        //if (dbg) std::cout<<"S_WholePart: "<<S_WholePart<<"."<< std::endl;
+        }
+    S_Numerator=fraction_string.BeforeLast('/');    //fraction nummerator is on left side of "/"
+    S_Denominator=fraction_string.AfterLast('/');   //fraction denominator is on right side.
+    /*if (dbg)
+    { std::cout<<"S_Numerator: "<<S_Numerator<<"."<< std::endl;
+        std::cout<<"S_Denominator: "<<S_Denominator<<"."<< std::endl;}*/
+
+    // Test if all parts of the fraction can be converted to decimal
+    if((S_WholePart.ToDouble(&D_WholePart))&&(S_Numerator.ToDouble(&D_Numerator))&&(S_Denominator.ToDouble(&D_Denominator)))
+        {
+        result= D_WholePart+(D_Numerator/D_Denominator);//calculate fraction & return value
+        }
+    else if((S_Numerator.ToDouble(&D_Numerator))&&(S_Denominator.ToDouble(&D_Denominator)))
+        {
+        result= (D_Numerator/D_Denominator);//calculate fraction & return value
+        }
+    }
+    //if (dbg) std::cout<<"result: "<<result<<"."<< std::endl;
+    return result;
+}
+
+
+
 void Dlg::OnConverttoDegree( wxCommandEvent& event )
 {
     //set cell values to 0 if they are empty. This ensures conversion goes ok.
     double test_value;
-    if(!this->m_Lat1_d->GetValue().ToDouble(&test_value)){m_Lat1_d->SetValue(wxString::Format(wxT("%i"),0 ));}
-    if(!this->m_Lat1_m->GetValue().ToDouble(&test_value)){m_Lat1_m->SetValue(wxString::Format(wxT("%i"),0 ));}
-    if(!this->m_Lat1_s->GetValue().ToDouble(&test_value)){m_Lat1_s->SetValue(wxString::Format(wxT("%i"),0 ));}
+    if(!this->m_Lat1_d->GetValue().ToDouble(&test_value)){m_Lat1_d->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lat1_d->GetValue()) ));}
+    if(!this->m_Lat1_m->GetValue().ToDouble(&test_value)){m_Lat1_m->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lat1_m->GetValue()) ));}
+    if(!this->m_Lat1_s->GetValue().ToDouble(&test_value)){m_Lat1_s->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lat1_s->GetValue()) ));}
 
-    if(!this->m_Lat2_d->GetValue().ToDouble(&test_value)){m_Lat2_d->SetValue(wxString::Format(wxT("%i"),0 ));}
-    if(!this->m_Lat2_m->GetValue().ToDouble(&test_value)){m_Lat2_m->SetValue(wxString::Format(wxT("%i"),0 ));}
-    if(!this->m_Lat2_s->GetValue().ToDouble(&test_value)){m_Lat2_s->SetValue(wxString::Format(wxT("%i"),0 ));}
+    if(!this->m_Lat2_d->GetValue().ToDouble(&test_value)){m_Lat2_d->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lat2_d->GetValue()) ));}
+    if(!this->m_Lat2_m->GetValue().ToDouble(&test_value)){m_Lat2_m->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lat2_m->GetValue()) ));}
+    if(!this->m_Lat2_s->GetValue().ToDouble(&test_value)){m_Lat2_s->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lat2_s->GetValue()) ));}
 
-    if(!this->m_Lon1_d->GetValue().ToDouble(&test_value)){m_Lon1_d->SetValue(wxString::Format(wxT("%i"),0 ));}
-    if(!this->m_Lon1_m->GetValue().ToDouble(&test_value)){m_Lon1_m->SetValue(wxString::Format(wxT("%i"),0 ));}
-    if(!this->m_Lon1_s->GetValue().ToDouble(&test_value)){m_Lon1_s->SetValue(wxString::Format(wxT("%i"),0 ));}
+    if(!this->m_Lon1_d->GetValue().ToDouble(&test_value)){m_Lon1_d->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon1_d->GetValue()) ));}
+    if(!this->m_Lon1_m->GetValue().ToDouble(&test_value)){m_Lon1_m->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon1_m->GetValue()) ));}
+    if(!this->m_Lon1_s->GetValue().ToDouble(&test_value)){m_Lon1_s->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon1_s->GetValue()) ));}
 
-    if(!this->m_Lon2_d->GetValue().ToDouble(&test_value)){m_Lon2_d->SetValue(wxString::Format(wxT("%i"),0 ));}
-    if(!this->m_Lon2_m->GetValue().ToDouble(&test_value)){m_Lon2_m->SetValue(wxString::Format(wxT("%i"),0 ));}
-    if(!this->m_Lon2_s->GetValue().ToDouble(&test_value)){m_Lon2_s->SetValue(wxString::Format(wxT("%i"),0 ));}
+    if(!this->m_Lon2_d->GetValue().ToDouble(&test_value)){m_Lon2_d->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon2_d->GetValue()) ));}
+    if(!this->m_Lon2_m->GetValue().ToDouble(&test_value)){m_Lon2_m->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon2_m->GetValue()) ));}
+    if(!this->m_Lon2_s->GetValue().ToDouble(&test_value)){m_Lon2_s->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon2_s->GetValue()) ));}
 
+    double degree_temp=0;
+    double minute_temp=0;
+    double second_temp=0;
+    double result_temp=0;
+    double sign_temp=1;
 
     //Lat1
-    wxString Lat1 = this->m_Lat1_d->GetValue() + _T(" ")  + this->m_Lat1_m->GetValue() + _T(" ")  + this->m_Lat1_s->GetValue() + _T(" ");// + this->m_Lon1_EW->GetCurrentSelection();
+
+    //wxString Lat1 = this->m_Lat1_d->GetValue() + _T(" ")  + this->m_Lat1_m->GetValue() + _T(" ")  + this->m_Lat1_s->GetValue() + _T(" ");// + this->m_Lon1_EW->GetCurrentSelection();
     if(this->m_Lat1_NS->GetCurrentSelection()) //S=1
-        Lat1=Lat1 + _T("S");
+        sign_temp=1;
     else
-        Lat1=Lat1 + _T("N");
-    m_Lat1->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lat1.mb_str().data())));
+        sign_temp=-1;
+    //m_Lat1->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lat1.mb_str().data())));
+    this->m_Lat1_d->GetValue().ToDouble(&degree_temp);
+    this->m_Lat1_m->GetValue().ToDouble(&minute_temp);
+    this->m_Lat1_s->GetValue().ToDouble(&second_temp);
+    result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
+    //std::cout<<"degree_temp: "<<degree_temp<<"minute_temp: "<<minute_temp<<"second_temp: "<<second_temp<< std::endl;
+    //std::cout<<"result_temp: "<<result_temp<< std::endl;
+    m_Lat1->SetValue(wxString::Format(wxT("%g"),result_temp));
 
     //Lon1
-    wxString Lon1 = this->m_Lon1_d->GetValue() + _T(" ") + this->m_Lon1_m->GetValue() + _T(" ")  + this->m_Lon1_s->GetValue() + _T(" ") ;// + this->m_Lon1_EW->GetString();
+    //wxString Lon1 = this->m_Lon1_d->GetValue() + _T(" ") + this->m_Lon1_m->GetValue() + _T(" ")  + this->m_Lon1_s->GetValue() + _T(" ") ;// + this->m_Lon1_EW->GetString();
     if(this->m_Lon1_EW->GetCurrentSelection()) //W=1
-        Lon1=Lon1 + _T("W");
+        sign_temp=1;
     else
-        Lon1=Lon1 + _T("E");
-    m_Lon1->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lon1.mb_str().data())));
+        sign_temp=-1;
+    //m_Lon1->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lon1.mb_str().data())));
+    this->m_Lon1_d->GetValue().ToDouble(&degree_temp);
+    this->m_Lon1_m->GetValue().ToDouble(&minute_temp);
+    this->m_Lon1_s->GetValue().ToDouble(&second_temp);
+    result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
+    m_Lon1->SetValue(wxString::Format(wxT("%g"),result_temp));
 
     //Lat2
-    wxString Lat2 = this->m_Lat2_d->GetValue() + _T(" ")  + this->m_Lat2_m->GetValue() + _T(" ")  + this->m_Lat2_s->GetValue() + _T(" ");//  + this->m_Lat2_NS->GetString();
+    //wxString Lat2 = this->m_Lat2_d->GetValue() + _T(" ")  + this->m_Lat2_m->GetValue() + _T(" ")  + this->m_Lat2_s->GetValue() + _T(" ");//  + this->m_Lat2_NS->GetString();
     if(this->m_Lat2_NS->GetCurrentSelection()) //S=1
-        Lat2=Lat2 + _T("S");
+        sign_temp=1;
     else
-        Lat2=Lat2 + _T("N");
-    m_Lat2->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lat2.mb_str().data())));
+        sign_temp=-1;
+    //m_Lat2->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lat2.mb_str().data())));
+    this->m_Lat2_d->GetValue().ToDouble(&degree_temp);
+    this->m_Lat2_m->GetValue().ToDouble(&minute_temp);
+    this->m_Lat2_s->GetValue().ToDouble(&second_temp);
+    result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
+    m_Lat2->SetValue(wxString::Format(wxT("%g"),result_temp));
 
     //Lon2
-    wxString Lon2 = this->m_Lon2_d->GetValue() + _T(" ")  + this->m_Lon2_m->GetValue() + _T(" ")  + this->m_Lon2_s->GetValue() + _T(" ") ;// + _T(this->m_Lon2_EW->GetSelection());
+    //wxString Lon2 = this->m_Lon2_d->GetValue() + _T(" ")  + this->m_Lon2_m->GetValue() + _T(" ")  + this->m_Lon2_s->GetValue() + _T(" ") ;// + _T(this->m_Lon2_EW->GetSelection());
     if(this->m_Lon2_EW->GetCurrentSelection()) //W=1
-        Lon2=Lon2 + _T("W");
+        sign_temp=1;
     else
-        Lon2=Lon2 + _T("E");
-    m_Lon2->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lon2.mb_str().data())));
+        sign_temp=-1;
+    //m_Lon2->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lon2.mb_str().data())));
+    this->m_Lon2_d->GetValue().ToDouble(&degree_temp);
+    this->m_Lon2_m->GetValue().ToDouble(&minute_temp);
+    this->m_Lon2_s->GetValue().ToDouble(&second_temp);
+    result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
+    m_Lon2->SetValue(wxString::Format(wxT("%g"),result_temp));
 
 }
 
