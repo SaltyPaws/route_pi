@@ -451,7 +451,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_panel11->SetSizer( bSizer40 );
 	m_panel11->Layout();
 	bSizer40->Fit( m_panel11 );
-	m_wxNotebook234->AddPage( m_panel11, _("Decimal Degree"), false );
+	m_wxNotebook234->AddPage( m_panel11, _("Decimal Degree"), true );
 	m_panel15 = new wxPanel( m_wxNotebook234, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer401;
 	bSizer401 = new wxBoxSizer( wxVERTICAL );
@@ -632,6 +632,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer481 = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_button81 = new wxButton( m_panel15, wxID_ANY, _("Convert to Degree"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_button81->SetToolTip( _("Entries can be made both in decimal and fraction (w n/d) or (n/d).") );
+	
 	bSizer481->Add( m_button81, 0, wxALL, 5 );
 	
 	
@@ -641,7 +643,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_panel15->SetSizer( bSizer401 );
 	m_panel15->Layout();
 	bSizer401->Fit( m_panel15 );
-	m_wxNotebook234->AddPage( m_panel15, _("\u00b0 ' \""), true );
+	m_wxNotebook234->AddPage( m_panel15, _("\u00b0 ' \""), false );
 	
 	bSizer35->Add( m_wxNotebook234, 0, wxALL, 5 );
 	
