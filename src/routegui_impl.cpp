@@ -165,8 +165,6 @@ if (fraction_string.Contains(wxT("/"))) //test if string contains "/" if yes, ru
     return result;
 }
 
-
-
 void Dlg::OnConverttoDegree( wxCommandEvent& event )
 {
     //set cell values to 0 if they are empty. This ensures conversion goes ok.
@@ -502,6 +500,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
         //start
         double lati=0, loni=0,latold=lat1,lonold=lon1,segment_distance=0,fwdAz_dummy=0,revAz_dummy=0;
         double GCL_dist=0;
+        double segment_start_distance=0;
 
         double Lat_int1=0, Lat_int2=999999, Lon_int1=0, Lon_int2=0;
 
@@ -665,8 +664,9 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                 //Section 1
                 DistVincenty(lat1, lon1, Lat_int1, Lon_int1, &segment_distance, &fwdAz_dummy, &revAz_dummy);
                 if (dbg) std::cout<<"Section 1 - First LC: lat1 "<<lat1<<" lon1: "<<lon1<<" lat2: "<<Lat_int1<<" Lon2: "<<Lon_int1<< std::endl;
+                segment_start_distance=0;
                 double LC_distance=segment_distance;
-                int WPT_counter=0;
+                //int WPT_counter=0; ++WPT_counter
                 if (write_file){
                     //Start
                     Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1), _T("Start") ,_T("diamond"),_T("WPT"));
@@ -677,7 +677,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                         {
                         DestVincenty( lat1,  lon1,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
                         if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                        Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),++WPT_counter) ,_T("diamond"),_T("WPT"));
+                        Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
                     }
                     //Interception
                     Addpoint(Route, wxString::Format(wxT("%f"),Lat_int1), wxString::Format(wxT("%f"),Lon_int1), _T("Lat Limit1") ,_T("diamond"),_T("WPT"));
@@ -687,6 +687,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                //DistVincenty(Lat_int1, Lon_int1, Lat_int2, Lon_int2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
                DistanceBearingMercator(Lat_int2, Lon_int2, Lat_int1, Lon_int1, &fwdAz_dummy, &segment_distance);
                 if (dbg) std::cout<<"Section 2 - Rhumb line: lat1 "<<Lat_int2<<" lon1: "<<Lon_int2<<" lat2: "<<lat2<<" Lon2: "<<lon2<< std::endl;
+               segment_start_distance=LC_distance;
                LC_distance+=segment_distance;
                //FIXME add waypoint writing
                if (write_file){
@@ -695,13 +696,14 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                         //DestVincenty( Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
                         destLoxodrome(Lat_int1,  Lon_int1,  fwdAz_dummy,  in_distance, &lati, &loni);
                         if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                        Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),++WPT_counter) ,_T("diamond"),_T("WPT"));
+                        Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)(in_distance+segment_start_distance)) ,_T("diamond"),_T("WPT"));
                     }
                }
 
                 //Final section
                DistVincenty(Lat_int2, Lon_int2, lat2, lon2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
                if (dbg) std::cout<<"Section 3 - Final GC lat1 "<<Lat_int2<<" lon1: "<<Lon_int2<<" lat2: "<<lat2<<" Lon2: "<<lon2<< std::endl;
+               segment_start_distance=LC_distance;
                LC_distance+=segment_distance;
 
                if (write_file){
@@ -712,7 +714,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                         {
                         DestVincenty( Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
                         if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                        Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),++WPT_counter) ,_T("diamond"),_T("WPT"));
+                        Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)(in_distance+segment_start_distance)) ,_T("diamond"),_T("WPT"));
                     }
                     //Add finish
                     Addpoint(Route, wxString::Format(wxT("%f"),lat2), wxString::Format(wxT("%f"),lon2), _T("Finish") ,_T("diamond"),_T("WPT"));
