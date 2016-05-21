@@ -21,6 +21,8 @@ Changes to 1.1:
 - When entering waypoint in degree, minute and second format fractions can now be used (FS#1075)
 - Pasting of coordinate pairs now implemented FS#1131-1
 - Use the same naming convention for waypoints of limited-circle routes as for great-circle and rhumb-line routes FS#1131-2
+- Waypoint distance has been added to start, finish and intermediate points
+- When finish or intermediate point is within 25% of last waypoint distance, the previous point is omitted to prevent very close spaced waypoints FS#1131-3(first)
 
 
 

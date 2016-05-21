@@ -70,8 +70,6 @@ if (wxTheClipboard->Open())
         wxTextDataObject data;
         wxTheClipboard->GetData( data );
         Paste_string=data.GetText();
-        //wxMessageBox( Paste_string);
-        //std::cout<<"Paste_string: "<<Paste_string<<"."<< std::endl;
         }
     wxTheClipboard->Close();
 
@@ -378,7 +376,7 @@ void Dlg::OnExportGC( wxCommandEvent& event )
             //start
             Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("0 Start"),_T("diamond"),_T("WPT"));
             double lati, loni;
-            for(double in_distance=step_size;in_distance<dist;in_distance=in_distance+step_size)
+            for(double in_distance=step_size;in_distance<(dist-0.25*step_size);in_distance=in_distance+step_size)
                 {
                 DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
                 if (dbg) std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
@@ -673,7 +671,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                     //First arc to interception
                     //retrieve step-size
 
-                    for(double in_distance=step_size;in_distance<segment_distance;in_distance=in_distance+step_size)
+                    for(double in_distance=step_size;in_distance<(segment_distance-0.25*step_size);in_distance=in_distance+step_size)
                         {
                         DestVincenty( lat1,  lon1,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
                         if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
@@ -691,7 +689,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                LC_distance+=segment_distance;
                //FIXME add waypoint writing
                if (write_file){
-                    for(double in_distance=step_size;in_distance<(segment_distance+Tol());in_distance=in_distance+step_size)
+                    for(double in_distance=step_size;in_distance<(segment_distance-0.25*step_size);in_distance=in_distance+step_size)
                         {
                         //DestVincenty( Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
                         destLoxodrome(Lat_int1,  Lon_int1,  fwdAz_dummy,  in_distance, &lati, &loni);
@@ -710,7 +708,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                     //Add last point on intersecting limit
                     Addpoint(Route, wxString::Format(wxT("%f"),Lat_int2), wxString::Format(wxT("%f"),Lon_int2), wxString::Format(wxT("%d"),(int)(segment_start_distance)) + _T(" Lat_limit2") ,_T("diamond"),_T("WPT"));
                     if (dbg) std::cout<<"step size: "<<step_size<< std::endl;
-                    for(double in_distance=step_size;in_distance<segment_distance;in_distance=in_distance+step_size)
+                    for(double in_distance=step_size;in_distance<(segment_distance-0.25*step_size);in_distance=in_distance+step_size)
                         {
                         DestVincenty( Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
                         if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
@@ -918,7 +916,7 @@ void Dlg::OnExportRH( wxCommandEvent& event )
             //start
             Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("0 Start"),_T("diamond"),_T("WPT"));
             double lati, loni;
-            for(double in_distance=step_size;in_distance<dist;in_distance=in_distance+step_size)
+            for(double in_distance=step_size;in_distance<(dist-0.25*step_size);in_distance=in_distance+step_size)
                 {
                 //DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
                 if (dbg) std::cout<<"RH lat1 "<<lat1<<" lon1: " <<lon1<<"fwdAZ "<<fwdAz<<" dist " <<in_distance<< std::endl;
