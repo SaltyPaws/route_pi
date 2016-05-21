@@ -34,7 +34,7 @@ CfgDlg::CfgDlg( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 Dlg::Dlg( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : DlgDef( parent, id, title, pos, size, style )
 {
     this->Fit();
-    dbg=true; //for debug output set to true
+    dbg=false; //for debug output set to true
 }
 
 void Dlg::OnToggle( wxCommandEvent& event )
@@ -376,7 +376,7 @@ void Dlg::OnExportGC( wxCommandEvent& event )
                 }
 
             //start
-            Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("Start"),_T("diamond"),_T("WPT"));
+            Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("0 Start"),_T("diamond"),_T("WPT"));
             double lati, loni;
             for(double in_distance=step_size;in_distance<dist;in_distance=in_distance+step_size)
                 {
@@ -385,7 +385,7 @@ void Dlg::OnExportGC( wxCommandEvent& event )
                 Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
                 }
             //end
-            Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),_T("Finish"),_T("SYMBOL"),_T("WPT"));
+            Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),wxString::Format(wxT("%d"),(int)dist) + _T(" Finish"),_T("SYMBOL"),_T("WPT"));
             //////////////////////////Close XML
 
             root->LinkEndChild( Route );
@@ -669,7 +669,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                 //int WPT_counter=0; ++WPT_counter
                 if (write_file){
                     //Start
-                    Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1), _T("Start") ,_T("diamond"),_T("WPT"));
+                    Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1), _T("0 Start") ,_T("diamond"),_T("WPT"));
                     //First arc to interception
                     //retrieve step-size
 
@@ -680,7 +680,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                         Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
                     }
                     //Interception
-                    Addpoint(Route, wxString::Format(wxT("%f"),Lat_int1), wxString::Format(wxT("%f"),Lon_int1), _T("Lat Limit1") ,_T("diamond"),_T("WPT"));
+                    Addpoint(Route, wxString::Format(wxT("%f"),Lat_int1), wxString::Format(wxT("%f"),Lon_int1), wxString::Format(wxT("%d"),(int)segment_distance) + _T(" Lat Limit1") ,_T("diamond"),_T("WPT"));
                }
 
                //Parallel sailing
@@ -708,7 +708,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
 
                if (write_file){
                     //Add last point on intersecting limit
-                    Addpoint(Route, wxString::Format(wxT("%f"),Lat_int2), wxString::Format(wxT("%f"),Lon_int2), _T("Lat_limit2") ,_T("diamond"),_T("WPT"));
+                    Addpoint(Route, wxString::Format(wxT("%f"),Lat_int2), wxString::Format(wxT("%f"),Lon_int2), wxString::Format(wxT("%d"),(int)(segment_start_distance)) + _T(" Lat_limit2") ,_T("diamond"),_T("WPT"));
                     if (dbg) std::cout<<"step size: "<<step_size<< std::endl;
                     for(double in_distance=step_size;in_distance<segment_distance;in_distance=in_distance+step_size)
                         {
@@ -717,7 +717,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
                         Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)(in_distance+segment_start_distance)) ,_T("diamond"),_T("WPT"));
                     }
                     //Add finish
-                    Addpoint(Route, wxString::Format(wxT("%f"),lat2), wxString::Format(wxT("%f"),lon2), _T("Finish") ,_T("diamond"),_T("WPT"));
+                    Addpoint(Route, wxString::Format(wxT("%f"),lat2), wxString::Format(wxT("%f"),lon2), wxString::Format(wxT("%d"),(int)(LC_distance)) + _T(" Finish") ,_T("diamond"),_T("WPT"));
                }
                 //Write out distance to dialog box
                 this->m_distance_LC->SetValue(wxString::Format(wxT("%g"), LC_distance));
@@ -916,7 +916,7 @@ void Dlg::OnExportRH( wxCommandEvent& event )
                 if (step_size<0.05) step_size=1; //prevent infinite loop
             }
             //start
-            Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("Start"),_T("diamond"),_T("WPT"));
+            Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("0 Start"),_T("diamond"),_T("WPT"));
             double lati, loni;
             for(double in_distance=step_size;in_distance<dist;in_distance=in_distance+step_size)
                 {
@@ -928,7 +928,7 @@ void Dlg::OnExportRH( wxCommandEvent& event )
                 Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
                 }
             //end
-            Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),_T("Finish"),_T("SYMBOL"),_T("WPT"));
+            Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),wxString::Format(wxT("%d"),(int)dist) + _T(" Finish"),_T("SYMBOL"),_T("WPT"));
             //////////////////////////Close XML
 
             root->LinkEndChild( Route );

@@ -20,6 +20,8 @@ Changes to 1.1:
 - GCL distance is now respected in all segments (FS#1068)
 - When entering waypoint in degree, minute and second format fractions can now be used (FS#1075)
 - Pasting of coordinate pairs now implemented FS#1131-1
+- Use the same naming convention for waypoints of limited-circle routes as for great-circle and rhumb-line routes FS#1131-2
+
 
 
 
