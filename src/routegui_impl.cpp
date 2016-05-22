@@ -424,6 +424,12 @@ void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString
 //done adding point
 }
 
+void Dlg::AddPoint( PlugIn_Waypoint *pNewPoint, PlugIn_Route *m_Route_ocpn)//, bool b_rename_in_sequence, bool b_deferBoxCalc )
+{
+    m_Route_ocpn->pWaypointList->Append( pNewPoint );
+    return;
+}
+
 void Dlg::OnGCLCalculate( wxCommandEvent& event ){
     OnGCLCalculate (event, false);
     }
@@ -841,8 +847,40 @@ double Dlg::BrentsMethodSolve(double lowerLimit, double upperLimit, double error
     return b;
 }
 
-void Dlg::OnExportRH( wxCommandEvent& event )
+void Dlg::OnExportRH(wxCommandEvent& event)
 {
+int Pattern=this->m_combo_GC->GetCurrentSelection();
+std::cout<<"Pattern: "<<Pattern<< std::endl;
+
+switch ( Pattern )
+    {
+    case 0: //to OpenCPN
+        {
+        OnExportRH(event, true);
+        wxMessageBox(_("Export to OCPN") );
+        break;
+        }
+    case 1://Delete last route
+        {
+        OnDeleteRoute(m_GUUD);
+        wxMessageBox(_("Delete Route") );
+        break;
+        }
+    case 2://to GPX file
+        {OnExportRH(event, false);
+        wxMessageBox(_("Export to GPX") );}
+        break;
+    }
+}
+
+void Dlg::OnExportRH(wxCommandEvent& event, bool to_OpenCPN)
+{
+    PlugIn_Route *m_Route_ocpn = new PlugIn_Route;
+    m_Route_ocpn->m_StartString=this->m_Start->GetValue();
+    m_Route_ocpn->m_EndString=this->m_End->GetValue();
+    m_Route_ocpn->m_NameString=this->m_Route->GetValue();
+    m_Route_ocpn->m_GUID=GetNewGUID();
+
     bool error_occurred=false;
     bool user_canceled=false;
     wxFileDialog dlg(this, _("Export Rhumb Line GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
@@ -915,6 +953,11 @@ void Dlg::OnExportRH( wxCommandEvent& event )
             }
             //start
             Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("0 Start"),_T("diamond"),_T("WPT"));
+                {
+                PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lat1, lon1, _T("diamond"), _T("0 Start"), wxT("") );
+                AddPoint(NewpWayPoinT,m_Route_ocpn);
+                }
+
             double lati, loni;
             for(double in_distance=step_size;in_distance<(dist-0.25*step_size);in_distance=in_distance+step_size)
                 {
@@ -924,9 +967,24 @@ void Dlg::OnExportRH( wxCommandEvent& event )
                 //destRhumb(lat1, lon1, fwdAz,in_distance, &lati, &loni);
                 if (dbg) std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
                 Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
+                    {
+                    PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lati, loni, _T("diamond"), wxString::Format(wxT("%d"),(int)in_distance), wxT("") );
+                    AddPoint(NewpWayPoinT,m_Route_ocpn);
+                    }
+
                 }
             //end
             Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),wxString::Format(wxT("%d"),(int)dist) + _T(" Finish"),_T("SYMBOL"),_T("WPT"));
+                {
+                PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lat1, lon1, _T("diamond"), wxString::Format(wxT("%d"),(int)dist) + _T(" Finish"), wxT("") );
+                AddPoint(NewpWayPoinT,m_Route_ocpn);
+                //next 3 lines required to put lines on screen
+
+                }
+                bool test = AddPlugInRoute (m_Route_ocpn);
+                wxMilliSleep(50);// Required or refresh is not ready
+                RequestRefresh(plugin->m_parent_window);//
+
             //////////////////////////Close XML
 
             root->LinkEndChild( Route );
@@ -939,6 +997,12 @@ void Dlg::OnExportRH( wxCommandEvent& event )
             if (dbg) std::cout<< buffer.data()<<std::endl;
             doc.SaveFile( buffer.data() );
         }
+}
+
+void Dlg::OnDeleteRoute( wxString GUID){
+    DeletePlugInRoute( GUID );
+    wxMilliSleep(50);// Required or refresh is not ready
+    RequestRefresh(plugin->m_parent_window);//
 }
 
 

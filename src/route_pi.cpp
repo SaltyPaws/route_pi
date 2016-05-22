@@ -92,8 +92,9 @@ int route_pi::Init(void)
       m_pDialog = NULL;
 
       return (WANTS_TOOLBAR_CALLBACK   |
-              INSTALLS_TOOLBAR_TOOL     |
-              WANTS_PREFERENCES         |
+              INSTALLS_TOOLBAR_TOOL    |
+              WANTS_PREFERENCES        |
+              WANTS_CURSOR_LATLON      |
               WANTS_CONFIG
            );
 }

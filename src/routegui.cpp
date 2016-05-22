@@ -113,11 +113,18 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	wxStaticBoxSizer* sbSizer11;
 	sbSizer11 = new wxStaticBoxSizer( new wxStaticBox( m_panel6, wxID_ANY, _("Export") ), wxVERTICAL );
 	
-	m_button111 = new wxButton( sbSizer11->GetStaticBox(), wxID_ANY, _("Great Circle (shortest) GPX"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_button111 = new wxButton( sbSizer11->GetStaticBox(), wxID_ANY, _("Great Circle (shortest)"), wxDefaultPosition, wxDefaultSize, 0 );
 	sbSizer11->Add( m_button111, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
 	
-	m_button6 = new wxButton( sbSizer11->GetStaticBox(), wxID_ANY, _("Rhumb Line (fixed heading) GPX"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_button6 = new wxButton( sbSizer11->GetStaticBox(), wxID_ANY, _("Rhumb Line (fixed heading)"), wxDefaultPosition, wxDefaultSize, 0 );
 	sbSizer11->Add( m_button6, 0, wxALL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	m_combo_GC = new wxComboBox( sbSizer11->GetStaticBox(), wxID_ANY, _("to OpenCPN"), wxDefaultPosition, wxDefaultSize, 0, NULL, wxCB_READONLY );
+	m_combo_GC->Append( _("to OpenCPN") );
+	m_combo_GC->Append( _("Remove last") );
+	m_combo_GC->Append( _("to GPX file") );
+	m_combo_GC->SetSelection( 0 );
+	sbSizer11->Add( m_combo_GC, 5, wxALIGN_CENTER|wxALL, 5 );
 	
 	
 	bSizer1421->Add( sbSizer11, 1, wxEXPAND, 5 );
@@ -189,7 +196,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_LatLimit = new wxTextCtrl( sbSizer222->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer9311->Add( m_LatLimit, 0, wxALL, 5 );
 	
-	m_staticText3331112 = new wxStaticText( sbSizer222->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3331112 = new wxStaticText( sbSizer222->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText3331112->Wrap( -1 );
 	bSizer9311->Add( m_staticText3331112, 0, wxALL, 5 );
 	
@@ -268,10 +275,17 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer14211->Add( sbSizer2211, 0, 0, 5 );
 	
 	wxStaticBoxSizer* sbSizer12;
-	sbSizer12 = new wxStaticBoxSizer( new wxStaticBox( m_panel61, wxID_ANY, _("Export") ), wxVERTICAL );
+	sbSizer12 = new wxStaticBoxSizer( new wxStaticBox( m_panel61, wxID_ANY, _("Export") ), wxHORIZONTAL );
 	
-	m_button1111 = new wxButton( sbSizer12->GetStaticBox(), wxID_ANY, _("Limited Circle GPX"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_button1111 = new wxButton( sbSizer12->GetStaticBox(), wxID_ANY, _("Limited Circle"), wxDefaultPosition, wxDefaultSize, 0 );
 	sbSizer12->Add( m_button1111, 0, wxALL|wxALIGN_CENTER_VERTICAL|wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	m_combo_LC = new wxComboBox( sbSizer12->GetStaticBox(), wxID_ANY, _("to OpenCPN"), wxDefaultPosition, wxDefaultSize, 0, NULL, wxCB_READONLY );
+	m_combo_LC->Append( _("to OpenCPN") );
+	m_combo_LC->Append( _("Remove last") );
+	m_combo_LC->Append( _("to GPX file") );
+	m_combo_LC->SetSelection( 0 );
+	sbSizer12->Add( m_combo_LC, 0, wxALL, 5 );
 	
 	
 	bSizer14211->Add( sbSizer12, 1, wxEXPAND, 5 );
@@ -320,12 +334,12 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lat1 = new wxTextCtrl( sbSizer7->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer1431->Add( m_Lat1, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	m_staticText3331 = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3331 = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText3331->Wrap( -1 );
 	bSizer1431->Add( m_staticText3331, 0, wxALL, 5 );
 	
 	m_button7 = new wxButton( sbSizer7->GetStaticBox(), wxID_ANY, _("Paste"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_button7->SetToolTip( _("Paste coordinate pair (38.8897,-77.0089) or (38.8897\u00b0, -77.0089\u00b0) or (38\u00b0 53′ 23″ N, 77\u00b0 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)") );
+	m_button7->SetToolTip( _("Paste coordinate pair (38.8897,-77.0089) or (38.8897°, -77.0089°) or (38° 53′ 23″ N, 77° 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)") );
 	
 	bSizer1431->Add( m_button7, 0, wxALL, 5 );
 	
@@ -342,7 +356,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lon1 = new wxTextCtrl( sbSizer7->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer14311->Add( m_Lon1, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	m_staticText33311 = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText33311 = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText33311->Wrap( -1 );
 	bSizer14311->Add( m_staticText33311, 0, wxALL, 5 );
 	
@@ -371,12 +385,12 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lat2 = new wxTextCtrl( sbSizer71->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer14312->Add( m_Lat2, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	m_staticText33312 = new wxStaticText( sbSizer71->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText33312 = new wxStaticText( sbSizer71->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText33312->Wrap( -1 );
 	bSizer14312->Add( m_staticText33312, 0, wxALL, 5 );
 	
 	m_button9 = new wxButton( sbSizer71->GetStaticBox(), wxID_ANY, _("Paste"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_button9->SetToolTip( _("Paste coordinate pair (38.8897,-77.0089) or (38.8897\u00b0, -77.0089\u00b0) or (38\u00b0 53′ 23″ N, 77\u00b0 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)") );
+	m_button9->SetToolTip( _("Paste coordinate pair (38.8897,-77.0089) or (38.8897°, -77.0089°) or (38° 53′ 23″ N, 77° 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)") );
 	
 	bSizer14312->Add( m_button9, 0, wxALL, 5 );
 	
@@ -393,7 +407,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lon2 = new wxTextCtrl( sbSizer71->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer143111->Add( m_Lon2, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	m_staticText333111 = new wxStaticText( sbSizer71->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText333111 = new wxStaticText( sbSizer71->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText333111->Wrap( -1 );
 	bSizer143111->Add( m_staticText333111, 0, wxALL, 5 );
 	
@@ -482,7 +496,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lat1_d = new wxTextCtrl( sbSizer72->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
 	bSizer14313->Add( m_Lat1_d, 0, wxALL, 5 );
 	
-	m_staticText33313 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	m_staticText33313 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
 	m_staticText33313->Wrap( -1 );
 	bSizer14313->Add( m_staticText33313, 0, wxALL, 5 );
 	
@@ -519,7 +533,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lon1_d = new wxTextCtrl( sbSizer72->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
 	bSizer143112->Add( m_Lon1_d, 0, wxALL, 5 );
 	
-	m_staticText333112 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText333112 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText333112->Wrap( -1 );
 	bSizer143112->Add( m_staticText333112, 0, wxALL, 5 );
 	
@@ -568,7 +582,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lat2_d = new wxTextCtrl( sbSizer711->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
 	bSizer143121->Add( m_Lat2_d, 0, wxALL, 5 );
 	
-	m_staticText333121 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText333121 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText333121->Wrap( -1 );
 	bSizer143121->Add( m_staticText333121, 0, wxALL, 5 );
 	
@@ -605,7 +619,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_Lon2_d = new wxTextCtrl( sbSizer711->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
 	bSizer1431111->Add( m_Lon2_d, 0, wxALL, 5 );
 	
-	m_staticText3331111 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3331111 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("°"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText3331111->Wrap( -1 );
 	bSizer1431111->Add( m_staticText3331111, 0, wxALL, 5 );
 	
@@ -653,7 +667,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_panel15->SetSizer( bSizer401 );
 	m_panel15->Layout();
 	bSizer401->Fit( m_panel15 );
-	m_wxNotebook234->AddPage( m_panel15, _("\u00b0 ' \""), false );
+	m_wxNotebook234->AddPage( m_panel15, _("° ' \""), false );
 	
 	bSizer35->Add( m_wxNotebook234, 0, wxALL, 5 );
 	

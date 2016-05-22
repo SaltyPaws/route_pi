@@ -21,6 +21,7 @@
 #include <wx/sizer.h>
 #include <wx/button.h>
 #include <wx/statbox.h>
+#include <wx/combobox.h>
 #include <wx/panel.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
@@ -148,6 +149,8 @@ class DlgDef : public wxDialog
 	
 	public:
 		wxBoxSizer* bSframe;
+		wxComboBox* m_combo_GC;
+		wxComboBox* m_combo_LC;
 		
 		DlgDef( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Menu"), const wxPoint& pos = wxPoint( 20,20 ), const wxSize& size = wxSize( -1,-1 ), long style = wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxTAB_TRAVERSAL ); 
 		~DlgDef();
