@@ -57,9 +57,6 @@ class DlgDef : public wxDialog
 		wxStaticText* m_staticText332111;
 		wxButton* m_button111;
 		wxButton* m_button6;
-		wxButton* m_button113;
-		wxButton* m_button12;
-		wxButton* m_button121;
 		wxPanel* m_panel12;
 		wxPanel* m_panel61;
 		wxStaticText* m_staticText15111;
@@ -80,8 +77,6 @@ class DlgDef : public wxDialog
 		wxTextCtrl* m_distance_RH1;
 		wxStaticText* m_staticText33211111;
 		wxButton* m_button1111;
-		wxButton* m_button10;
-		wxButton* m_button14;
 		wxNotebook* m_wxNotebook234;
 		wxPanel* m_panel11;
 		wxStaticText* m_staticText3231;
@@ -141,14 +136,10 @@ class DlgDef : public wxDialog
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnGCCalculate( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnExportGCOCPN( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnExportRHGPX( wxCommandEvent& event ) { event.Skip(); }
-		virtual void RHtoMain( wxCommandEvent& event ) { event.Skip(); }
-		virtual void RHtoGPX( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnDeleteRoute( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnExportGC( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnExportRH( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnGCLCalculate( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnExportGCLOCPN( wxCommandEvent& event ) { event.Skip(); }
-		virtual void OnExportGCLGPX( wxCommandEvent& event ) { event.Skip(); }
+		virtual void OnExportGCL( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnNoteBookFit( wxNotebookEvent& event ) { event.Skip(); }
 		virtual void OnStartPaste( wxCommandEvent& event ) { event.Skip(); }
 		virtual void OnEndPaste( wxCommandEvent& event ) { event.Skip(); }

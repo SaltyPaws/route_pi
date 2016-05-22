@@ -25,14 +25,13 @@
  ***************************************************************************
  */
 
-#include "route_pi.h"
 #include "wx/wxprec.h"
 
 #ifndef  WX_PRECOMP
   #include "wx/wx.h"
 #endif //precompiled headers
 
-
+#include "route_pi.h"
 
 // the class factories, used to create and destroy instances of the PlugIn
 
@@ -93,9 +92,8 @@ int route_pi::Init(void)
       m_pDialog = NULL;
 
       return (WANTS_TOOLBAR_CALLBACK   |
-              INSTALLS_TOOLBAR_TOOL    |
-              WANTS_PREFERENCES        |
-              WANTS_CURSOR_LATLON      |
+              INSTALLS_TOOLBAR_TOOL     |
+              WANTS_PREFERENCES         |
               WANTS_CONFIG
            );
 }
