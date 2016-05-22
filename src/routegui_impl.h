@@ -65,10 +65,12 @@ public:
         void OnConverttoDegree( wxCommandEvent& event );
         void OnNoteBookFit( wxCommandEvent& event );
         void OnGCCalculate( wxCommandEvent& event );
+        bool OnGCCalculate( void );
         void OnGCLCalculate( wxCommandEvent& event );
         void OnGCLCalculate( wxCommandEvent& event, bool write_file );
         void OnFit( wxCommandEvent& event );
         void OnExportGC( wxCommandEvent& event );
+        void OnExportGC( wxCommandEvent& event, bool to_OpenCPN );
         void OnExportGCL( wxCommandEvent& event );
         void OnExportRH( wxCommandEvent& event );
         void OnExportRH( wxCommandEvent& event, bool to_OpenCPN );
