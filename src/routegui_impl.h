@@ -30,17 +30,19 @@
 
 //#include <cstdlib>
 //#include <cstdio>
+
+
+#ifdef WX_PRECOMP
+#include "wx/wx.h"
+#endif
 #include <wx/clipbrd.h>
+//#include "parser.h"
+#include "routegui.h"
 #include "tinyxml.h"
 #include "NavFunc.h"
 
 #include "route_pi.h"
-#include "routegui.h"
-#ifdef WX_PRECOMP
-#include "wx/wx.h"
-#endif
 
-//#include "parser.h"
 
 
 using namespace std;
@@ -57,6 +59,7 @@ class Dlg : public DlgDef
 {
 public:
         Dlg( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Route Plugin by SaltyPaws"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( -1,-1 ), long style = wxCAPTION|wxDEFAULT_DIALOG_STYLE|wxMAXIMIZE_BOX|wxRESIZE_BORDER );
+
         void OnCalculate( wxCommandEvent& event );
         void OnStartPaste( wxCommandEvent& event );
         void OnEndPaste( wxCommandEvent& event );
@@ -65,16 +68,31 @@ public:
         void OnNoteBookFit( wxCommandEvent& event );
         void OnGCCalculate( wxCommandEvent& event );
         void OnGCLCalculate( wxCommandEvent& event );
-        void OnGCLCalculate( wxCommandEvent& event, bool write_file );
+        void OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OCPN );
         void OnFit( wxCommandEvent& event );
-        void OnExportGC( wxCommandEvent& event );
-        void OnExportGCL( wxCommandEvent& event );
-        void OnExportRH( wxCommandEvent& event );
-        //void Addpoint(TiXmlElement* Route, double ptlat, double ptlon, wxString ptname, wxString ptsym, wxString pttype);
+        void OnExportRH( bool to_OCPN );
+        void OnExportGC( bool to_OCPN );
+//void RHtoMain (wxCommandEvent& event);
+
+
+        void OnExportGCLGPX( wxCommandEvent& event );
+        void OnExportGCLOCPN( wxCommandEvent& event );
+
+        void OnDeleteRoute (wxCommandEvent& event );
+
+
+        //void OnExportRHGPX( wxCommandEvent& event );
+
+
+        //void OnExportRHOCPN( wxCommandEvent& event );
+
+
+        void AddPoint( PlugIn_Waypoint *pNewPoint, PlugIn_Route *m_Route_ocpn);
         void Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString ptname, wxString ptsym, wxString pttype);
         double BrentsMethodSolve(double lowerLimit, double upperLimit, double errorTol);
         double Fraction_string_to_Decimal(wxString fraction_string);
         void Import_coordinate_pair_from_clipboard(bool start);
+
         //friend class function;
         route_pi *plugin;
 private:
@@ -84,6 +102,7 @@ private:
         double F(double x);
         bool error_found;
         bool dbg;
+        wxString m_GUUD;
 };
 
 #endif

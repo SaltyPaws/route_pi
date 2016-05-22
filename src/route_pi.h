@@ -88,11 +88,12 @@ public:
       void SetCalculatorDialogHeight    (int x){ m_route_dialog_height = x;};
 
 
-      void OnSurveyDialogClose();
+      //void OnSurveyDialogClose();
+      wxWindow          *m_parent_window;
 
 private:
       wxFileConfig      *m_pconfig;
-      wxWindow          *m_parent_window;
+      //wxWindow          *m_parent_window;
       bool              LoadConfig(void);
       bool              SaveConfig(void);
       Dlg               *m_pDialog;

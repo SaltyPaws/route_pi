@@ -295,7 +295,7 @@ void Dlg::OnFit( wxCommandEvent& event )
     if (dbg) printf("Resizing window \n");
 }
 
-void Dlg::OnExportGC( wxCommandEvent& event )
+void Dlg::OnExportGC( bool to_OCPN )
 {
       bool error_occurred=false;
       bool user_canceled=false;
@@ -399,6 +399,12 @@ void Dlg::OnExportGC( wxCommandEvent& event )
         }
 }
 
+void Dlg::AddPoint( PlugIn_Waypoint *pNewPoint, PlugIn_Route *m_Route_ocpn)//, bool b_rename_in_sequence, bool b_deferBoxCalc )
+{
+    m_Route_ocpn->pWaypointList->Append( pNewPoint );
+    return;
+}
+
 void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString ptname, wxString ptsym, wxString pttype){
 //add point
 	TiXmlElement * RoutePoint = new TiXmlElement( "rtept" );
@@ -425,13 +431,10 @@ void Dlg::Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString
 }
 
 void Dlg::OnGCLCalculate( wxCommandEvent& event ){
-    OnGCLCalculate (event, false);
+    OnGCLCalculate (event, false, false);
     }
 
-void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
-
-    //-40,80,20, 20, -80 is a problem
-    //20, 80, -40, -80 is a problem
+void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OCPN ){
 
     bool error_occurred=false;
     bool user_canceled=false;
@@ -737,7 +740,7 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
    if (!Lat_limit_found) {
         //no intersection, do normal GC
         this->m_distance_LC->SetValue(this->m_distance_GC1->GetValue());
-        if (write_file) OnExportGC(event);
+        if (write_file) OnExportGC(true);
         //write file (call to GC function)
    }
 
@@ -748,9 +751,16 @@ void Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file ){
 
 }
 
-void Dlg::OnExportGCL( wxCommandEvent& event ){
+void Dlg::OnExportGCLGPX( wxCommandEvent& event ){
 
-    OnGCLCalculate (event, true);
+    OnGCLCalculate (event, true, false);
+     wxMessageBox(_("Export to GPX") );
+}
+
+void Dlg::OnExportGCLOCPN( wxCommandEvent& event ){
+
+    OnGCLCalculate (event, true, true);
+         wxMessageBox(_("Export to OCPN") );
 }
 
 double Dlg::F(double lonx)
@@ -841,8 +851,16 @@ double Dlg::BrentsMethodSolve(double lowerLimit, double upperLimit, double error
     return b;
 }
 
-void Dlg::OnExportRH( wxCommandEvent& event )
+
+
+void Dlg::OnExportRH( bool to_OCPN )
 {
+    PlugIn_Route *m_Route_ocpn = new PlugIn_Route;
+    m_Route_ocpn->m_StartString=this->m_Start->GetValue();
+    m_Route_ocpn->m_EndString=this->m_End->GetValue();
+    m_Route_ocpn->m_NameString=this->m_Route->GetValue();
+    m_Route_ocpn->m_GUID=GetNewGUID();
+
     bool error_occurred=false;
     bool user_canceled=false;
     wxFileDialog dlg(this, _("Export Rhumb Line GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
@@ -915,6 +933,11 @@ void Dlg::OnExportRH( wxCommandEvent& event )
             }
             //start
             Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("0 Start"),_T("diamond"),_T("WPT"));
+                {
+                PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lat1, lon1, _T("diamond"), _T("0 Start"), wxT("") );
+                AddPoint(NewpWayPoinT,m_Route_ocpn);
+                }
+
             double lati, loni;
             for(double in_distance=step_size;in_distance<(dist-0.25*step_size);in_distance=in_distance+step_size)
                 {
@@ -924,9 +947,24 @@ void Dlg::OnExportRH( wxCommandEvent& event )
                 //destRhumb(lat1, lon1, fwdAz,in_distance, &lati, &loni);
                 if (dbg) std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
                 Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
+                    {
+                    PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lati, loni, _T("diamond"), wxString::Format(wxT("%d"),(int)in_distance), wxT("") );
+                    AddPoint(NewpWayPoinT,m_Route_ocpn);
+                    }
+
                 }
             //end
             Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),wxString::Format(wxT("%d"),(int)dist) + _T(" Finish"),_T("SYMBOL"),_T("WPT"));
+                {
+                PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lat1, lon1, _T("diamond"), wxString::Format(wxT("%d"),(int)dist) + _T(" Finish"), wxT("") );
+                AddPoint(NewpWayPoinT,m_Route_ocpn);
+                //next 3 lines required to put lines on screen
+
+                }
+                bool test = AddPlugInRoute (m_Route_ocpn);
+                wxMilliSleep(50);// Required or refresh is not ready
+                RequestRefresh(plugin->m_parent_window);//
+
             //////////////////////////Close XML
 
             root->LinkEndChild( Route );
@@ -941,4 +979,13 @@ void Dlg::OnExportRH( wxCommandEvent& event )
         }
 }
 
+//void OnExportRHOCPN( wxCommandEvent& event )
+//{
+//OnExportRH(true);
+//}
+
+//void OnExportRHGPX( wxCommandEvent& event )
+//{
+//dlg.OnExportRH(false);//
+//}//
 
