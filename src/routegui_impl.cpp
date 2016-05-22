@@ -850,43 +850,59 @@ double Dlg::BrentsMethodSolve(double lowerLimit, double upperLimit, double error
 void Dlg::OnExportRH(wxCommandEvent& event)
 {
 int Pattern=this->m_combo_GC->GetCurrentSelection();
-std::cout<<"Pattern: "<<Pattern<< std::endl;
+//std::cout<<"Pattern: "<<Pattern<< std::endl;
 
 switch ( Pattern )
     {
     case 0: //to OpenCPN
         {
         OnExportRH(event, true);
-        wxMessageBox(_("Export to OCPN") );
+        //wxMessageBox(_("Export to OCPN") );
         break;
         }
     case 1://Delete last route
         {
         OnDeleteRoute(m_GUUD);
-        wxMessageBox(_("Delete Route") );
+        //wxMessageBox(_("Delete Route") );
         break;
         }
     case 2://to GPX file
         {OnExportRH(event, false);
-        wxMessageBox(_("Export to GPX") );}
+        //wxMessageBox(_("Export to GPX") );}
         break;
     }
 }
 
 void Dlg::OnExportRH(wxCommandEvent& event, bool to_OpenCPN)
 {
-    PlugIn_Route *m_Route_ocpn = new PlugIn_Route;
-    m_Route_ocpn->m_StartString=this->m_Start->GetValue();
-    m_Route_ocpn->m_EndString=this->m_End->GetValue();
-    m_Route_ocpn->m_NameString=this->m_Route->GetValue();
-    m_Route_ocpn->m_GUID=GetNewGUID();
-
     bool error_occurred=false;
     bool user_canceled=false;
-    wxFileDialog dlg(this, _("Export Rhumb Line GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
-    if (dlg.ShowModal() == wxID_CANCEL)
-        user_canceled=true;     // the user changed idea...
-    if (!user_canceled && !dlg.GetPath().IsEmpty()){
+    TiXmlDocument doc;
+    TiXmlElement * Route = new TiXmlElement( "rte" );
+    TiXmlElement * root = new TiXmlElement( "gpx" );
+
+    PlugIn_Route *m_Route_ocpn = new PlugIn_Route;
+    wxString Dialog_Path="";
+
+    if(!to_OpenCPN)
+        {
+
+        m_Route_ocpn->m_StartString=this->m_Start->GetValue();
+        m_Route_ocpn->m_EndString=this->m_End->GetValue();
+        m_Route_ocpn->m_NameString=this->m_Route->GetValue();
+        m_Route_ocpn->m_GUID=GetNewGUID();
+
+        wxFileDialog dlg(this, _("Export Rhumb Line GPX file as"), wxEmptyString, wxEmptyString, _T("GPX files (*.gpx)|*.gpx|All files (*.*)|*.*"), wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
+        if (dlg.ShowModal() == wxID_CANCEL)
+            user_canceled=true;     // the user changed idea...
+
+        if (dlg.GetPath().IsEmpty())
+            user_canceled=true;
+        else
+            Dialog_Path=dlg.GetPath();
+
+    }
+    if (!user_canceled ){
             double dist, fwdAz;//, revAz;
 
             double lat1,lon1,lat2,lon2;
@@ -908,40 +924,43 @@ void Dlg::OnExportRH(wxCommandEvent& event, bool to_OpenCPN)
                 wxMessageBox(_("Error in calculation. Please check input!") );}
 
             ////////////////////Start XML
-            TiXmlDocument doc;
-            TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
-            doc.LinkEndChild( decl );
-            TiXmlElement * root = new TiXmlElement( "gpx" );
-            doc.LinkEndChild( root );
-            root->SetAttribute("version", "1.1");
-            root->SetAttribute("creator", "Route_pi by SaltyPaws");
-            root->SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            root->SetAttribute("xmlns:gpxx","http://www.garmin.com/xmlschemas/GpxExtensions/v3" );
-            root->SetAttribute("xsi:schemaLocation", "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
-            root->SetAttribute("xmlns:opencpn","http://www.opencpn.org");
 
-            TiXmlElement * Route = new TiXmlElement( "rte" );
+            if(!to_OpenCPN)
+            {
 
-            TiXmlElement * RouteName = new TiXmlElement( "name" );
-            TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
-            Route->LinkEndChild( RouteName );
-            RouteName->LinkEndChild( text4 );
+                TiXmlDeclaration* decl = new TiXmlDeclaration( "1.0", "utf-8", "" );
+                doc.LinkEndChild( decl );
 
-            TiXmlElement * Extensions = new TiXmlElement( "extensions" );
+                doc.LinkEndChild( root );
+                root->SetAttribute("version", "1.1");
+                root->SetAttribute("creator", "Route_pi by SaltyPaws");
+                root->SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+                root->SetAttribute("xmlns:gpxx","http://www.garmin.com/xmlschemas/GpxExtensions/v3" );
+                root->SetAttribute("xsi:schemaLocation", "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
+                root->SetAttribute("xmlns:opencpn","http://www.opencpn.org");
 
-            TiXmlElement * StartN = new TiXmlElement( "opencpn:start" );
-            TiXmlText * text5 = new TiXmlText( this->m_Start->GetValue().ToUTF8() );
-            Extensions->LinkEndChild( StartN );
-            StartN->LinkEndChild( text5 );
 
-            TiXmlElement * EndN = new TiXmlElement( "opencpn:end" );
-            TiXmlText * text6 = new TiXmlText( this->m_End->GetValue().ToUTF8() );
-            Extensions->LinkEndChild( EndN );
-            EndN->LinkEndChild( text6 );
 
-            Route->LinkEndChild( Extensions );
+                TiXmlElement * RouteName = new TiXmlElement( "name" );
+                TiXmlText * text4 = new TiXmlText( this->m_Route->GetValue().ToUTF8() );
+                Route->LinkEndChild( RouteName );
+                RouteName->LinkEndChild( text4 );
+
+                TiXmlElement * Extensions = new TiXmlElement( "extensions" );
+
+                TiXmlElement * StartN = new TiXmlElement( "opencpn:start" );
+                TiXmlText * text5 = new TiXmlText( this->m_Start->GetValue().ToUTF8() );
+                Extensions->LinkEndChild( StartN );
+                StartN->LinkEndChild( text5 );
+
+                TiXmlElement * EndN = new TiXmlElement( "opencpn:end" );
+                TiXmlText * text6 = new TiXmlText( this->m_End->GetValue().ToUTF8() );
+                Extensions->LinkEndChild( EndN );
+                EndN->LinkEndChild( text6 );
+
+                Route->LinkEndChild( Extensions );
             //////////////////////Add Points HERE
-
+            }
             double step_size;
             bool m_IntervalNM_test=false;
             if(!this->m_IntervalNM->GetValue().ToDouble(&step_size)){ m_IntervalNM_test=true;}
@@ -954,8 +973,13 @@ void Dlg::OnExportRH(wxCommandEvent& event, bool to_OpenCPN)
             //start
             Addpoint(Route,wxString::Format(wxT("%f"),lat1),wxString::Format(wxT("%f"),lon1),_T("0 Start"),_T("diamond"),_T("WPT"));
                 {
-                PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lat1, lon1, _T("diamond"), _T("0 Start"), wxT("") );
-                AddPoint(NewpWayPoinT,m_Route_ocpn);
+                if(!to_OpenCPN)
+                    PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lat1, lon1, _T("diamond"), _T("0 Start"), wxT("") );
+                else
+                    {
+                    PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lat1, lon1, _T("diamond"), _T("0 Start"), wxT("") );
+                    AddPoint(NewpWayPoinT,m_Route_ocpn);
+                    }
                 }
 
             double lati, loni;
@@ -966,7 +990,9 @@ void Dlg::OnExportRH(wxCommandEvent& event, bool to_OpenCPN)
                 destLoxodrome(lat1,  lon1,  fwdAz,  in_distance, &lati, &loni);
                 //destRhumb(lat1, lon1, fwdAz,in_distance, &lati, &loni);
                 if (dbg) std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
-                Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
+                if(!to_OpenCPN)
+                    Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
+                else
                     {
                     PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lati, loni, _T("diamond"), wxString::Format(wxT("%d"),(int)in_distance), wxT("") );
                     AddPoint(NewpWayPoinT,m_Route_ocpn);
@@ -974,28 +1000,33 @@ void Dlg::OnExportRH(wxCommandEvent& event, bool to_OpenCPN)
 
                 }
             //end
-            Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),wxString::Format(wxT("%d"),(int)dist) + _T(" Finish"),_T("SYMBOL"),_T("WPT"));
+            if(!to_OpenCPN)
+                Addpoint(Route,wxString::Format(wxT("%f"),lat2),wxString::Format(wxT("%f"),lon2),wxString::Format(wxT("%d"),(int)dist) + _T(" Finish"),_T("SYMBOL"),_T("WPT"));
+            else
                 {
-                PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lat1, lon1, _T("diamond"), wxString::Format(wxT("%d"),(int)dist) + _T(" Finish"), wxT("") );
-                AddPoint(NewpWayPoinT,m_Route_ocpn);
-                //next 3 lines required to put lines on screen
-
+                    {
+                        PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lat1, lon1, _T("diamond"), wxString::Format(wxT("%d"),(int)dist) + _T(" Finish"), wxT("") );
+                        AddPoint(NewpWayPoinT,m_Route_ocpn);
+                        //next 3 lines required to put lines on screen
+                    }
+                    bool test = AddPlugInRoute (m_Route_ocpn);
+                    wxMilliSleep(50);// Required or refresh is not ready
+                    RequestRefresh(plugin->m_parent_window);//
                 }
-                bool test = AddPlugInRoute (m_Route_ocpn);
-                wxMilliSleep(50);// Required or refresh is not ready
-                RequestRefresh(plugin->m_parent_window);//
 
             //////////////////////////Close XML
+            if(!to_OpenCPN)
+            {
+                root->LinkEndChild( Route );
+                //wxString s=dlg.GetPath();
 
-            root->LinkEndChild( Route );
-            wxString s=dlg.GetPath();
-
-            if (!s.EndsWith(_T(".gpx"))) {
-                 s = s + _T(".gpx");
+                if (!Dialog_Path.EndsWith(_T(".gpx"))) {
+                     Dialog_Path = Dialog_Path + _T(".gpx");
+                }
+                wxCharBuffer buffer=Dialog_Path.ToUTF8();
+                if (dbg) std::cout<< buffer.data()<<std::endl;
+                doc.SaveFile( buffer.data() );
             }
-            wxCharBuffer buffer=s.ToUTF8();
-            if (dbg) std::cout<< buffer.data()<<std::endl;
-            doc.SaveFile( buffer.data() );
         }
 }
 

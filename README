@@ -25,7 +25,8 @@ Changes to 1.1:
 - When finish or intermediate point is within 25% of last waypoint distance, the previous point is omitted to prevent very close spaced waypoints FS#1131-3(first)
 - Direct export of route to OpenCPN 
 
-remove start and finish from input box
+use start and finish from input box
+give route a name
 fix bug when no lat limit is entered
 
 
