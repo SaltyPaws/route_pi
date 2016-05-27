@@ -67,7 +67,7 @@ public:
         void OnGCCalculate( wxCommandEvent& event );
         bool OnGCCalculate( void );
         void OnGCLCalculate( wxCommandEvent& event );
-        void OnGCLCalculate( wxCommandEvent& event, bool write_file );
+        bool OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCPN );
         void OnFit( wxCommandEvent& event );
         void OnExportGC( wxCommandEvent& event );
         void OnExportGC( wxCommandEvent& event, bool to_OpenCPN );
