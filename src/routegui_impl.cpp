@@ -57,6 +57,67 @@ void Dlg::OnEndPaste( wxCommandEvent& event )
 Import_coordinate_pair_from_clipboard(false);
 }
 
+wxString Dlg::Clean_Coordinate (wxString Coordinate)
+{
+wxString Original=Coordinate;
+bool dms=false;
+std::cout<<"Input: >>"<<Coordinate<<"<<"<< std::endl;
+if ( Coordinate.Contains(wxT("′")) || Coordinate.Contains(wxT("″")) || Coordinate.Contains(wxT("\"")))
+    dms=true;
+Coordinate.Replace("\u00b0"," "); // Remove degree character
+Coordinate.Replace("′"," ");
+Coordinate.Replace("\""," ");
+Coordinate.Replace("″"," ");
+
+if (Coordinate.EndsWith(_T(".")))
+    Coordinate=Coordinate.BeforeLast('.');
+
+if (Coordinate.IsEmpty())
+    Coordinate ="0.0";
+
+if(dms)
+    Coordinate=wxString::Format(wxT("%g"), fromDMStodouble((char*)Coordinate.mb_str().data()));
+else
+    {
+    std::cout<<"before: >>"<<Coordinate<<"<<"<< std::endl;
+    Coordinate.Replace(" ","."); // first replace all spaces with periods
+        std::cout<<"after: >>"<<Coordinate<<"<<"<< std::endl;
+    if (Coordinate.Contains(wxT(".")))
+        {
+
+        wxString s_Start=Coordinate.BeforeFirst('.');
+        wxString s_End=Coordinate.AfterFirst('.');
+        s_End.Replace(".","");
+        Coordinate=s_Start+"."+s_End;
+        std::cout<<"done: >>"<<Coordinate<<"<<"<< std::endl;
+        }
+
+    Coordinate.MakeUpper();
+
+    if ( Coordinate.Contains(wxT("S")) || Coordinate.Contains(wxT("W")) )
+        {//S or W requires no action
+        Coordinate.Replace("S","");
+        Coordinate.Replace("W","");
+        }
+    else if (Coordinate.Contains(wxT("N")) || Coordinate.Contains(wxT("E")))
+        {//Add - for N or E
+        Coordinate.Replace("E","");
+        Coordinate.Replace("N","");
+        Coordinate=_T("-")+Coordinate;
+        }
+    }
+
+double test_coordinate=0.0;
+if(!Coordinate.ToDouble(&test_coordinate))
+    {wxMessageBox( "Error: Cannot process coordinate input for >>" + Original + "<< Please ensure input is in decimal and remove symbols and letters");
+    Coordinate="0.0";
+    test_coordinate=0.0;
+    }
+
+std::cout<<"Output: >>"<<test_coordinate<<"<<"<< std::endl;
+return Coordinate;
+}
+
 void Dlg::Import_coordinate_pair_from_clipboard(bool start)
 {
 wxString Paste_string="";
@@ -76,29 +137,12 @@ if (wxTheClipboard->Open())
     //We now have data
     if (Paste_string.Contains(wxT(","))) //Test if data contains comma
         {
-        //strip characters not required
-        Paste_string.Replace("\u00b0"," ");
-        Paste_string.Replace("′"," ");
-        Paste_string.Replace("\""," ");
-        Paste_string.Replace("″"," ");
-
         Paste_Lat=Paste_string.BeforeFirst(',');  //if yes, split in left and right part for lat and lon
         Paste_Lon=Paste_string.AfterFirst(',');
         //std::cout<<"Paste_Lat: "<<Paste_Lat<<"Paste_Lon: "<<Paste_Lon<<"."<< std::endl;
-        //test if lat contains NSEWnsew
-        if ( Paste_Lat.Contains(wxT("N")) || Paste_Lat.Contains(wxT("n")) || Paste_Lat.Contains(wxT("S")) || Paste_Lat.Contains(wxT("s")) || Paste_Lat.Contains(wxT("E")) || Paste_Lat.Contains(wxT("e")) || Paste_Lat.Contains(wxT("W")) || Paste_Lat.Contains(wxT("w")) )
-            {//parse using DMS
 
-            Paste_Lat=wxString::Format(wxT("%g"), fromDMStodouble((char*)Paste_Lat.mb_str().data()));
-            //std::cout<<"Paste_Lat: "<<Paste_Lat<<"."<< std::endl;
-            }
-
-         //test if Lon contains NSEWnsew
-        if ( Paste_Lon.Contains(wxT("N")) || Paste_Lon.Contains(wxT("n")) || Paste_Lon.Contains(wxT("S")) || Paste_Lon.Contains(wxT("s")) || Paste_Lon.Contains(wxT("E")) || Paste_Lon.Contains(wxT("e")) || Paste_Lon.Contains(wxT("W")) || Paste_Lon.Contains(wxT("w")) )
-          {//parse using DMS
-            Paste_Lon=wxString::Format(wxT("%g"), fromDMStodouble((char*)Paste_Lon.mb_str().data()));
-            //std::cout<<"Paste_Lon: "<<Paste_Lon<<"."<< std::endl;
-            }
+        Paste_Lat=Clean_Coordinate(Paste_Lat);
+        Paste_Lon=Clean_Coordinate(Paste_Lon);
 
         if(start)//check bool start and write back in relevant coordinate boxes
             { //start point
@@ -264,14 +308,9 @@ void Dlg::OnGCCalculate( wxCommandEvent& event )
     bool test=OnGCCalculate();
 }
 
-
-
-
 bool Dlg::OnGCCalculate( void ){
 
-    ///banaan
     if (this->m_wxNotebook234->GetSelection()!=0) OnConverttoDegree(); //If degree minute second tab is open, convert first
-
 
     bool error_occurred=false;
     bool user_canceled=false;
@@ -279,11 +318,18 @@ bool Dlg::OnGCCalculate( void ){
 
     double lat1,lon1,lat2,lon2;
     //set value to 0
-    if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ lat1=0.0;}
-    if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ lon1=0.0;}
-    if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;}
-    if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;}
+    if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ this->m_Lat1->SetValue(Clean_Coordinate(this->m_Lat1->GetValue()));}
+    if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ this->m_Lon1->SetValue(Clean_Coordinate(this->m_Lon1->GetValue()));}
+    if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ this->m_Lat2->SetValue(Clean_Coordinate(this->m_Lat2->GetValue()));}
+    if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ this->m_Lon2->SetValue(Clean_Coordinate(this->m_Lon2->GetValue()));}
 
+    if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ lat1=0.0;error_occurred=true; }
+    if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ lon1=0.0;error_occurred=true; }
+    if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;error_occurred=true; }
+    if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;error_occurred=true; }
+
+
+//banaan
     //Validate input ranges
     if (std::abs(lat1)>90){ error_occurred=true; }
     if (std::abs(lat2)>90){ error_occurred=true; }
@@ -350,10 +396,15 @@ void Dlg::OnExportGC( wxCommandEvent& event, bool to_OpenCPN )
 
             double lat1,lon1,lat2,lon2;
             //set value to 0
-            if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ lat1=0.0;}
-            if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ lon1=0.0;}
-            if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;}
-            if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;}
+            if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ this->m_Lat1->SetValue(Clean_Coordinate(this->m_Lat1->GetValue()));}
+            if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ this->m_Lon1->SetValue(Clean_Coordinate(this->m_Lon1->GetValue()));}
+            if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ this->m_Lat2->SetValue(Clean_Coordinate(this->m_Lat2->GetValue()));}
+            if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ this->m_Lon2->SetValue(Clean_Coordinate(this->m_Lon2->GetValue()));}
+
+            if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ lat1=0.0;error_occurred=true; }
+            if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ lon1=0.0;error_occurred=true; }
+            if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;error_occurred=true; }
+            if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;error_occurred=true; }
             //Validate input ranges
             if (std::abs(lat1)>90){ error_occurred=true; }
             if (std::abs(lat2)>90){ error_occurred=true; }
@@ -512,10 +563,19 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
 
     double lat1,lon1,lat2,lon2,limit;
     //set value to 0
-    if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ lat1=0.0;error_occurred=true;}
-    if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ lon1=0.0;error_occurred=true;}
-    if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;error_occurred=true;}
-    if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;error_occurred=true;}
+    if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ this->m_Lat1->SetValue(Clean_Coordinate(this->m_Lat1->GetValue()));}
+    if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ this->m_Lon1->SetValue(Clean_Coordinate(this->m_Lon1->GetValue()));}
+    if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ this->m_Lat2->SetValue(Clean_Coordinate(this->m_Lat2->GetValue()));}
+    if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ this->m_Lon2->SetValue(Clean_Coordinate(this->m_Lon2->GetValue()));}
+
+    if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ lat1=0.0;error_occurred=true; }
+    if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ lon1=0.0;error_occurred=true; }
+    if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;error_occurred=true; }
+    if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;error_occurred=true; }
+
+
+
+
     if (error_occurred) wxMessageBox(_T("error in conversion of input coordinates"));
     if(!error_occurred && (!this->m_LatLimit->GetValue().ToDouble(&limit))){ error_occurred=true; wxMessageBox(_("No Lat Limit!") ); }
 
@@ -1021,7 +1081,7 @@ int Pattern=this->m_combo_GC->GetCurrentSelection();
 //std::cout<<"Pattern: "<<Pattern<< std::endl;
 
 switch ( Pattern )
-    {//banaan
+    {
     case 0: //to OpenCPN
         {
         if (OnGCCalculate())
@@ -1152,16 +1212,16 @@ void Dlg::OnExportRH(wxCommandEvent& event, bool to_OpenCPN)
             double dist, fwdAz;//, revAz;
 
             double lat1,lon1,lat2,lon2;
-            if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ error_occurred=true;}
-            if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ error_occurred=true; }
-            if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ error_occurred=true;}
-            if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ error_occurred=true; }
 
-            //Validate input ranges
-            if (std::abs(lat1)>90){ error_occurred=true; }
-            if (std::abs(lat2)>90){ error_occurred=true; }
-            if (std::abs(lon1)>180){ error_occurred=true; }
-            if (std::abs(lon2)>180){ error_occurred=true; }
+            if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ this->m_Lat1->SetValue(Clean_Coordinate(this->m_Lat1->GetValue()));}
+            if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ this->m_Lon1->SetValue(Clean_Coordinate(this->m_Lon1->GetValue()));}
+            if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ this->m_Lat2->SetValue(Clean_Coordinate(this->m_Lat2->GetValue()));}
+            if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ this->m_Lon2->SetValue(Clean_Coordinate(this->m_Lon2->GetValue()));}
+
+            if(!this->m_Lat1->GetValue().ToDouble(&lat1)){ lat1=0.0;error_occurred=true; }
+            if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ lon1=0.0;error_occurred=true; }
+            if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;error_occurred=true; }
+            if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;error_occurred=true; }
 
             DistanceBearingMercator(lat2, lon2, lat1, lon1, &fwdAz, &dist);
 

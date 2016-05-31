@@ -88,7 +88,7 @@
             <event name="OnSetFocus"></event>
             <event name="OnSize"></event>
             <event name="OnUpdateUI"></event>
-            <object class="wxBoxSizer" expanded="0">
+            <object class="wxBoxSizer" expanded="1">
                 <property name="minimum_size">-1,-1</property>
                 <property name="name">bSframe</property>
                 <property name="orient">wxHORIZONTAL</property>
@@ -600,7 +600,7 @@
                                                                                         <property name="style"></property>
                                                                                         <property name="subclass"></property>
                                                                                         <property name="toolbar_pane">0</property>
-                                                                                        <property name="tooltip"></property>
+                                                                                        <property name="tooltip">Enter waypoint spacing.</property>
                                                                                         <property name="validator_data_type"></property>
                                                                                         <property name="validator_style">wxFILTER_NONE</property>
                                                                                         <property name="validator_type">wxDefaultValidator</property>
@@ -1718,7 +1718,7 @@
                                 <property name="size">-1,-1</property>
                                 <property name="subclass"></property>
                                 <property name="toolbar_pane">0</property>
-                                <property name="tooltip"></property>
+                                <property name="tooltip">Enter waypoint spacing.</property>
                                 <property name="window_extra_style"></property>
                                 <property name="window_name"></property>
                                 <property name="window_style">wxTAB_TRAVERSAL</property>
@@ -2360,7 +2360,7 @@
                                                                                         <property name="style"></property>
                                                                                         <property name="subclass"></property>
                                                                                         <property name="toolbar_pane">0</property>
-                                                                                        <property name="tooltip"></property>
+                                                                                        <property name="tooltip">This is the not to exceed limit (absolute).</property>
                                                                                         <property name="validator_data_type"></property>
                                                                                         <property name="validator_style">wxFILTER_NONE</property>
                                                                                         <property name="validator_type">wxDefaultValidator</property>
@@ -3609,20 +3609,20 @@
                         </object>
                     </object>
                 </object>
-                <object class="sizeritem" expanded="0">
+                <object class="sizeritem" expanded="1">
                     <property name="border">5</property>
                     <property name="flag">wxEXPAND</property>
                     <property name="proportion">1</property>
-                    <object class="wxBoxSizer" expanded="0">
+                    <object class="wxBoxSizer" expanded="1">
                         <property name="minimum_size"></property>
                         <property name="name">bSizer35</property>
                         <property name="orient">wxVERTICAL</property>
                         <property name="permission">none</property>
-                        <object class="sizeritem" expanded="0">
+                        <object class="sizeritem" expanded="1">
                             <property name="border">5</property>
                             <property name="flag">wxALL</property>
                             <property name="proportion">0</property>
-                            <object class="wxNotebook" expanded="0">
+                            <object class="wxNotebook" expanded="1">
                                 <property name="BottomDockable">1</property>
                                 <property name="LeftDockable">1</property>
                                 <property name="RightDockable">1</property>
@@ -3950,7 +3950,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">Decimal: (+/-)38.889722(E/W). Examples:&#x0A;-38.889722°&#x0A;38.889722E&#x0A;38 88.9722&#x0A;38 88 9722E&#x0A;&#x0A;Degree Minute Seconds. Needs to contain &apos; or &quot; for base 60:&#x0A;77° 00&apos; 32&quot; E/W&#x0A;examples:&#x0A;77° 00&apos; 32&quot; E&#x0A;77 00&apos; 32&quot; E&#x0A;77 00 32&quot; E&#x0A;For fractions use °&apos;&quot; input screen.</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -4306,7 +4306,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">Decimal: (+/-)38.889722(N/S). Examples:&#x0A;-38.889722°&#x0A;38.889722N&#x0A;38 88.9722&#x0A;38 88 9722S&#x0A;&#x0A;Degree Minute Seconds. Needs to contain &apos; or &quot; for base 60:&#x0A;Examples:&#x0A;38° 53&apos; 23&quot; N/S&#x0A;38° 53&apos; 23&quot; N&#x0A;38 53&apos; 23&quot; S&#x0A;38 53 23&quot;N&#x0A;For fractions use °&apos;&quot; input screen.</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -4600,7 +4600,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">Decimal: (+/-)38.889722(N/S). Examples:&#x0A;-38.889722&#x0A;38.889722N&#x0A;38 88.9722°&#x0A;38 88 9722S&#x0A;&#x0A;Degree Minute Seconds. Needs to contain &apos; or &quot; for base 60:&#x0A;Examples:&#x0A;77° 00&apos; 32&quot; N/S&#x0A;77° 00&apos; 32&quot; N&#x0A;77 00&apos; 32&quot; S&#x0A;77 00 32&quot;N&#x0A;For fractions use °&apos;&quot; input screen.</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -4956,7 +4956,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">Decimal: (+/-)38.889722(N/S). Examples:&#x0A;-38.889722&#x0A;38.889722N°&#x0A;38 88.9722&#x0A;38 88 9722S&#x0A;&#x0A;Degree Minute Seconds. Needs to contain &apos; or &quot; for base 60:&#x0A;Examples:&#x0A;38° 53&apos; 23&quot; N/S&#x0A;38° 53&apos; 23&quot; N&#x0A;38 53&apos; 23&quot; S&#x0A;38 53 23&quot;N&#x0A;For fractions use °&apos;&quot; input screen.</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -5250,7 +5250,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">Name of Route</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -5435,7 +5435,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">Start location of route</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -5516,7 +5516,7 @@
                                                                             <property name="gripper">0</property>
                                                                             <property name="hidden">0</property>
                                                                             <property name="id">wxID_ANY</property>
-                                                                            <property name="label">End     </property>
+                                                                            <property name="label">Finish</property>
                                                                             <property name="max_size"></property>
                                                                             <property name="maximize_button">0</property>
                                                                             <property name="maximum_size"></property>
@@ -5620,7 +5620,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">Finish location of route</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -5667,11 +5667,11 @@
                                         </object>
                                     </object>
                                 </object>
-                                <object class="notebookpage" expanded="0">
+                                <object class="notebookpage" expanded="1">
                                     <property name="bitmap"></property>
                                     <property name="label">° &apos; &quot;</property>
                                     <property name="select">0</property>
-                                    <object class="wxPanel" expanded="0">
+                                    <object class="wxPanel" expanded="1">
                                         <property name="BottomDockable">1</property>
                                         <property name="LeftDockable">1</property>
                                         <property name="RightDockable">1</property>
@@ -5745,7 +5745,7 @@
                                         <event name="OnSetFocus"></event>
                                         <event name="OnSize"></event>
                                         <event name="OnUpdateUI"></event>
-                                        <object class="wxBoxSizer" expanded="0">
+                                        <object class="wxBoxSizer" expanded="1">
                                             <property name="minimum_size"></property>
                                             <property name="name">bSizer401</property>
                                             <property name="orient">wxVERTICAL</property>
@@ -5917,7 +5917,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">x or x.y or x y/z or y/z</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -6091,7 +6091,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">x or x.y or x y/z or y/z</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -6265,7 +6265,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">x or x.y or x y/z or y/z</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -6621,7 +6621,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">x or x.y or x y/z or y/z</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -6795,7 +6795,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">x or x.y or x y/z or y/z</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -6969,7 +6969,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">x or x.y or x y/z or y/z</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -7190,7 +7190,7 @@
                                                 <property name="proportion">0</property>
                                                 <object class="wxStaticBoxSizer" expanded="0">
                                                     <property name="id">wxID_ANY</property>
-                                                    <property name="label">End of Route</property>
+                                                    <property name="label">Finish of Route</property>
                                                     <property name="minimum_size"></property>
                                                     <property name="name">sbSizer711</property>
                                                     <property name="orient">wxVERTICAL</property>
@@ -7351,7 +7351,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">x or x.y or x y/z or y/z</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -7525,7 +7525,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">x or x.y or x y/z or y/z</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -7699,7 +7699,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">x or x.y or x y/z or y/z</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -8055,7 +8055,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">x or x.y or x y/z or y/z</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -8229,7 +8229,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">x or x.y or x y/z or y/z</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -8403,7 +8403,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip"></property>
+                                                                            <property name="tooltip">x or x.y or x y/z or y/z</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -8681,7 +8681,7 @@
                                                             <property name="style"></property>
                                                             <property name="subclass"></property>
                                                             <property name="toolbar_pane">0</property>
-                                                            <property name="tooltip">Entries can be made both in decimal and fraction (w n/d) or (n/d).</property>
+                                                            <property name="tooltip">Entries can be made both in decimal and fraction (w n/d) or (n/d). Entries will be converted to decimal degree.</property>
                                                             <property name="validator_data_type"></property>
                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                             <property name="validator_type">wxDefaultValidator</property>

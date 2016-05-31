@@ -47,6 +47,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer93->Add( m_staticText3221, 0, wxALL, 5 );
 	
 	m_IntervalNM = new wxTextCtrl( sbSizer22->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_IntervalNM->SetToolTip( _("Enter waypoint spacing.") );
+	
 	bSizer93->Add( m_IntervalNM, 0, wxALL, 5 );
 	
 	m_staticText3321 = new wxStaticText( sbSizer22->GetStaticBox(), wxID_ANY, _("NM"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -147,6 +149,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer3->Fit( m_panel1 );
 	m_notebook1->AddPage( m_panel1, _("Great Circle"), true );
 	m_panel12 = new wxPanel( m_notebook1, wxID_ANY, wxDefaultPosition, wxSize( -1,-1 ), wxTAB_TRAVERSAL );
+	m_panel12->SetToolTip( _("Enter waypoint spacing.") );
+	
 	wxBoxSizer* bSizer31;
 	bSizer31 = new wxBoxSizer( wxHORIZONTAL );
 	
@@ -194,6 +198,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer9311->Add( m_staticText322121, 0, wxALL, 5 );
 	
 	m_LatLimit = new wxTextCtrl( sbSizer222->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_LatLimit->SetToolTip( _("This is the not to exceed limit (absolute).") );
+	
 	bSizer9311->Add( m_LatLimit, 0, wxALL, 5 );
 	
 	m_staticText3331112 = new wxStaticText( sbSizer222->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -332,6 +338,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer1431->Add( m_staticText3231, 0, wxALL, 5 );
 	
 	m_Lat1 = new wxTextCtrl( sbSizer7->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_Lat1->SetToolTip( _("Decimal: (+/-)38.889722(E/W). Examples:\n-38.889722\u00b0\n38.889722E\n38 88.9722\n38 88 9722E\n\nDegree Minute Seconds. Needs to contain ' or \" for base 60:\n77\u00b0 00' 32\" E/W\nexamples:\n77\u00b0 00' 32\" E\n77 00' 32\" E\n77 00 32\" E\nFor fractions use \u00b0'\" input screen.") );
+	
 	bSizer1431->Add( m_Lat1, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_staticText3331 = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -354,6 +362,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer14311->Add( m_staticText32311, 0, wxALL, 5 );
 	
 	m_Lon1 = new wxTextCtrl( sbSizer7->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_Lon1->SetToolTip( _("Decimal: (+/-)38.889722(N/S). Examples:\n-38.889722\u00b0\n38.889722N\n38 88.9722\n38 88 9722S\n\nDegree Minute Seconds. Needs to contain ' or \" for base 60:\nExamples:\n38\u00b0 53' 23\" N/S\n38\u00b0 53' 23\" N\n38 53' 23\" S\n38 53 23\"N\nFor fractions use \u00b0'\" input screen.") );
+	
 	bSizer14311->Add( m_Lon1, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_staticText33311 = new wxStaticText( sbSizer7->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -383,6 +393,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer14312->Add( m_staticText32312, 0, wxALL, 5 );
 	
 	m_Lat2 = new wxTextCtrl( sbSizer71->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_Lat2->SetToolTip( _("Decimal: (+/-)38.889722(N/S). Examples:\n-38.889722\n38.889722N\n38 88.9722\u00b0\n38 88 9722S\n\nDegree Minute Seconds. Needs to contain ' or \" for base 60:\nExamples:\n77\u00b0 00' 32\" N/S\n77\u00b0 00' 32\" N\n77 00' 32\" S\n77 00 32\"N\nFor fractions use \u00b0'\" input screen.") );
+	
 	bSizer14312->Add( m_Lat2, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_staticText33312 = new wxStaticText( sbSizer71->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -405,6 +417,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer143111->Add( m_staticText323111, 0, wxALL, 5 );
 	
 	m_Lon2 = new wxTextCtrl( sbSizer71->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_Lon2->SetToolTip( _("Decimal: (+/-)38.889722(N/S). Examples:\n-38.889722\n38.889722N\u00b0\n38 88.9722\n38 88 9722S\n\nDegree Minute Seconds. Needs to contain ' or \" for base 60:\nExamples:\n38\u00b0 53' 23\" N/S\n38\u00b0 53' 23\" N\n38 53' 23\" S\n38 53 23\"N\nFor fractions use \u00b0'\" input screen.") );
+	
 	bSizer143111->Add( m_Lon2, 0, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_staticText333111 = new wxStaticText( sbSizer71->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -434,6 +448,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer143122->Add( m_staticText323122, 0, wxALL, 5 );
 	
 	m_Route = new wxTextCtrl( sbSizer712->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_Route->SetToolTip( _("Name of Route") );
+	
 	bSizer143122->Add( m_Route, 1, wxALL|wxALIGN_CENTER_VERTICAL|wxEXPAND, 5 );
 	
 	
@@ -447,6 +463,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer1431112->Add( m_staticText3231112, 0, wxALL, 5 );
 	
 	m_Start = new wxTextCtrl( sbSizer712->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_Start->SetToolTip( _("Start location of route") );
+	
 	bSizer1431112->Add( m_Start, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	
@@ -455,11 +473,13 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	wxBoxSizer* bSizer14311121;
 	bSizer14311121 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_staticText32311121 = new wxStaticText( sbSizer712->GetStaticBox(), wxID_ANY, _("End     "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText32311121 = new wxStaticText( sbSizer712->GetStaticBox(), wxID_ANY, _("Finish"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_staticText32311121->Wrap( -1 );
 	bSizer14311121->Add( m_staticText32311121, 0, wxALL, 5 );
 	
 	m_End = new wxTextCtrl( sbSizer712->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_End->SetToolTip( _("Finish location of route") );
+	
 	bSizer14311121->Add( m_End, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	
@@ -494,6 +514,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer14313->Add( m_staticText32313, 0, wxALL, 5 );
 	
 	m_Lat1_d = new wxTextCtrl( sbSizer72->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lat1_d->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
 	bSizer14313->Add( m_Lat1_d, 0, wxALL, 5 );
 	
 	m_staticText33313 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
@@ -501,6 +523,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer14313->Add( m_staticText33313, 0, wxALL, 5 );
 	
 	m_Lat1_m = new wxTextCtrl( sbSizer72->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lat1_m->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
 	bSizer14313->Add( m_Lat1_m, 0, wxALL, 5 );
 	
 	m_staticText1143 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("'"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -508,6 +532,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer14313->Add( m_staticText1143, 0, wxALL, 5 );
 	
 	m_Lat1_s = new wxTextCtrl( sbSizer72->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lat1_s->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
 	bSizer14313->Add( m_Lat1_s, 0, wxALL, 5 );
 	
 	m_staticText1153 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("\""), wxDefaultPosition, wxDefaultSize, 0 );
@@ -531,6 +557,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer143112->Add( m_staticText323112, 0, wxALL, 5 );
 	
 	m_Lon1_d = new wxTextCtrl( sbSizer72->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lon1_d->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
 	bSizer143112->Add( m_Lon1_d, 0, wxALL, 5 );
 	
 	m_staticText333112 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -538,6 +566,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer143112->Add( m_staticText333112, 0, wxALL, 5 );
 	
 	m_Lon1_m = new wxTextCtrl( sbSizer72->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lon1_m->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
 	bSizer143112->Add( m_Lon1_m, 0, wxALL, 5 );
 	
 	m_staticText11412 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("'"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -545,6 +575,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer143112->Add( m_staticText11412, 0, wxALL, 5 );
 	
 	m_Lon1_s = new wxTextCtrl( sbSizer72->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lon1_s->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
 	bSizer143112->Add( m_Lon1_s, 0, wxALL, 5 );
 	
 	m_staticText11512 = new wxStaticText( sbSizer72->GetStaticBox(), wxID_ANY, _("\""), wxDefaultPosition, wxDefaultSize, 0 );
@@ -567,7 +599,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer401->Add( sbSizer72, 0, 0, 5 );
 	
 	wxStaticBoxSizer* sbSizer711;
-	sbSizer711 = new wxStaticBoxSizer( new wxStaticBox( m_panel15, wxID_ANY, _("End of Route") ), wxVERTICAL );
+	sbSizer711 = new wxStaticBoxSizer( new wxStaticBox( m_panel15, wxID_ANY, _("Finish of Route") ), wxVERTICAL );
 	
 	wxBoxSizer* bSizer132111;
 	bSizer132111 = new wxBoxSizer( wxVERTICAL );
@@ -580,6 +612,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer143121->Add( m_staticText323121, 0, wxALL, 5 );
 	
 	m_Lat2_d = new wxTextCtrl( sbSizer711->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lat2_d->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
 	bSizer143121->Add( m_Lat2_d, 0, wxALL, 5 );
 	
 	m_staticText333121 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -587,6 +621,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer143121->Add( m_staticText333121, 0, wxALL, 5 );
 	
 	m_Lat2_m = new wxTextCtrl( sbSizer711->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lat2_m->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
 	bSizer143121->Add( m_Lat2_m, 0, wxALL, 5 );
 	
 	m_staticText11421 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("'"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -594,6 +630,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer143121->Add( m_staticText11421, 0, wxALL, 5 );
 	
 	m_Lat2_s = new wxTextCtrl( sbSizer711->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lat2_s->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
 	bSizer143121->Add( m_Lat2_s, 0, wxALL, 5 );
 	
 	m_staticText11521 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("\""), wxDefaultPosition, wxDefaultSize, 0 );
@@ -617,6 +655,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer1431111->Add( m_staticText3231111, 0, wxALL, 5 );
 	
 	m_Lon2_d = new wxTextCtrl( sbSizer711->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lon2_d->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
 	bSizer1431111->Add( m_Lon2_d, 0, wxALL, 5 );
 	
 	m_staticText3331111 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -624,6 +664,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer1431111->Add( m_staticText3331111, 0, wxALL, 5 );
 	
 	m_Lon2_m = new wxTextCtrl( sbSizer711->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lon2_m->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
 	bSizer1431111->Add( m_Lon2_m, 0, wxALL, 5 );
 	
 	m_staticText114111 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("'"), wxDefaultPosition, wxDefaultSize, 0 );
@@ -631,6 +673,8 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer1431111->Add( m_staticText114111, 0, wxALL, 5 );
 	
 	m_Lon2_s = new wxTextCtrl( sbSizer711->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lon2_s->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
 	bSizer1431111->Add( m_Lon2_s, 0, wxALL, 5 );
 	
 	m_staticText115111 = new wxStaticText( sbSizer711->GetStaticBox(), wxID_ANY, _("\""), wxDefaultPosition, wxDefaultSize, 0 );
@@ -656,7 +700,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer481 = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_button81 = new wxButton( m_panel15, wxID_ANY, _("Convert to Degree"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_button81->SetToolTip( _("Entries can be made both in decimal and fraction (w n/d) or (n/d).") );
+	m_button81->SetToolTip( _("Entries can be made both in decimal and fraction (w n/d) or (n/d). Entries will be converted to decimal degree.") );
 	
 	bSizer481->Add( m_button81, 0, wxALL, 5 );
 	
