@@ -24,10 +24,13 @@ Changes to 1.1:
 - Waypoint distance has been added to start, finish and intermediate points
 - When finish or intermediate point is within 25% of last waypoint distance, the previous point is omitted to prevent very close spaced waypoints FS#1131-3(first)
 - Direct export of route to OpenCPN 
+- degree minute second, when this tab is open and when calculate or export is pressed, execute convert function first. Change to decimal tab.
 
+To do before release:
 
-fix bug when no lat limit is entered
-check distance RH
+- Filter input in start/finish coordinates
+- fix bug when no lat limit is entered
+- check distance RH
 
 
 Editing
@@ -57,11 +60,6 @@ Build as normally:
 * cmake ../
 * make
 * sudo make install
-
-ToDo
-=======
-Once the Navobject becomes available to the plugin API, will update to also enable direct route plotting.
-
 
 License
 =======

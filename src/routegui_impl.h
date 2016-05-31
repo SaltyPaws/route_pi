@@ -63,6 +63,7 @@ public:
         void OnEndPaste( wxCommandEvent& event );
         void OnToggle( wxCommandEvent& event );
         void OnConverttoDegree( wxCommandEvent& event );
+        void OnConverttoDegree(void);
         void OnNoteBookFit( wxCommandEvent& event );
         void OnGCCalculate( wxCommandEvent& event );
         bool OnGCCalculate( void );

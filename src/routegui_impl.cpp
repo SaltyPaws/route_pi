@@ -162,7 +162,11 @@ if (fraction_string.Contains(wxT("/"))) //test if string contains "/" if yes, ru
     return result;
 }
 
-void Dlg::OnConverttoDegree( wxCommandEvent& event )
+void Dlg::OnConverttoDegree( wxCommandEvent& event ){
+OnConverttoDegree();
+}
+
+void Dlg::OnConverttoDegree( void )
 {
     //set cell values to 0 if they are empty. This ensures conversion goes ok.
     double test_value;
@@ -243,6 +247,7 @@ void Dlg::OnConverttoDegree( wxCommandEvent& event )
     result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
     m_Lon2->SetValue(wxString::Format(wxT("%g"),result_temp));
 
+    this->m_wxNotebook234->SetSelection(0);
 }
 
 void Dlg::OnNoteBookFit( wxCommandEvent& event )
@@ -255,11 +260,18 @@ void Dlg::OnNoteBookFit( wxCommandEvent& event )
 }
 
 void Dlg::OnGCCalculate( wxCommandEvent& event )
-    {
+{
     bool test=OnGCCalculate();
 }
 
+
+
+
 bool Dlg::OnGCCalculate( void ){
+
+    ///banaan
+    if (this->m_wxNotebook234->GetSelection()!=0) OnConverttoDegree(); //If degree minute second tab is open, convert first
+
 
     bool error_occurred=false;
     bool user_canceled=false;
@@ -411,7 +423,7 @@ void Dlg::OnExportGC( wxCommandEvent& event, bool to_OpenCPN )
                     PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lat1, lon1, _T("diamond"), _T("0 Start ") + this->m_Start->GetValue(), wxT("") );
                     AddPoint(NewpWayPoinT,m_Route_ocpn);
                     }
-    //banaan
+
             double lati, loni;
             for(double in_distance=step_size;in_distance<(dist-0.25*step_size);in_distance=in_distance+step_size)
                 {
@@ -492,6 +504,7 @@ void Dlg::AddPoint( PlugIn_Waypoint *pNewPoint, PlugIn_Route *m_Route_ocpn)//, b
 
 
 bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCPN ){
+    if (this->m_wxNotebook234->GetSelection()!=0) OnConverttoDegree(event); //If degree minute second tab is open, convert first
     bool error_occurred=false;
     bool user_canceled=false;
     bool Lat_limit_found=false;
@@ -1008,7 +1021,7 @@ int Pattern=this->m_combo_GC->GetCurrentSelection();
 //std::cout<<"Pattern: "<<Pattern<< std::endl;
 
 switch ( Pattern )
-    {
+    {//banaan
     case 0: //to OpenCPN
         {
         if (OnGCCalculate())
