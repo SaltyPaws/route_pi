@@ -26,12 +26,14 @@ Changes to 1.1:
 - Direct export of route to OpenCPN 
 - degree minute second, when this tab is open and when calculate or export is pressed, execute convert function first. Change to decimal tab.
 - Input in coordinates is now much more flexible.
+- Added rightclick options Start and finish route here
 
 To do before release:
 
-- check distance RH
-- add waypoint copy
+
 - remove debugging command line output
+- use geodesic.h from OCPN to make sure same distances are reported.
+- Remove vincente.h, so that the apache licence notice can be removed
 
 
 Editing

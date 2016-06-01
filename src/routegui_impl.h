@@ -76,6 +76,9 @@ public:
         void OnExportRH( wxCommandEvent& event );
         void OnExportRH( wxCommandEvent& event, bool to_OpenCPN );
 
+        void SetStart (double lat, double lon);
+        void SetFinish (double lat, double lon);
+
         void AddPoint( PlugIn_Waypoint *pNewPoint, PlugIn_Route *m_Route_ocpn);
         void Addpoint(TiXmlElement* Route, wxString ptlat, wxString ptlon, wxString ptname, wxString ptsym, wxString pttype);
         double BrentsMethodSolve(double lowerLimit, double upperLimit, double errorTol);

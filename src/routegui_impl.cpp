@@ -1348,4 +1348,13 @@ void Dlg::OnDeleteRoute( wxString GUID){
 
 }
 
+void Dlg::SetStart (double lat, double lon){
+    this->m_Lat1->SetValue(wxString::Format(wxT("%g"), lat));
+    this->m_Lon1->SetValue(wxString::Format(wxT("%g"), lon));
+}
+
+void Dlg::SetFinish (double lat, double lon){
+    this->m_Lat2->SetValue(wxString::Format(wxT("%g"), lat));
+    this->m_Lon2->SetValue(wxString::Format(wxT("%g"), lon));
+}
 

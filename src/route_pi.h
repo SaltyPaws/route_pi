@@ -75,6 +75,7 @@ public:
       int GetToolbarToolCount(void);
       void ShowPreferencesDialog( wxWindow* parent );
       void OnToolbarToolCallback(int id);
+      void OnContextMenuItemCallback(int id);
 
 //    Optional plugin overrides
       void SetColorScheme(PI_ColorScheme cs);
@@ -86,6 +87,7 @@ public:
       void SetCalculatorDialogY         (int x){ m_route_dialog_y = x;};
       void SetCalculatorDialogWidth     (int x){ m_route_dialog_width = x;};
       void SetCalculatorDialogHeight    (int x){ m_route_dialog_height = x;};
+      void SetCursorLatLon(double lat, double lon);
       wxWindow          *m_parent_window;
 
 private:
@@ -99,6 +101,9 @@ private:
       int               m_iOpacity;
       int               m_leftclick_tool_id;
       bool              m_ShowHelp;
+      int               m_add_start;
+      int               m_add_finish;
+      double m_cursor_lon,m_cursor_lat;
 ;
 };
 

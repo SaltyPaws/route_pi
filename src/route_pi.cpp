@@ -84,6 +84,23 @@ int route_pi::Init(void)
       //    And load the configuration items
       LoadConfig();
 
+        // Create the Context Menu Items
+
+        //    In order to avoid an ASSERT on msw debug builds,
+        //    we need to create a dummy menu to act as a surrogate parent of the created MenuItems
+        //    The Items will be re-parented when added to the real context meenu
+
+        wxMenu dummy_menu;
+
+      wxMenuItem *pmi = new wxMenuItem(&dummy_menu, -1, _("Start Route Here"));
+      m_add_start = AddCanvasContextMenuItem(pmi, this );
+      SetCanvasContextMenuItemViz(m_add_start, true);
+
+      wxMenuItem *pmih = new wxMenuItem(&dummy_menu, -1, _("Finish Route Here"));
+      m_add_finish = AddCanvasContextMenuItem(pmih, this );
+      SetCanvasContextMenuItemViz(m_add_finish, true);
+
+
       //    This PlugIn needs a toolbar icon, so request its insertion
       m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_route_pi, _img_route_pi, wxITEM_NORMAL,
             _("Route"), _T(""), NULL,
@@ -236,3 +253,34 @@ void route_pi::ShowPreferencesDialog( wxWindow* parent )
       delete dialog;
 }
 
+void route_pi::OnContextMenuItemCallback(int id)
+{
+//Need to make sure that Route Dialog exits, otherwise we will get a Core Dump
+      if(NULL == m_pDialog)
+      {
+         OnToolbarToolCallback(10);
+         m_pDialog->Show(false);
+
+      }
+
+    if (id==m_add_start){
+          printf("Take location as start of Route\n");
+          printf("Lat: %g, Lon %g\n ",m_cursor_lat,m_cursor_lon);
+        m_pDialog->SetStart(m_cursor_lat,m_cursor_lon);
+    }
+
+    if (id==m_add_finish){
+          printf("Take Location as finish of Route\n");
+         printf("Lat: %g, Lon %g\n ",m_cursor_lat,m_cursor_lon);
+    m_pDialog->SetFinish(m_cursor_lat,m_cursor_lon);
+    }
+
+}
+
+void route_pi::SetCursorLatLon(double lat, double lon)
+{
+
+        m_cursor_lat=lat;
+        m_cursor_lon=lon;
+    //std::cout<<"Cursor--> Lat: "<<m_cursor_lat<<" Lon: "<<m_cursor_lon<<std::endl;
+}
