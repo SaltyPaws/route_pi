@@ -11,7 +11,7 @@ The aims are to:
 
 Changelog
 =========
-Changes to 1.1:
+Changes to 1.2:
 - Update to new build system
 - Remove error message on cancelled save (FS#1069)
 - Fix doubled ".gpx" file extension (FS#1070).
@@ -27,13 +27,16 @@ Changes to 1.1:
 - degree minute second, when this tab is open and when calculate or export is pressed, execute convert function first. Change to decimal tab.
 - Input in coordinates is now much more flexible.
 - Added rightclick options Start and finish route here
+- enable copy paste all coordinate formats (D MM.MM and DMS) from OpenCPN, message with how conversion was done.
 
 To do before release:
 
 
-- remove debugging command line output
+
 - use geodesic.h from OCPN to make sure same distances are reported.
 - Remove vincente.h, so that the apache licence notice can be removed
+- remove debugging command line output
+- Update plugin date/version
 
 
 Editing
@@ -51,6 +54,12 @@ Editing of the source can be done with Code::Blocks IDE (file Route_pi.cbp)
 
 Compiling
 =========
+This pluging can now be compiled as stand alone
+
+
+For reference, the old method (still works) is shown below.
+
+
 You have to be able to compile OpenCPN itself - Get the info at http://opencpn.org/ocpn/developers_manual
 
 * go to the plugin subdirectory in your OpenCPN source tree
