@@ -93,7 +93,7 @@ private:
         wxSize  wh;
         double lat1, lon1, lat2, lon2, targetAz;
         double F(double x);
-        bool error_found;
+        //bool error_found;
         bool dbg;
         wxString m_GUUD;
 };

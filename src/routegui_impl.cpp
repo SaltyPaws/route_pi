@@ -61,7 +61,7 @@ wxString Dlg::Clean_Coordinate (wxString Coordinate)
 {
 wxString Original=">>"+Coordinate+"<<";
 bool sign=true; //if true number is positive
-int dms=0;//0 for decimal, 1 for degree decimal minutes, 2 for dms
+int dms=0;//0 for decimal, 1 for degree decimal minutes, 2 for dms, 4 for error
 double degree=0;
 double minutes=0;
 double seconds=0;
@@ -357,7 +357,7 @@ void Dlg::OnConverttoDegree( void )
     this->m_Lon1_m->GetValue().ToDouble(&minute_temp);
     this->m_Lon1_s->GetValue().ToDouble(&second_temp);
     result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
-    m_Lon1->SetValue(wxString::Format(wxT("%g%"),result_temp));
+    m_Lon1->SetValue(wxString::Format(wxT("%g8"),result_temp));
 
     //Lat2
     //wxString Lat2 = this->m_Lat2_d->GetValue() + _T(" ")  + this->m_Lat2_m->GetValue() + _T(" ")  + this->m_Lat2_s->GetValue() + _T(" ");//  + this->m_Lat2_NS->GetString();
@@ -370,7 +370,7 @@ void Dlg::OnConverttoDegree( void )
     this->m_Lat2_m->GetValue().ToDouble(&minute_temp);
     this->m_Lat2_s->GetValue().ToDouble(&second_temp);
     result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
-    m_Lat2->SetValue(wxString::Format(wxT("%g%"),result_temp));
+    m_Lat2->SetValue(wxString::Format(wxT("%g8"),result_temp));
 
     //Lon2
     //wxString Lon2 = this->m_Lon2_d->GetValue() + _T(" ")  + this->m_Lon2_m->GetValue() + _T(" ")  + this->m_Lon2_s->GetValue() + _T(" ") ;// + _T(this->m_Lon2_EW->GetSelection());
@@ -383,7 +383,7 @@ void Dlg::OnConverttoDegree( void )
     this->m_Lon2_m->GetValue().ToDouble(&minute_temp);
     this->m_Lon2_s->GetValue().ToDouble(&second_temp);
     result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
-    m_Lon2->SetValue(wxString::Format(wxT("%g%"),result_temp));
+    m_Lon2->SetValue(wxString::Format(wxT("%g8"),result_temp));
 
     this->m_wxNotebook234->SetSelection(0);
 }
@@ -422,8 +422,6 @@ bool Dlg::OnGCCalculate( void ){
     if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;error_occurred=true; }
     if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;error_occurred=true; }
 
-
-//banaan
     //Validate input ranges
     if (std::abs(lat1)>90){ error_occurred=true; }
     if (std::abs(lat2)>90){ error_occurred=true; }
