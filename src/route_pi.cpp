@@ -264,14 +264,14 @@ void route_pi::OnContextMenuItemCallback(int id)
       }
 
     if (id==m_add_start){
-          printf("Take location as start of Route\n");
-          printf("Lat: %g, Lon %g\n ",m_cursor_lat,m_cursor_lon);
+     //     printf("Take location as start of Route\n");
+     //     printf("Lat: %g, Lon %g\n ",m_cursor_lat,m_cursor_lon);
         m_pDialog->SetStart(m_cursor_lat,m_cursor_lon);
     }
 
     if (id==m_add_finish){
-          printf("Take Location as finish of Route\n");
-         printf("Lat: %g, Lon %g\n ",m_cursor_lat,m_cursor_lon);
+    //      printf("Take Location as finish of Route\n");
+    //     printf("Lat: %g, Lon %g\n ",m_cursor_lat,m_cursor_lon);
     m_pDialog->SetFinish(m_cursor_lat,m_cursor_lon);
     }
 

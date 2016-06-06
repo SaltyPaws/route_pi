@@ -107,6 +107,8 @@ extern "C" void toTM(float lat, float lon, float lat0, float lon0, double *x, do
 extern "C" void fromTM(double x, double y, double lat0, double lon0, double *lat, double *lon);
 
 extern "C" void toSM(double lat, double lon, double lat0, double lon0, double *x, double *y);
+extern "C" double toSMcache_y30(double lat0);
+extern "C" void toSMcache(double lat, double lon, double y30, double lon0, double *x, double *y);
 extern "C" void fromSM(double x, double y, double lat0, double lon0, double *lat, double *lon);
 
 extern "C" void toSM_ECC(double lat, double lon, double lat0, double lon0, double *x, double *y);
@@ -114,6 +116,24 @@ extern "C" void fromSM_ECC(double x, double y, double lat0, double lon0, double 
 
 extern "C" void toPOLY(double lat, double lon, double lat0, double lon0, double *x, double *y);
 extern "C" void fromPOLY(double x, double y, double lat0, double lon0, double *lat, double *lon);
+
+extern "C" void cache_phi0(double lat0, double *sin_phi0, double *cos_phi0);
+
+extern "C" void toORTHO(double lat, double lon, double sin_phi0, double cos_phi0, double lon0, double *x, double *y);
+extern "C" void fromORTHO(double x, double y, double lat0, double lon0, double *lat, double *lon);
+
+extern "C" double toPOLARcache_e(double lat0);
+extern "C" void toPOLAR(double lat, double lon, double e, double lat0, double lon0, double *x, double *y);
+extern "C" void fromPOLAR(double x, double y, double lat0, double lon0, double *lat, double *lon);
+
+extern "C" void toSTEREO(double lat, double lon, double sin_phi0, double cos_phi0, double lon0, double *x, double *y);
+extern "C" void fromSTEREO(double x, double y, double lat0, double lon0, double *lat, double *lon);
+
+extern "C" void toGNO(double lat, double lon, double sin_phi0, double cos_phi0, double lon0, double *x, double *y);
+extern "C" void fromGNO(double x, double y, double lat0, double lon0, double *lat, double *lon);
+
+extern "C" void toEQUIRECT(double lat, double lon, double lat0, double lon0, double *x, double *y);
+extern "C" void fromEQUIRECT(double x, double y, double lat0, double lon0, double *lat, double *lon);
 
 /// distance in nautical miles
 extern "C" void ll_gc_ll(double lat, double lon, double crs, double dist, double *dlat, double *dlon);
@@ -132,12 +152,16 @@ extern "C" void DistanceBearingMercator(double lat0, double lon0, double lat1, d
 
 extern "C" int Georef_Calculate_Coefficients(struct GeoRef *cp, int nlin_lon);
 extern "C" int Georef_Calculate_Coefficients_Proj(struct GeoRef *cp);
+extern "C" double lat_gc_crosses_meridian( double lat1, double lon1, double lat2, double lon2, double lon );
+extern "C" double lat_rl_crosses_meridian( double lat1, double lon1, double lat2, double lon2, double lon );
 
 #else
 void toDMS(double a, char *bufp, int bufplen);
 void toDMM(double a, char *bufp, int bufplen);
 int GetDatumIndex(const char *str);
 void MolodenskyTransform (double lat, double lon, double *to_lat, double *to_lon, int from_datum_index, int to_datum_index);
+double lat_gc_crosses_meridian( double lat1, double lon1, double lat2, double lon2, double lon );
+double lat_rl_crosses_meridian( double lat1, double lon1, double lat2, double lon2, double lon );
 
 #endif
 

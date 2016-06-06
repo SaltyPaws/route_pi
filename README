@@ -28,13 +28,9 @@ Changes to 1.2:
 - Input in coordinates is now much more flexible.
 - Added rightclick options Start and finish route here
 - enable copy paste all coordinate formats (D MM.MM and DMS) from OpenCPN, message with how conversion was done.
+- Vincente function replaced with the one from openCPN for consistency and to remove apace licence mention.
 
 To do before release:
-
-
-
-- use geodesic.h from OCPN to make sure same distances are reported.
-- Remove vincente.h, so that the apache licence notice can be removed
 - remove debugging command line output
 - Update plugin date/version
 
@@ -75,4 +71,4 @@ Build as normally:
 
 License
 =======
-The plugin is licensed under the terms of GPL v2 or, at your will, later. vincente.cpp and .h is licenced under Apace licence.
+The plugin is licensed under the terms of GPL v2 or, at your will, later.

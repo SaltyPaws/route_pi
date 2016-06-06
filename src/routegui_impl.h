@@ -33,7 +33,8 @@
 #include <wx/clipbrd.h>
 #include "tinyxml.h"
 #include "NavFunc.h"
-
+#include "OpenCPN/georef.h"
+#include "OpenCPN/geodesic.h"
 #include "route_pi.h"
 #include "routegui.h"
 #ifdef WX_PRECOMP

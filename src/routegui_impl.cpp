@@ -35,6 +35,7 @@ Dlg::Dlg( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint&
 {
     this->Fit();
     dbg=false; //for debug output set to true
+    dbg=false; //for debug output set to true
 }
 
 void Dlg::OnToggle( wxCommandEvent& event )
@@ -66,7 +67,7 @@ double degree=0;
 double minutes=0;
 double seconds=0;
 //bool conversion_error=false;
-std::cout<<"Input: >>"<<Coordinate<<"<<"<< std::endl;
+if (dbg) std::cout<<"Input: >>"<<Coordinate<<"<<"<< std::endl;
 /*if ( Coordinate.Contains(wxT("″")) || Coordinate.Contains(wxT("\"")))
     dms=2;
 else if ( Coordinate.Contains(wxT("′")) )
@@ -105,7 +106,7 @@ Coordinate.Replace("  "," ");
 Coordinate.Replace("  "," ");
 Coordinate.Replace("  "," ");
 
-std::cout<<"Coordinate after stripping: >>"<<Coordinate<<"<<"<< std::endl;
+if (dbg) std::cout<<"Coordinate after stripping: >>"<<Coordinate<<"<<"<< std::endl;
 wxString s_Start="";
 wxString s_End="";
 
@@ -157,21 +158,21 @@ else //at least one space
         {
         Original=Original+" Converted as degree";
         //Coordinate=wxString::Format(wxT("%g"),degree);
-        std::cout<<"Degree: >>"<<degree<<"<<"<< std::endl;
+        if (dbg) std::cout<<"Degree: >>"<<degree<<"<<"<< std::endl;
         break;
         }
     case 1://degree decimal minute
         {
         Original=Original+" Converted as degree decimal minutes";
         Coordinate=wxString::Format(wxT("%g8"),degree+(minutes/60));
-        std::cout<<"Degree: >>"<<degree<<"<<"<<"Minutes: >>"<<minutes<<"<<"<< std::endl;
+        if (dbg) std::cout<<"Degree: >>"<<degree<<"<<"<<"Minutes: >>"<<minutes<<"<<"<< std::endl;
         break;
         }
     case 2://dms
         {
         Original=Original+" Converted as degree minute seconds";
         Coordinate=wxString::Format(wxT("%g8"),degree+(minutes/60)+(seconds/3600));
-        std::cout<<"Degree: >>"<<degree<<"<<"<<"Minutes: >>"<<minutes<<"<<"<<"Seconds: >>"<<seconds<<"<<"<< std::endl;
+        if (dbg) std::cout<<"Degree: >>"<<degree<<"<<"<<"Minutes: >>"<<minutes<<"<<"<<"Seconds: >>"<<seconds<<"<<"<< std::endl;
         break;
         }
     case 4://eror
@@ -192,7 +193,7 @@ if(!Coordinate.ToDouble(&test_coordinate))
     test_coordinate=0.0;
     }
 
-std::cout<<"Output: >>"<<test_coordinate<<"<<"<< std::endl;
+if (dbg) std::cout<<"Output: >>"<<test_coordinate<<"<<"<< std::endl;
 return Coordinate;
 }
 
@@ -428,7 +429,15 @@ bool Dlg::OnGCCalculate( void ){
     if (std::abs(lon1)>180){ error_occurred=true; }
     if (std::abs(lon2)>180){ error_occurred=true; }
 
-    if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occurred=true; };
+//    if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occurred=true; };
+
+    //banaan
+
+    Geodesic geodesic;
+    geodesic.GreatCircleDistBear(lon1,lat1, lon2,lat2, &dist, &fwdAz, &revAz);
+    dist=GEODESIC_METERS2NM(dist);
+
+
     this->m_distance_GC->SetValue(wxString::Format(wxT("%g"), dist));
 
     DistanceBearingMercator(lat1, lon1, lat2, lon2, &fwdAz, &dist);
@@ -457,6 +466,7 @@ void Dlg::OnExportGC( wxCommandEvent& event, bool to_OpenCPN )
 {
     bool error_occurred=false;
     bool user_canceled=false;
+    Geodesic geodesic;
     TiXmlDocument doc;
     TiXmlElement * Route = new TiXmlElement( "rte" );
     TiXmlElement * root = new TiXmlElement( "gpx" );
@@ -503,7 +513,16 @@ void Dlg::OnExportGC( wxCommandEvent& event, bool to_OpenCPN )
             if (std::abs(lon1)>180){ error_occurred=true; }
             if (std::abs(lon2)>180){ error_occurred=true; }
 
-            if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occurred=true; };
+            //if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occurred=true; };
+            //std::cout<< "Original Vicente. Dist "<<dist<<" fwdAz: "<<fwdAz<<" revAz: "<<revAz<<std::endl;
+
+            //banaan
+
+            geodesic.GreatCircleDistBear(lon1, lat1,lon2 , lat2 , &dist, &fwdAz, &revAz);
+            dist=GEODESIC_METERS2NM(dist);
+            if (dbg) std::cout<< "New Vicente. Dist "<<dist<<" fwdAz: "<<fwdAz<<" revAz: "<<revAz<<std::endl;
+
+
             this->m_distance_GC->SetValue(wxString::Format(wxT("%g"), dist));
 
            /* DistanceBearingMercator(lat1, lon1, lat2, lon2, &fwdAz, &dist);
@@ -570,7 +589,8 @@ void Dlg::OnExportGC( wxCommandEvent& event, bool to_OpenCPN )
             double lati, loni;
             for(double in_distance=step_size;in_distance<(dist-0.25*step_size);in_distance=in_distance+step_size)
                 {
-                DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
+                //DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
+                geodesic.GreatCircleTravel(lon1, lat1,GEODESIC_NM2METERS(in_distance),fwdAz,&loni,&lati,&revAz );
                 if (dbg) std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
 
                 if(!to_OpenCPN)
@@ -645,13 +665,13 @@ void Dlg::AddPoint( PlugIn_Waypoint *pNewPoint, PlugIn_Route *m_Route_ocpn)//, b
 }
 
 
-
 bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCPN ){
     if (this->m_wxNotebook234->GetSelection()!=0) OnConverttoDegree(event); //If degree minute second tab is open, convert first
     bool error_occurred=false;
     bool user_canceled=false;
     bool Lat_limit_found=false;
     double dist, fwdAz, revAz;
+    Geodesic geodesic;
 
     double lat1,lon1,lat2,lon2,limit;
     //set value to 0
@@ -664,9 +684,6 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
     if(!this->m_Lon1->GetValue().ToDouble(&lon1)){ lon1=0.0;error_occurred=true; }
     if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;error_occurred=true; }
     if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;error_occurred=true; }
-
-
-
 
     if (error_occurred) wxMessageBox(_T("error in conversion of input coordinates"));
     if(!error_occurred && (!this->m_LatLimit->GetValue().ToDouble(&limit))){ error_occurred=true; wxMessageBox(_("No Lat Limit!") ); }
@@ -701,7 +718,11 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
     this->m_distance_RH1->SetValue(wxString::Format(wxT("%g"), dist));
 
     //Calculate GC
-    if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occurred=true;    if (dbg) printf("error in DistVincenty\n");wxMessageBox(_("error in DistVincenty function") ); };
+    //if(!DistVincenty(lat1, lon1, lat2, lon2, &dist, &fwdAz, &revAz)){ error_occurred=true;    if (dbg) printf("error in DistVincenty\n");wxMessageBox(_("error in DistVincenty function") ); };
+
+    geodesic.GreatCircleDistBear(lon1,lat1, lon2,lat2, &dist, &fwdAz, &revAz);
+    dist=GEODESIC_METERS2NM(dist);
+
     this->m_distance_GC1->SetValue(wxString::Format(wxT("%g"), dist));
 
     //Calculate GCL
@@ -728,7 +749,8 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
 
         for(double in_distance=0;in_distance<(dist+Tol());in_distance=in_distance+step_size)
             {
-            DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
+            //DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
+            geodesic.GreatCircleTravel(lon1, lat1,GEODESIC_NM2METERS(in_distance),fwdAz,&loni,&lati,&revAz );
 
             if ((lati>0) && (lati>std::abs(limit))){ //North
                 if (!Lat_limit_found){
@@ -762,7 +784,12 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
                 }
             }
 
-            if(!DistVincenty(latold, lonold, lati, loni, &segment_distance, &fwdAz_dummy, &revAz_dummy)){ error_occurred=true; if (dbg) printf("error in 2nd Vncenty\n");wxMessageBox(_("error in 2nd DistVincenty function") ); };
+            //if(!DistVincenty(latold, lonold, lati, loni, &segment_distance, &fwdAz_dummy, &revAz_dummy)){ error_occurred=true; if (dbg) printf("error in 2nd Vncenty\n");wxMessageBox(_("error in 2nd DistVincenty function") ); };
+
+            geodesic.GreatCircleDistBear(lonold,latold, loni,lati, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+            segment_distance=GEODESIC_METERS2NM(segment_distance);
+
+
                 GCL_dist += segment_distance;
                 //std::cout<<"Distance: "<<GCL_dist<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
                 latold=lati;
@@ -901,7 +928,10 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
                         Lon_int2=Lon_int2-360;
                 }
                 //Section 1
-                DistVincenty(lat1, lon1, Lat_int1, Lon_int1, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+                //DistVincenty(lat1, lon1, Lat_int1, Lon_int1, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+                geodesic.GreatCircleDistBear(lon1,lat1, Lon_int1,Lat_int1, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+                segment_distance=GEODESIC_METERS2NM(segment_distance);
+
                 if (dbg) std::cout<<"Section 1 - First LC: lat1 "<<lat1<<" lon1: "<<lon1<<" lat2: "<<Lat_int1<<" Lon2: "<<Lon_int1<< std::endl;
                 segment_start_distance=0;
                 double LC_distance=segment_distance;
@@ -920,7 +950,9 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
 
                     for(double in_distance=step_size;in_distance<(segment_distance-0.25*step_size);in_distance=in_distance+step_size)
                         {
-                        DestVincenty( lat1,  lon1,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
+                        //DestVincenty( lat1,  lon1,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
+                        geodesic.GreatCircleTravel(lon1, lat1,GEODESIC_NM2METERS(in_distance),fwdAz_dummy,&loni,&lati,&revAz );
+
                         if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
 
                         if(!to_OpenCPN)
@@ -931,7 +963,6 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
                             AddPoint(NewpWayPoinT,m_Route_ocpn);
                             }
                         }
-                    //TTTTTTTTTTTTttt
                     //Interception
                     //Addpoint(Route, wxString::Format(wxT("%f"),Lat_int1), wxString::Format(wxT("%f"),Lon_int1), wxString::Format(wxT("%d"),(int)segment_distance) + _T(" Lat Limit1") ,_T("diamond"),_T("WPT"));
 
@@ -973,7 +1004,11 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
                }
 
                 //Final section
-               DistVincenty(Lat_int2, Lon_int2, lat2, lon2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+               //DistVincenty(Lat_int2, Lon_int2, lat2, lon2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+                geodesic.GreatCircleDistBear(Lon_int2,Lat_int2, lon2,lat2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
+                segment_distance=GEODESIC_METERS2NM(segment_distance);
+
+
                if (dbg) std::cout<<"Section 3 - Final GC lat1 "<<Lat_int2<<" lon1: "<<Lon_int2<<" lat2: "<<lat2<<" Lon2: "<<lon2<< std::endl;
                segment_start_distance=LC_distance;
                LC_distance+=segment_distance;
@@ -994,16 +1029,18 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
                     if (dbg) std::cout<<"step size: "<<step_size<< std::endl;
                     for(double in_distance=step_size;in_distance<(segment_distance-0.25*step_size);in_distance=in_distance+step_size)
                         {
-                        DestVincenty( Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
+                        //DestVincenty( Lat_int2,  Lon_int2,  fwdAz_dummy,  in_distance, &lati, &loni, &revAz);
+                        geodesic.GreatCircleTravel(Lon_int2, Lat_int2,GEODESIC_NM2METERS(in_distance),fwdAz_dummy,&loni,&lati,&revAz );
+
                         if (dbg) std::cout<<"GCL Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
                         //Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)(in_distance+segment_start_distance)) ,_T("diamond"),_T("WPT"));
 
 
                     if(!to_OpenCPN)
-                        Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)segment_distance+segment_start_distance) + _T(" Lat Limit1") ,_T("diamond"),_T("WPT"));
+                        Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni),wxString::Format(wxT("%d"),(int)(in_distance+segment_start_distance))  ,_T("diamond"),_T("WPT"));
                     else
                         {
-                        PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lati, loni, _T("diamond"), wxString::Format(wxT("%d"),(int)segment_distance+segment_start_distance) + _T(" Lat Limit1"), wxT("") );
+                        PlugIn_Waypoint *NewpWayPoinT = new PlugIn_Waypoint( lati, loni, _T("diamond"), wxString::Format(wxT("%d"),(int)(in_distance+segment_start_distance)), wxT("") );
                         AddPoint(NewpWayPoinT,m_Route_ocpn);
                         }
 
@@ -1060,17 +1097,15 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
         }
 
          //std::cout<< "end of function"<<std::endl;
-         std::cout<< "error_occurred:"<<error_occurred<<std::endl;
+         if (dbg) std::cout<< "error_occurred:"<<error_occurred<<std::endl;
 if ((error_occurred) )
      {
      //wxMessageBox(_("Function return false!") );
-     std::cout<< "Function return false!"<<std::endl;
      return false;
      }
 else
      {
      //wxMessageBox(_("function return true!") );
-     std::cout<< "Function return true!"<<std::endl;
      return true;
      }
 
@@ -1079,11 +1114,35 @@ else
 
 
 
+
 double Dlg::F(double lonx)
 {
    //std::cout<<"lat1 "<<lat1<<" lon1: " <<lon1<<"lat2 "<<lat2<<" lonx: " <<lonx<<" targetaz: "<<targetAz<< std::endl;
-   double segment_distance_dummy, fwdAz_dummy, revAz_dummy;
-   DistVincenty(lat1, lon1, lat2, lonx, &segment_distance_dummy, &fwdAz_dummy, &revAz_dummy);
+    double segment_distance_dummy, fwdAz_dummy, revAz_dummy;
+    Geodesic geodesic;
+
+
+
+    //DistVincenty(lat1, lon1, lat2, lonx, &segment_distance_dummy, &fwdAz_dummy, &revAz_dummy);
+    //if (dbg) std::cout<<"Old fwdAz_dummy "<<fwdAz_dummy<<" revAz_dummy: " <<revAz_dummy<< std::endl;
+
+    geodesic.GreatCircleDistBear(lon1, lat1,lonx , lat2 , &segment_distance_dummy, &fwdAz_dummy, &revAz_dummy);
+    //if(revAz_dummy>180) revAz_dummy=revAz_dummy-180;
+    //if(revAz_dummy<-180) revAz_dummy=revAz_dummy+180;
+
+
+    if (dbg) std::cout<<"New fwdAz_dummy "<<fwdAz_dummy<<" revAz_dummy: " <<revAz_dummy<< std::endl;
+    if (fwdAz_dummy>180) revAz_dummy=revAz_dummy-180;
+    if (fwdAz_dummy<180) revAz_dummy=revAz_dummy+180;
+
+    if (dbg) std::cout<<"Cor fwdAz_dummy "<<fwdAz_dummy<<" revAz_dummy: " <<revAz_dummy<< std::endl;
+    //segment_distance_dummy=GEODESIC_METERS2NM(segment_distance_dummy);
+
+   ///warning! old and new vincente function return 180 different revaz
+
+
+
+
    return revAz_dummy-targetAz;
 }
 
@@ -1216,14 +1275,12 @@ switch ( Pattern )
             {
             OnGCLCalculate (event, true, true);
             //wxMessageBox(_("Export to OCPN") );
-            std::cout<<"Export to OCPN "<< std::endl;
             }
         break;
         }
     case 1://Delete last route
         {
         OnDeleteRoute(m_GUUD);
-        wxMessageBox(_("Delete Route") );
         break;
         }
     case 2://to GPX file
@@ -1232,7 +1289,6 @@ switch ( Pattern )
         if (OnGCLCalculate (event, false, false))
             {
             OnGCLCalculate (event, true, false);
-            std::cout<<"Export to GPX "<< std::endl;
             }
         break;
 
@@ -1380,10 +1436,21 @@ void Dlg::OnExportRH(wxCommandEvent& event, bool to_OpenCPN)
             for(double in_distance=step_size;in_distance<(dist-0.25*step_size);in_distance=in_distance+step_size)
                 {
                 //DestVincenty( lat1,  lon1,  fwdAz,  in_distance, &lati, &loni, &revAz);
-                if (dbg) std::cout<<"RH lat1 "<<lat1<<" lon1: " <<lon1<<"fwdAZ "<<fwdAz<<" dist " <<in_distance<< std::endl;
+                //if (dbg) std::cout<<"RH lat1 "<<lat1<<" lon1: " <<lon1<<"fwdAZ "<<fwdAz<<" dist " <<in_distance<< std::endl;
+                //ll_gc_ll(lat1, lon1, fwdAz, in_distance, &lati,&loni);
+                //std::cout<<"ll_gc_ll fwdAz: "<<fwdAz<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
                 destLoxodrome(lat1,  lon1,  fwdAz,  in_distance, &lati, &loni);
+                //std::cout<<"original fwdAz: "<<fwdAz<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+
+
+
+                //PositionBearingDistanceMercator(lat1,  lon1,  fwdAz,  in_distance, &lati, &loni);
+
+              //std::cout<<"-------------------------------------------------------"<< std::endl;
+
+
                 //destRhumb(lat1, lon1, fwdAz,in_distance, &lati, &loni);
-                if (dbg) std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
+              //  if (dbg) std::cout<<"Distance: "<<in_distance<<"lat: "<<lati<<" lon: "<<loni<< std::endl;
                 if(!to_OpenCPN)
                     Addpoint(Route,wxString::Format(wxT("%f"),lati),wxString::Format(wxT("%f"),loni), wxString::Format(wxT("%d"),(int)in_distance) ,_T("diamond"),_T("WPT"));
                 else
@@ -1435,7 +1502,7 @@ void Dlg::OnDeleteRoute( wxString GUID){
             RequestRefresh(plugin->m_parent_window);//
             }
             else
-                std::cout<< "Route delete cancelled"<<std::endl;
+                if (dbg) std::cout<< "Route delete cancelled"<<std::endl;
 
 
 }

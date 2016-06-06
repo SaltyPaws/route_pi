@@ -2,18 +2,19 @@
 #include "wx/math.h"
 
 //#include <string>
+
 double toRad (double degree) {
   return degree * M_PI / 180;
 }
-
+/*
 double toDeg (double radians) {
   return radians * 180 / M_PI;
-}
-
+}*/
+/*
 double sqr (double sqr2) {
   return sqr2*sqr2;
 }
-
+*/
 double max ( const double a, const double b ) {
   return (a<b)?b:a;     // or: return comp(a,b)?b:a; for the comp version
 }
@@ -26,8 +27,8 @@ double min ( double a, double b ) {
 Another potential implementation problem is that the arguments of asin and/or acos may, because of rounding error,
 exceed one in magnitude. With perfect arithmetic this can't happen. You may need to use "safe" versions of asin and acos on the lines of:
 */
-double asin_safe(double x){return asin(max(-1,min(x,1)));}
-double acos_safe(double x){return acos(max(-1,min(x,1)));}
+//double asin_safe(double x){return asin(max(-1,min(x,1)));}
+//double acos_safe(double x){return acos(max(-1,min(x,1)));}
 
 /*
 Note on the mod function. This appears to be implemented differently in different languages, with differing conventions on whether
@@ -35,7 +36,7 @@ the sign of the result follows the sign of the divisor or the dividend. (We want
 C's fmod and Java's % do not work.) In this document, Mod(y,x) is the remainder on dividing y by x and always lies in the range 0 <=mod <x.
 For instance: mod(2.3,2.)=0.3 and mod(-2.3,2.)=1.7
 */
-double mod(double y, double x){
+/*double mod(double y, double x){
     double mod=y - x * (int)(y/x);
     if ( mod < 0) mod = mod + x;
     return mod;
@@ -60,57 +61,8 @@ return metres/1852;
 double NMtom(double NM){
 return NM*1852;
 }
+*/
 
-
-/****************************************************************************/
-/* Convert dd mm'ss.s" (DMS-Format) to degrees.                             */
-/****************************************************************************/
-
-double fromDMStodouble(char *dms)
-{
-    int d = 0, m = 0;
-    double s = 0.0;
-    char buf[20];
-
-    buf[0] = '\0';
-
-    sscanf(dms, "%d%[ ]%d%[ ']%lf%[ \"NSWEnswe]", &d, buf, &m, buf, &s, buf);
-
-    s = (double) (std::abs(d)) + ((double) m + s / 60.0) / 60.0;
-
-    if (d >= 0 && strpbrk(buf, "SWsw") == NULL)
-      return s;
-    else
-      return -s;
-}
-
-/****************************************************************************/
-/* Convert degrees to dd mm'ss.s" (DMS-Format)                              */
-/****************************************************************************/
-void doubletoDMS(double a, char *bufp, int bufplen)
-{
-    short neg = 0;
-    int d, m, s;
-    long n;
-
-    if (a < 0.0) {
-      a = -a;
-      neg = 1;
-    }
-    d = (int) a;
-    n = (long) ((a - (double) d) * 36000.0);
-
-    m = n / 600;
-    s = n % 600;
-
-    if (neg)
-      d = -d;
-
-    sprintf(bufp, "%d%02d'%02d.%01d\"", d, m, s / 10, s % 10);
-    return;
-}
-
-////////////////////////////
 /**
  * Calculates rhumb line distance between two points specified by latitude/longitude
  * http://williams.best.vwh.net/avform.htm#Rhumb
@@ -122,6 +74,7 @@ void doubletoDMS(double a, char *bufp, int bufplen)
  * and South latitudes and East longitudes negative. It's easier to go with the flow, but if
  * you prefer another convention you can change the signs in the formulae.
 */
+/*
 void distRhumb(double lat1,double lon1, double lat2, double lon2, double *distance, double *brng){
   lat1=toRad(lat1);
   lat2=toRad(lat2);
@@ -145,7 +98,7 @@ void distRhumb(double lat1,double lon1, double lat2, double lon2, double *distan
       *distance= radtoNM(sqrt(sqr(q)*(sqr(dlon_E)) + sqr(lat2-lat1)));
       }
 }
-
+*/
 
 
 /**
@@ -158,7 +111,7 @@ void distRhumb(double lat1,double lon1, double lat2, double lon2, double *distan
  * <-   double lat2, lat2 final point in decimal degrees
 
  */
-
+/*
 bool destRhumb(double lat1, double lon1, double brng, double dist, double* lat2, double* lon2) {
   lat1=toRad(lat1);
   lon1=toRad(lon1);
@@ -178,6 +131,7 @@ bool destRhumb(double lat1, double lon1, double brng, double dist, double* lat2,
     *lat2=toDeg(lat);
   return true;
 }
+*/
 
 //Loxodrome (Mercator) Destination the WGS ellipsoid
 //http://koti.mbnet.fi/jukaukor/loxodrom.html
@@ -218,7 +172,7 @@ bool destLoxodrome(double lat1, double lon1, double brng, double dist, double* l
 
     double tolat = toRad(tolatdegree);
 
-    double tolongdegree;
+    double tolongdegree = 0;
     if ((tolatdegree != 90) && (tolatdegree != -90)) {
         double meridional1 = log(tan(M_PI/4 + fromlat/2)) - ecc2*sin(fromlat) - (ecc4/3)*pow(sin(fromlat),3) - (ecc6/5)*pow(sin(fromlat),5)-(ecc8/7)*pow(sin(fromlat),7);
         double meridionalmin1 = 10800*meridional1/M_PI;

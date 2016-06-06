@@ -35,6 +35,8 @@
 		<Unit filename="src/NavFunc.h" />
 		<Unit filename="src/OpenCPN/cutil.cpp" />
 		<Unit filename="src/OpenCPN/cutil.h" />
+		<Unit filename="src/OpenCPN/geodesic.cpp" />
+		<Unit filename="src/OpenCPN/geodesic.h" />
 		<Unit filename="src/OpenCPN/georef.cpp" />
 		<Unit filename="src/OpenCPN/georef.h" />
 		<Unit filename="src/OpenCPN/gpxdocument.cpp" />

@@ -42,18 +42,20 @@ SET(SRC_ROUTE
 	    src/routegui_impl.h
 	    src/NavFunc.h
 	    src/NavFunc.cpp
-	    src/vincenty.h
-	    src/vincenty.cpp
+#	    src/vincenty.h
+#	    src/vincenty.cpp
 #	    src/georef.h
 #	    src/georef.c
 	    src/OpenCPN/ocpn_plugin.h
 	)
 
 SET(SRC_FROM_OCPN 	
-	src/OpenCPN/cutil.h
-	src/OpenCPN/cutil.cpp
+#	src/OpenCPN/cutil.h
+#	src/OpenCPN/cutil.cpp
 	src/OpenCPN/georef.h
 	src/OpenCPN/georef.cpp
+	src/OpenCPN/geodesic.h
+	src/OpenCPN/geodesic.cpp
 	src/OpenCPN/gpxdocument.h
 	src/OpenCPN/gpxdocument.cpp	    	
 	)
