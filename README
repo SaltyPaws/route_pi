@@ -59,6 +59,13 @@ This plugin can now be compiled as stand alone from a build folder in route_pi:
 * cmake ../
 * make
 * sudo make install
+* sudo make package (In order to make a .deb package. You may need to install rpm: sudo apt-get install rpm)
+ 
+If opencpn is not installed as a package, and you get the error dependency not met, install the OpenCPN repository:
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:opencpn/opencpn
+sudo apt-get update
+sudo apt-get install opencpn
 
 
 For reference, the old method (still works) is shown below.

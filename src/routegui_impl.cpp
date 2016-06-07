@@ -518,7 +518,7 @@ bool Dlg::OnGCCalculate( void ){
 
     this->m_distance_GC->SetValue(wxString::Format(wxT("%g"), dist));
 
-    DistanceBearingMercator(lat1, lon1, lat2, lon2, &fwdAz, &dist);
+    g_route_pi->DistanceBearingMercator(lat1, lon1, lat2, lon2, &fwdAz, &dist);
     this->m_distance_RH->SetValue(wxString::Format(wxT("%g"), dist));
 
     if (error_occurred==true)  {
@@ -792,7 +792,7 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
         wxMessageBox(_("Start Latitude>Limit!") );
     }
     //Calculate RH dist
-    DistanceBearingMercator(lat1, lon1, lat2, lon2, &fwdAz, &dist);
+    g_route_pi->DistanceBearingMercator(lat1, lon1, lat2, lon2, &fwdAz, &dist);
     this->m_distance_RH1->SetValue(wxString::Format(wxT("%g"), dist));
 
     //Calculate GC
@@ -1058,7 +1058,7 @@ bool Dlg::OnGCLCalculate( wxCommandEvent& event, bool write_file, bool to_OpenCP
 
                //Parallel sailing
                //DistVincenty(Lat_int1, Lon_int1, Lat_int2, Lon_int2, &segment_distance, &fwdAz_dummy, &revAz_dummy);
-               DistanceBearingMercator(Lat_int2, Lon_int2, Lat_int1, Lon_int1, &fwdAz_dummy, &segment_distance);
+               g_route_pi->DistanceBearingMercator(Lat_int2, Lon_int2, Lat_int1, Lon_int1, &fwdAz_dummy, &segment_distance);
                 if (dbg) std::cout<<"Section 2 - Rhumb line: lat1 "<<Lat_int2<<" lon1: "<<Lon_int2<<" lat2: "<<lat2<<" Lon2: "<<lon2<< std::endl;
                segment_start_distance=LC_distance;
                LC_distance+=segment_distance;
@@ -1449,7 +1449,7 @@ void Dlg::OnExportRH(wxCommandEvent& event, bool to_OpenCPN)
             if(!this->m_Lat2->GetValue().ToDouble(&lat2)){ lat2=0.0;error_occurred=true; }
             if(!this->m_Lon2->GetValue().ToDouble(&lon2)){ lon2=0.0;error_occurred=true; }
 
-            DistanceBearingMercator(lat2, lon2, lat1, lon1, &fwdAz, &dist);
+            g_route_pi->DistanceBearingMercator(lat2, lon2, lat1, lon1, &fwdAz, &dist);
 
             if (error_occurred==true)  {
                 wxLogMessage(_("Route_pi Error in calculation. Please check input!") );

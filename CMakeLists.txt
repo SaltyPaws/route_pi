@@ -12,10 +12,10 @@ PROJECT(route_pi)
 SET(PACKAGE_NAME route_pi)
 SET(VERBOSE_NAME Route)
 SET(TITLE_NAME Route)
-SET(CPACK_PACKAGE_CONTACT "SaltyPaws")
+SET(CPACK_PACKAGE_CONTACT "Walbert Schulpen (SaltyPaws)")
 
 SET(VERSION_MAJOR "1")
-SET(VERSION_MINOR "1")
+SET(VERSION_MINOR "2")
 
 #SET(CMAKE_BUILD_TYPE Debug)
 
@@ -52,8 +52,8 @@ SET(SRC_ROUTE
 SET(SRC_FROM_OCPN 	
 #	src/OpenCPN/cutil.h
 #	src/OpenCPN/cutil.cpp
-	src/OpenCPN/georef.h
-	src/OpenCPN/georef.cpp
+#	src/OpenCPN/georef.h
+#	src/OpenCPN/georef.cpp
 	src/OpenCPN/geodesic.h
 	src/OpenCPN/geodesic.cpp
 	src/OpenCPN/gpxdocument.h

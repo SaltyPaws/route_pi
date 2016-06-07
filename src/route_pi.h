@@ -43,7 +43,7 @@
 #include "version.h"
 
 #define     MY_API_VERSION_MAJOR    1
-#define     MY_API_VERSION_MINOR    8
+#define     MY_API_VERSION_MINOR    10
 
 class Dlg;
 
@@ -53,7 +53,7 @@ class Dlg;
 
 #define CALCULATOR_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
-class route_pi : public opencpn_plugin_18
+class route_pi : public wxEvtHandler,public opencpn_plugin_110
 {
 public:
       route_pi(void *ppimgr);
@@ -88,6 +88,7 @@ public:
       void SetCalculatorDialogWidth     (int x){ m_route_dialog_width = x;};
       void SetCalculatorDialogHeight    (int x){ m_route_dialog_height = x;};
       void SetCursorLatLon(double lat, double lon);
+      void DistanceBearingMercator(double lat0, double lon0, double lat1, double lon1, double *brg, double *dist);
       wxWindow          *m_parent_window;
 
 private:
@@ -106,5 +107,5 @@ private:
       double m_cursor_lon,m_cursor_lat;
 ;
 };
-
+extern route_pi *g_route_pi;
 #endif
