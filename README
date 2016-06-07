@@ -33,6 +33,7 @@ Changes to 1.2:
 - Added right click options Start and finish route here
 - enable copy paste all coordinate formats (D MM.MM and DMS) from OpenCPN, message with how conversion was done.
 - Vincente function replaced with the one from OpenCPN for consistency and to remove apace licence mention.
+- Added ddd mmm.mmm entry tab (Github Issue #11), and About with some short instructions.
 
 
 
