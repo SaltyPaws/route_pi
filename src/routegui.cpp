@@ -495,7 +495,187 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_panel11->SetSizer( bSizer40 );
 	m_panel11->Layout();
 	bSizer40->Fit( m_panel11 );
-	m_wxNotebook234->AddPage( m_panel11, _("Decimal Degree"), true );
+	m_wxNotebook234->AddPage( m_panel11, _("Decimal \u00b0"), true );
+	m_panel151 = new wxPanel( m_wxNotebook234, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer4011;
+	bSizer4011 = new wxBoxSizer( wxVERTICAL );
+	
+	wxStaticBoxSizer* sbSizer721;
+	sbSizer721 = new wxStaticBoxSizer( new wxStaticBox( m_panel151, wxID_ANY, _("Start of Route") ), wxVERTICAL );
+	
+	wxBoxSizer* bSizer132121;
+	bSizer132121 = new wxBoxSizer( wxVERTICAL );
+	
+	wxBoxSizer* bSizer143131;
+	bSizer143131 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText323131 = new wxStaticText( sbSizer721->GetStaticBox(), wxID_ANY, _("Lat "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText323131->Wrap( -1 );
+	bSizer143131->Add( m_staticText323131, 0, wxALL, 5 );
+	
+	m_Lat1_d1 = new wxTextCtrl( sbSizer721->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lat1_d1->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
+	bSizer143131->Add( m_Lat1_d1, 0, wxALL, 5 );
+	
+	m_staticText333131 = new wxStaticText( sbSizer721->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	m_staticText333131->Wrap( -1 );
+	bSizer143131->Add( m_staticText333131, 0, wxALL, 5 );
+	
+	m_Lat1_m1 = new wxTextCtrl( sbSizer721->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lat1_m1->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
+	bSizer143131->Add( m_Lat1_m1, 0, wxALL, 5 );
+	
+	m_staticText11431 = new wxStaticText( sbSizer721->GetStaticBox(), wxID_ANY, _("'"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText11431->Wrap( -1 );
+	bSizer143131->Add( m_staticText11431, 0, wxALL, 5 );
+	
+	wxString m_Lat1_NS1Choices[] = { _("N"), _("S") };
+	int m_Lat1_NS1NChoices = sizeof( m_Lat1_NS1Choices ) / sizeof( wxString );
+	m_Lat1_NS1 = new wxChoice( sbSizer721->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, m_Lat1_NS1NChoices, m_Lat1_NS1Choices, 0 );
+	m_Lat1_NS1->SetSelection( 0 );
+	bSizer143131->Add( m_Lat1_NS1, 0, wxALL, 5 );
+	
+	
+	bSizer132121->Add( bSizer143131, 0, 0, 5 );
+	
+	wxBoxSizer* bSizer1431121;
+	bSizer1431121 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText3231121 = new wxStaticText( sbSizer721->GetStaticBox(), wxID_ANY, _("Lon"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3231121->Wrap( -1 );
+	bSizer1431121->Add( m_staticText3231121, 0, wxALL, 5 );
+	
+	m_Lon1_d1 = new wxTextCtrl( sbSizer721->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lon1_d1->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
+	bSizer1431121->Add( m_Lon1_d1, 0, wxALL, 5 );
+	
+	m_staticText3331121 = new wxStaticText( sbSizer721->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3331121->Wrap( -1 );
+	bSizer1431121->Add( m_staticText3331121, 0, wxALL, 5 );
+	
+	m_Lon1_m1 = new wxTextCtrl( sbSizer721->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lon1_m1->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
+	bSizer1431121->Add( m_Lon1_m1, 0, wxALL, 5 );
+	
+	m_staticText114121 = new wxStaticText( sbSizer721->GetStaticBox(), wxID_ANY, _("'"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText114121->Wrap( -1 );
+	bSizer1431121->Add( m_staticText114121, 0, wxALL, 5 );
+	
+	wxString m_Lon1_EW1Choices[] = { _("E"), _("W") };
+	int m_Lon1_EW1NChoices = sizeof( m_Lon1_EW1Choices ) / sizeof( wxString );
+	m_Lon1_EW1 = new wxChoice( sbSizer721->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, m_Lon1_EW1NChoices, m_Lon1_EW1Choices, 0 );
+	m_Lon1_EW1->SetSelection( 0 );
+	bSizer1431121->Add( m_Lon1_EW1, 0, wxALL, 5 );
+	
+	
+	bSizer132121->Add( bSizer1431121, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	
+	sbSizer721->Add( bSizer132121, 0, 0, 5 );
+	
+	
+	bSizer4011->Add( sbSizer721, 0, 0, 5 );
+	
+	wxStaticBoxSizer* sbSizer7111;
+	sbSizer7111 = new wxStaticBoxSizer( new wxStaticBox( m_panel151, wxID_ANY, _("Finish of Route") ), wxVERTICAL );
+	
+	wxBoxSizer* bSizer1321111;
+	bSizer1321111 = new wxBoxSizer( wxVERTICAL );
+	
+	wxBoxSizer* bSizer1431211;
+	bSizer1431211 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText3231211 = new wxStaticText( sbSizer7111->GetStaticBox(), wxID_ANY, _("Lat "), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3231211->Wrap( -1 );
+	bSizer1431211->Add( m_staticText3231211, 0, wxALL, 5 );
+	
+	m_Lat2_d1 = new wxTextCtrl( sbSizer7111->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lat2_d1->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
+	bSizer1431211->Add( m_Lat2_d1, 0, wxALL, 5 );
+	
+	m_staticText3331211 = new wxStaticText( sbSizer7111->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText3331211->Wrap( -1 );
+	bSizer1431211->Add( m_staticText3331211, 0, wxALL, 5 );
+	
+	m_Lat2_m1 = new wxTextCtrl( sbSizer7111->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lat2_m1->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
+	bSizer1431211->Add( m_Lat2_m1, 0, wxALL, 5 );
+	
+	m_staticText114211 = new wxStaticText( sbSizer7111->GetStaticBox(), wxID_ANY, _("'"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText114211->Wrap( -1 );
+	bSizer1431211->Add( m_staticText114211, 0, wxALL, 5 );
+	
+	wxString m_Lat2_NS1Choices[] = { _("N"), _("S") };
+	int m_Lat2_NS1NChoices = sizeof( m_Lat2_NS1Choices ) / sizeof( wxString );
+	m_Lat2_NS1 = new wxChoice( sbSizer7111->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, m_Lat2_NS1NChoices, m_Lat2_NS1Choices, 0 );
+	m_Lat2_NS1->SetSelection( 0 );
+	bSizer1431211->Add( m_Lat2_NS1, 0, wxALL, 5 );
+	
+	
+	bSizer1321111->Add( bSizer1431211, 0, 0, 5 );
+	
+	wxBoxSizer* bSizer14311111;
+	bSizer14311111 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_staticText32311111 = new wxStaticText( sbSizer7111->GetStaticBox(), wxID_ANY, _("Lon"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText32311111->Wrap( -1 );
+	bSizer14311111->Add( m_staticText32311111, 0, wxALL, 5 );
+	
+	m_Lon2_d1 = new wxTextCtrl( sbSizer7111->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lon2_d1->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
+	bSizer14311111->Add( m_Lon2_d1, 0, wxALL, 5 );
+	
+	m_staticText33311111 = new wxStaticText( sbSizer7111->GetStaticBox(), wxID_ANY, _("\u00b0"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText33311111->Wrap( -1 );
+	bSizer14311111->Add( m_staticText33311111, 0, wxALL, 5 );
+	
+	m_Lon2_m1 = new wxTextCtrl( sbSizer7111->GetStaticBox(), wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 40,-1 ), 0 );
+	m_Lon2_m1->SetToolTip( _("x or x.y or x y/z or y/z") );
+	
+	bSizer14311111->Add( m_Lon2_m1, 0, wxALL, 5 );
+	
+	m_staticText1141111 = new wxStaticText( sbSizer7111->GetStaticBox(), wxID_ANY, _("'"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText1141111->Wrap( -1 );
+	bSizer14311111->Add( m_staticText1141111, 0, wxALL, 5 );
+	
+	wxString m_Lon2_EW1Choices[] = { _("E"), _("W") };
+	int m_Lon2_EW1NChoices = sizeof( m_Lon2_EW1Choices ) / sizeof( wxString );
+	m_Lon2_EW1 = new wxChoice( sbSizer7111->GetStaticBox(), wxID_ANY, wxDefaultPosition, wxDefaultSize, m_Lon2_EW1NChoices, m_Lon2_EW1Choices, 0 );
+	m_Lon2_EW1->SetSelection( 0 );
+	bSizer14311111->Add( m_Lon2_EW1, 0, wxALL, 5 );
+	
+	
+	bSizer1321111->Add( bSizer14311111, 0, 0, 5 );
+	
+	
+	sbSizer7111->Add( bSizer1321111, 0, 0, 5 );
+	
+	
+	bSizer4011->Add( sbSizer7111, 0, 0, 5 );
+	
+	wxBoxSizer* bSizer4811;
+	bSizer4811 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_button811 = new wxButton( m_panel151, wxID_ANY, _("Convert to Degree"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_button811->SetToolTip( _("Entries can be made both in decimal and fraction (w n/d) or (n/d). Entries will be converted to decimal degree.") );
+	
+	bSizer4811->Add( m_button811, 0, wxALL, 5 );
+	
+	
+	bSizer4011->Add( bSizer4811, 0, wxALIGN_CENTER_HORIZONTAL, 5 );
+	
+	
+	m_panel151->SetSizer( bSizer4011 );
+	m_panel151->Layout();
+	bSizer4011->Fit( m_panel151 );
+	m_wxNotebook234->AddPage( m_panel151, _("\u00b0 Decimal '"), false );
 	m_panel15 = new wxPanel( m_wxNotebook234, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	wxBoxSizer* bSizer401;
 	bSizer401 = new wxBoxSizer( wxVERTICAL );
@@ -712,6 +892,34 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_panel15->Layout();
 	bSizer401->Fit( m_panel15 );
 	m_wxNotebook234->AddPage( m_panel15, _("\u00b0 ' \""), false );
+	m_panel8 = new wxPanel( m_wxNotebook234, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	wxBoxSizer* bSizer42;
+	bSizer42 = new wxBoxSizer( wxVERTICAL );
+	
+	wxBoxSizer* bSizer60;
+	bSizer60 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_textCtrl55 = new wxTextCtrl( m_panel8, wxID_ANY, _("Route Plugin for OpenCPN\n(Version 1.2)\nby Walbert Schulpen (SaltyPaws)\n\nThe purpose of Route additional Great Circle, Limited Circle and Rhumb line plotting capability to OpenCPN. \n\nWhile the easiest way to get from A to B is by plotting a constant heading course (Rhumb Line), the shortest possible way is by sailing a constant arc (Great Circle). This is due to the curvature of the earth, and the way this is applied in Mercator projections. This Great Circle could take you into the high or low latitudes, which most sailors prefer to avoid due to icebergs and/or severe weather. When using the Limited circle option you can enter the most southern/northern latitude you are comfortable navigating, and the limited circle route will keep you on that latitude.\n\nThe easiest way to import way points is with the right click menu anywhere on the map (\"Start/Finish Route Here\").\n\nThe Decimal degree is the most flexible input window, and will accept all common formats (dms, d m.mm and d .dddddd) as long as the coordinates are formated properly. (e.g 10.999 or 10 59.99N or 10 59 59N. Use the paste button to paste coordinate pairs (separated by <tab> or comma). When importing decimal degree way point pairs the coordinates can be separated by just a space. If you want to paste the individual coordinates, just paste them directly in the appropriate window.\n\nPlease report suggestions for improvements or bugs in this location:\nhttp://github.com/SaltyPaws/route_pi/issues"), wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE );
+	#ifdef __WXGTK__
+	if ( !m_textCtrl55->HasFlag( wxTE_MULTILINE ) )
+	{
+	m_textCtrl55->SetMaxLength( -1 );
+	}
+	#else
+	m_textCtrl55->SetMaxLength( -1 );
+	#endif
+	m_textCtrl55->SetMinSize( wxSize( 50,50 ) );
+	
+	bSizer60->Add( m_textCtrl55, 100, wxALL|wxEXPAND, 5 );
+	
+	
+	bSizer42->Add( bSizer60, 1, wxEXPAND, 5 );
+	
+	
+	m_panel8->SetSizer( bSizer42 );
+	m_panel8->Layout();
+	bSizer42->Fit( m_panel8 );
+	m_wxNotebook234->AddPage( m_panel8, _("About"), false );
 	
 	bSizer35->Add( m_wxNotebook234, 0, wxALL, 5 );
 	
@@ -734,6 +942,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	m_wxNotebook234->Connect( wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGED, wxNotebookEventHandler( DlgDef::OnNoteBookFit ), NULL, this );
 	m_button7->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnStartPaste ), NULL, this );
 	m_button9->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnEndPaste ), NULL, this );
+	m_button811->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnConverttoDegree ), NULL, this );
 	m_button81->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnConverttoDegree ), NULL, this );
 }
 
@@ -748,6 +957,7 @@ DlgDef::~DlgDef()
 	m_wxNotebook234->Disconnect( wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGED, wxNotebookEventHandler( DlgDef::OnNoteBookFit ), NULL, this );
 	m_button7->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnStartPaste ), NULL, this );
 	m_button9->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnEndPaste ), NULL, this );
+	m_button811->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnConverttoDegree ), NULL, this );
 	m_button81->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( DlgDef::OnConverttoDegree ), NULL, this );
 	
 }

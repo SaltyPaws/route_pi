@@ -1,12 +1,16 @@
-Route Plot Plugin for OpenCPN
-=======================================
+Route Plot Plugin for OpenCPN by Walbert Schulpen (SaltyPaws)
+=============================================================
 
-The purpose of this plugin is to provide Great Circle, Limited Circle and Rhumb line plotting capability to OpenCPN. The plugin adds functionality over the existing route plotting capability (ie, you can change the distance of the way-points, plot limited circles, and compare distances).
+The purpose of Route additional Great Circle, Limited Circle and Rhumb line plotting capability to OpenCPN. 
 
-The aims are to:
+While the easiest way to get from A to B is by plotting a constant heading course (Rhumb Line), the shortest possible way is by sailing a constant arc (Great Circle). This is due to the curvature of the earth, and the way this is applied in Mercator projections. This Great Circle could take you into the high or low latitudes, which most sailors prefer to avoid due to icebergs and/or severe weather. When using the Limited circle option you can enter the most southern/northern latitude you are comfortable navigating, and the limited circle route will keep you on that latitude.
 
-1. Generate GPX files for Great Circle, Limited Circle and Rhumb line route plotting methods.
-2. Calculate route distance using above methods.
+The easiest way to import way points is with the right click menu anywhere on the map ("Start/Finish Route Here").
+
+The Decimal degree is the most flexible input window, and will accept all common formats (dms, d m.mm and d .dddddd) as long as the coordinates are formatted properly. (e.g 10.999 or 10 59.99N or 10 59 59N. Use the paste button to paste coordinate pairs (separated by <tab> or comma). When importing decimal degree way point pairs the coordinates can be separated by just a space. If you want to paste the individual coordinates, just paste them directly in the appropriate window.
+
+Please report suggestions for improvements or bugs in this location:
+http://github.com/SaltyPaws/route_pi/issues
 
 
 Changelog
@@ -26,13 +30,10 @@ Changes to 1.2:
 - Direct export of route to OpenCPN 
 - degree minute second, when this tab is open and when calculate or export is pressed, execute convert function first. Change to decimal tab.
 - Input in coordinates is now much more flexible.
-- Added rightclick options Start and finish route here
+- Added right click options Start and finish route here
 - enable copy paste all coordinate formats (D MM.MM and DMS) from OpenCPN, message with how conversion was done.
-- Vincente function replaced with the one from openCPN for consistency and to remove apace licence mention.
+- Vincente function replaced with the one from OpenCPN for consistency and to remove apace licence mention.
 
-To do before release:
-- remove debugging command line output
-- Update plugin date/version
 
 
 Editing
@@ -42,6 +43,7 @@ Layout of the forms is edited with wxFormbuilder (file Route_pi.fbp). Be sure to
 	sudo add-apt-repository -y ppa:wxformbuilder/release
 	sudo apt-get update
 	sudo apt-get install wxformbuilder
+After making an edit with the formbuilder, use the degree_fix.sh bash file to ensure windows compilation goes without a hitch.
 
 
 Editing of the source can be done with Code::Blocks IDE (file Route_pi.cbp)
@@ -50,7 +52,12 @@ Editing of the source can be done with Code::Blocks IDE (file Route_pi.cbp)
 
 Compiling
 =========
-This pluging can now be compiled as stand alone
+This plugin can now be compiled as stand alone from a build folder in route_pi:
+* cd ..
+* cd build
+* cmake ../
+* make
+* sudo make install
 
 
 For reference, the old method (still works) is shown below.
