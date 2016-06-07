@@ -2,10 +2,10 @@
  *
  * Project:  OpenCPN
  * Purpose:  ROUTE Plugin
- * Author:   SaltyPaws
+ * Author:   Walbert Schulpen (SaltyPaws)
  *
  ***************************************************************************
- *   Copyright (C) 2012 by Brazil BrokeTail                                *
+ *   Copyright (C) 2012-2016 by Walbert Schulpen                           *
  *   $EMAIL$                                                               *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
