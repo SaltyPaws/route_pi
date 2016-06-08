@@ -58,14 +58,14 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
 //          PlugIn initialization and de-init
 //
 //---------------------------------------------------------------------------------------------------------
-route_pi *g_route_pi = NULL;
+//route_pi *g_route_pi = NULL;
 
 route_pi::route_pi(void *ppimgr)
       :opencpn_plugin_110(ppimgr)
 {
       // Create the PlugIn icons
       initialize_images();
-      g_route_pi = this;
+//      g_route_pi = this;
 }
 
 int route_pi::Init(void)

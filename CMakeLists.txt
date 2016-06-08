@@ -52,8 +52,8 @@ SET(SRC_ROUTE
 SET(SRC_FROM_OCPN 	
 #	src/OpenCPN/cutil.h
 #	src/OpenCPN/cutil.cpp
-#	src/OpenCPN/georef.h
-#	src/OpenCPN/georef.cpp
+	src/OpenCPN/georef.h
+	src/OpenCPN/georef.cpp
 	src/OpenCPN/geodesic.h
 	src/OpenCPN/geodesic.cpp
 	src/OpenCPN/gpxdocument.h

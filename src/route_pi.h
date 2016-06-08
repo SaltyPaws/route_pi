@@ -107,5 +107,5 @@ private:
       double m_cursor_lon,m_cursor_lat;
 ;
 };
-extern route_pi *g_route_pi;
+//extern route_pi *g_route_pi;
 #endif
