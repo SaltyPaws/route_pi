@@ -184,7 +184,7 @@ else //at least one space
         }
     }
 
-    if(!sign) Coordinate="-"+Coordinate;
+    if(sign) Coordinate="-"+Coordinate;
     wxMessageBox(_(Original + ". Converted to >>"+Coordinate+"<<") );
 
 double test_coordinate=0.0;
@@ -247,16 +247,6 @@ if ( (Paste_string.Contains(wxT("N"))) ||(Paste_string.Contains(wxT("S"))) || (P
         Paste_Lat=Paste_string.BeforeFirst('S')+_T("S");
         Paste_Lon=Paste_string.AfterFirst('S');
         }
-    if (Paste_string.Contains(wxT("E")))
-        {
-        Paste_Lat=Paste_string.BeforeFirst('E')+_T("E");
-        Paste_Lon=Paste_string.AfterFirst('E');
-        }
-    if (Paste_string.Contains(wxT("W")))
-        {
-        Paste_Lat=Paste_string.BeforeFirst('W')+_T("W");
-        Paste_Lon=Paste_string.AfterFirst('W');
-        }
     }
 
 else if ( (Paste_string.Contains(wxT("\t"))) || (Paste_string.Contains(wxT(","))) )
@@ -312,8 +302,6 @@ if (Split_Found==false)
         Paste_Lat=Paste_string.BeforeFirst(found);
         Paste_Lon=Paste_string.AfterFirst(found);
         //if (dbg) std::cout<<"Character Position: "<<Character_Position<< std::endl;
-        if (dbg) std::cout<<"Lat: "<<Paste_Lat<< std::endl;
-        if (dbg) std::cout<<"Lon: "<<Paste_Lon<< std::endl;
 
 
 
@@ -322,6 +310,9 @@ if (Split_Found==false)
 
 if (Split_Found==true)
     {
+    if (dbg) std::cout<<"Lat: "<<Paste_Lat<< std::endl;
+    if (dbg) std::cout<<"Lon: "<<Paste_Lon<< std::endl;
+
     Paste_Lat=Clean_Coordinate(Paste_Lat);
     Paste_Lon=Clean_Coordinate(Paste_Lon);
 
