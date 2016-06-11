@@ -34,8 +34,7 @@ CfgDlg::CfgDlg( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 Dlg::Dlg( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : DlgDef( parent, id, title, pos, size, style )
 {
     this->Fit();
-    dbg=false; //for debug output set to true
-    dbg=false; //for debug output set to true
+    dbg=true; //for debug output set to true
 }
 
 void Dlg::OnToggle( wxCommandEvent& event )
@@ -76,6 +75,8 @@ Coordinate.Replace("\u00b0"," "); // Remove degree character
 Coordinate.Replace("′"," ");
 Coordinate.Replace("\""," ");
 Coordinate.Replace("″"," ");
+Coordinate.Replace("'"," ");
+
 
 Coordinate.MakeUpper();
 
@@ -197,11 +198,15 @@ if (dbg) std::cout<<"Output: >>"<<test_coordinate<<"<<"<< std::endl;
 return Coordinate;
 }
 
+
+
+//------------------------------------------------------------------------
 void Dlg::Import_coordinate_pair_from_clipboard(bool start)
 {
 wxString Paste_string="";
 wxString Paste_Lat="";
 wxString Paste_Lon="";
+bool Split_Found=true;
 // Read coordinates from clipboard
 if (wxTheClipboard->Open())
     {
@@ -212,54 +217,138 @@ if (wxTheClipboard->Open())
         Paste_string=data.GetText();
         }
     wxTheClipboard->Close();
-
-    // test if string has single space and no comma, and if yes convert into comma
+    }
+else
     {
-        wxString::const_iterator i;
-        int Space_Counter=0;
-        for (i = Paste_string.begin(); i != Paste_string.end(); ++i)
-        {
-            wxUniChar uni_ch = *i;
-            if (*i == ' ') Space_Counter++;
-            // do something with it
-        }
-        //if (dbg) std::cout<<"Space_Counter: >>"<<Space_Counter<<"<<"<< std::endl;
-        if ((Space_Counter==1) && (!Paste_string.Contains(',')))
-            Paste_string.Replace(" ",",");
-    }
-    Paste_string.Replace("\t",","); //replace tab with comma
-
-    //We now have data
-    if (Paste_string.Contains(wxT(","))) //Test if data contains comma
-        {
-        Paste_Lat=Paste_string.BeforeFirst(',');  //if yes, split in left and right part for lat and lon
-        Paste_Lon=Paste_string.AfterFirst(',');
-        //std::cout<<"Paste_Lat: "<<Paste_Lat<<"Paste_Lon: "<<Paste_Lon<<"."<< std::endl;
-
-        Paste_Lat=Clean_Coordinate(Paste_Lat);
-        Paste_Lon=Clean_Coordinate(Paste_Lon);
-
-        if(start)//check bool start and write back in relevant coordinate boxes
-            { //start point
-            m_Lat1->SetValue(Paste_Lat);
-            m_Lon1->SetValue(Paste_Lon);
-            }
-        else
-            {//end point
-            m_Lat2->SetValue(Paste_Lat);
-            m_Lon2->SetValue(Paste_Lon);
-            }
-        }
-    else
-        {//error, no comma so no coordinate pair
-            wxMessageBox( "Error: Clipboard does not contain comma, so no coordinate pair could be identified.");
-        }
-    }
-else{
+    Paste_string="";
     wxMessageBox( "Error: Clipboard Locked");
     //error can't read clipboard'
     }
-}
+
+
+
+//test 1, if string contains NSns split in after NS and beforeNS
+
+//test 2, if string does not contain NS split on middle character
+    //Split on space (if one space), tab, comma, return
+// test 3 replace all funny characters with comma, split on comma
+
+Paste_string.MakeUpper();
+if ( (Paste_string.Contains(wxT("N"))) ||(Paste_string.Contains(wxT("S"))) || (Paste_string.Contains(wxT("E"))) ||(Paste_string.Contains(wxT("W")))    )
+    {
+    if (dbg) std::cout<<"Split on NSEW"<< std::endl;
+    if (Paste_string.Contains(wxT("N")))
+        {
+        Paste_Lat=Paste_string.BeforeFirst('N')+_T("N");
+        Paste_Lon=Paste_string.AfterFirst('N');
+        }
+    if (Paste_string.Contains(wxT("S")))
+        {
+        Paste_Lat=Paste_string.BeforeFirst('S')+_T("S");
+        Paste_Lon=Paste_string.AfterFirst('S');
+        }
+    if (Paste_string.Contains(wxT("E")))
+        {
+        Paste_Lat=Paste_string.BeforeFirst('E')+_T("E");
+        Paste_Lon=Paste_string.AfterFirst('E');
+        }
+    if (Paste_string.Contains(wxT("W")))
+        {
+        Paste_Lat=Paste_string.BeforeFirst('W')+_T("W");
+        Paste_Lon=Paste_string.AfterFirst('W');
+        }
+    }
+
+else if ( (Paste_string.Contains(wxT("\t"))) || (Paste_string.Contains(wxT(","))) )
+{
+    if (dbg) std::cout<<"Split on tab or comma"<< std::endl;
+    if (Paste_string.Contains(wxT("\t")))
+        {
+        Paste_Lat=Paste_string.BeforeFirst('\t');
+        Paste_Lon=Paste_string.AfterFirst('\t');
+        }
+    if (Paste_string.Contains(wxT(",")))
+        {
+        Paste_Lat=Paste_string.BeforeFirst(',');
+        Paste_Lon=Paste_string.AfterFirst(',');
+        }
+    }
+
+else if (Count_Spaces(Paste_string)==1)
+    {
+    if (dbg) std::cout<<"Split on single space"<< std::endl;
+    if (Paste_string.Contains(wxT(" ")))
+        {
+        Paste_Lat=Paste_string.BeforeFirst(' ');
+        Paste_Lon=Paste_string.AfterFirst(' ');
+        }
+    }
+       //OK
+
+else
+    {
+    Split_Found=false;
+    }
+
+if (Split_Found==false)
+{
+    if (dbg) std::cout<<"Split on funny character"<< std::endl;
+    wxString::const_iterator i;
+    //int Character_Position=0;
+    char ch=0;
+    char found=0;
+    for (i = Paste_string.begin(); i != Paste_string.end(); ++i)
+        {
+            wxUniChar uni_ch = *i;
+            for (ch = 0; ch != 32; ++ch)
+            {
+            //if (dbg) std::cout<<"Character: "<<int(ch)<< std::endl;
+            if (*i == ch) {found=ch;Split_Found=true;if (dbg)std::cout<<"Found: "<<int(ch)<< std::endl;}
+
+            }
+        }
+        if (Split_Found==true)
+        {
+        Paste_Lat=Paste_string.BeforeFirst(found);
+        Paste_Lon=Paste_string.AfterFirst(found);
+        //if (dbg) std::cout<<"Character Position: "<<Character_Position<< std::endl;
+        if (dbg) std::cout<<"Lat: "<<Paste_Lat<< std::endl;
+        if (dbg) std::cout<<"Lon: "<<Paste_Lon<< std::endl;
+
+
+
+        }
+    }
+
+if (Split_Found==true)
+    {
+    Paste_Lat=Clean_Coordinate(Paste_Lat);
+    Paste_Lon=Clean_Coordinate(Paste_Lon);
+
+    if(start)//check bool start and write back in relevant coordinate boxes
+        { //start point
+        m_Lat1->SetValue(Paste_Lat);
+        m_Lon1->SetValue(Paste_Lon);
+        }
+    else
+        {//end point
+        m_Lat2->SetValue(Paste_Lat);
+        m_Lon2->SetValue(Paste_Lon);
+        }
+    }
+else
+    {//error, no comma so no coordinate pair
+        wxMessageBox( "Error: No splitting character could be identified.");
+    }
+
+
+
+
+} //end function
+
+
+//------------------------------------------------------------------------------------------------
+
 
 double Dlg::Fraction_string_to_Decimal(wxString fraction_string)
 {
@@ -304,6 +393,22 @@ if (fraction_string.Contains(wxT("/"))) //test if string contains "/" if yes, ru
 void Dlg::OnConverttoDegree( wxCommandEvent& event ){
 OnConverttoDegree();
 }
+
+int Dlg::Count_Spaces(wxString Space_String)
+{
+    wxString::const_iterator i;
+    int Space_Counter=0;
+    for (i = Space_String.begin(); i != Space_String.end(); ++i)
+    {
+        wxUniChar uni_ch = *i;
+        if (*i == ' ') Space_Counter++;
+        // do something with it
+    }
+    return Space_Counter;
+}
+
+
+
 
 void Dlg::OnConverttoDegree( void )
 {

@@ -1,4 +1,5 @@
 /******************************************************************************
+******************************************************************************
  *
  * Project:  OpenCPN
  * Purpose:  ROUTE Plugin
@@ -85,6 +86,7 @@ public:
         double Fraction_string_to_Decimal(wxString fraction_string);
         void Import_coordinate_pair_from_clipboard(bool start);
         wxString Clean_Coordinate (wxString Coordinate);
+        int Count_Spaces(wxString Space_Count);
 
         //friend class function;
         route_pi *plugin;
