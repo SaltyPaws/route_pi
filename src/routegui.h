@@ -100,32 +100,6 @@ class DlgDef : public wxDialog
 		wxTextCtrl* m_Start;
 		wxStaticText* m_staticText32311121;
 		wxTextCtrl* m_End;
-		wxPanel* m_panel151;
-		wxStaticText* m_staticText323131;
-		wxTextCtrl* m_Lat1_d1;
-		wxStaticText* m_staticText333131;
-		wxTextCtrl* m_Lat1_m1;
-		wxStaticText* m_staticText11431;
-		wxChoice* m_Lat1_NS1;
-		wxStaticText* m_staticText3231121;
-		wxTextCtrl* m_Lon1_d1;
-		wxStaticText* m_staticText3331121;
-		wxTextCtrl* m_Lon1_m1;
-		wxStaticText* m_staticText114121;
-		wxChoice* m_Lon1_EW1;
-		wxStaticText* m_staticText3231211;
-		wxTextCtrl* m_Lat2_d1;
-		wxStaticText* m_staticText3331211;
-		wxTextCtrl* m_Lat2_m1;
-		wxStaticText* m_staticText114211;
-		wxChoice* m_Lat2_NS1;
-		wxStaticText* m_staticText32311111;
-		wxTextCtrl* m_Lon2_d1;
-		wxStaticText* m_staticText33311111;
-		wxTextCtrl* m_Lon2_m1;
-		wxStaticText* m_staticText1141111;
-		wxChoice* m_Lon2_EW1;
-		wxButton* m_button811;
 		wxPanel* m_panel15;
 		wxStaticText* m_staticText32313;
 		wxTextCtrl* m_Lat1_d;
@@ -160,8 +134,6 @@ class DlgDef : public wxDialog
 		wxStaticText* m_staticText115111;
 		wxChoice* m_Lon2_EW;
 		wxButton* m_button81;
-		wxPanel* m_panel8;
-		wxTextCtrl* m_textCtrl55;
 		
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnGCCalculate( wxCommandEvent& event ) { event.Skip(); }
