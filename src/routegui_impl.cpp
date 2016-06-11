@@ -307,6 +307,9 @@ OnConverttoDegree();
 
 void Dlg::OnConverttoDegree( void )
 {
+
+if (this->m_wxNotebook234->GetSelection()==2)
+    {
     //set cell values to 0 if they are empty. This ensures conversion goes ok.
     double test_value;
     if(!this->m_Lat1_d->GetValue().ToDouble(&test_value)){m_Lat1_d->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lat1_d->GetValue()) ));}
@@ -324,65 +327,145 @@ void Dlg::OnConverttoDegree( void )
     if(!this->m_Lon2_d->GetValue().ToDouble(&test_value)){m_Lon2_d->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon2_d->GetValue()) ));}
     if(!this->m_Lon2_m->GetValue().ToDouble(&test_value)){m_Lon2_m->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon2_m->GetValue()) ));}
     if(!this->m_Lon2_s->GetValue().ToDouble(&test_value)){m_Lon2_s->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon2_s->GetValue()) ));}
+    }
+    else
+        {
+    //set cell values to 0 if they are empty. This ensures conversion goes ok. Degree decimal minute
+    double test_value;
+    if(!this->m_Lat1_d1->GetValue().ToDouble(&test_value)){m_Lat1_d1->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lat1_d1->GetValue()) ));}
+    if(!this->m_Lat1_m1->GetValue().ToDouble(&test_value)){m_Lat1_m1->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lat1_m1->GetValue()) ));}
 
-    double degree_temp=0;
-    double minute_temp=0;
-    double second_temp=0;
-    double result_temp=0;
-    double sign_temp=1;
+    if(!this->m_Lat2_d1->GetValue().ToDouble(&test_value)){m_Lat2_d1->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lat2_d1->GetValue()) ));}
+    if(!this->m_Lat2_m1->GetValue().ToDouble(&test_value)){m_Lat2_m1->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lat2_m1->GetValue()) ));}
+
+    if(!this->m_Lon1_d1->GetValue().ToDouble(&test_value)){m_Lon1_d1->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon1_d1->GetValue()) ));}
+    if(!this->m_Lon1_m1->GetValue().ToDouble(&test_value)){m_Lon1_m1->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon1_m1->GetValue()) ));}
+
+    if(!this->m_Lon2_d1->GetValue().ToDouble(&test_value)){m_Lon2_d1->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon2_d1->GetValue()) ));}
+    if(!this->m_Lon2_m1->GetValue().ToDouble(&test_value)){m_Lon2_m1->SetValue(wxString::Format(wxT("%g"),Fraction_string_to_Decimal(this->m_Lon2_m1->GetValue()) ));}
+    }
+
+double degree_temp=0;
+double minute_temp=0;
+double second_temp=0;
+double result_temp=0;
+double sign_temp=1;
 
     //Lat1
-
+if (this->m_wxNotebook234->GetSelection()==2)
+    {
     //wxString Lat1 = this->m_Lat1_d->GetValue() + _T(" ")  + this->m_Lat1_m->GetValue() + _T(" ")  + this->m_Lat1_s->GetValue() + _T(" ");// + this->m_Lon1_EW->GetCurrentSelection();
     if(this->m_Lat1_NS->GetCurrentSelection()==1) //S=1
-        sign_temp=1;
-    else
         sign_temp=-1;
+    else
+        sign_temp=1;
     //m_Lat1->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lat1.mb_str().data())));
     this->m_Lat1_d->GetValue().ToDouble(&degree_temp);
     this->m_Lat1_m->GetValue().ToDouble(&minute_temp);
     this->m_Lat1_s->GetValue().ToDouble(&second_temp);
-    result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
-    //std::cout<<"degree_temp: "<<degree_temp<<"minute_temp: "<<minute_temp<<"second_temp: "<<second_temp<< std::endl;
-    //std::cout<<"result_temp: "<<result_temp<< std::endl;
-    m_Lat1->SetValue(wxString::Format(wxT("%g"),result_temp));
+    }
+else
+    {
+    //wxString Lat1 = this->m_Lat1_d->GetValue() + _T(" ")  + this->m_Lat1_m->GetValue() + _T(" ")  + this->m_Lat1_s->GetValue() + _T(" ");// + this->m_Lon1_EW->GetCurrentSelection();
+    if(this->m_Lat1_NS1->GetCurrentSelection()==1) //S=1
+    sign_temp=-1;
+    else
+    sign_temp=1;
+    //m_Lat1->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lat1.mb_str().data())));
+    this->m_Lat1_d1->GetValue().ToDouble(&degree_temp);
+    this->m_Lat1_m1->GetValue().ToDouble(&minute_temp);
+    second_temp=0;
+    }
+
+result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
+//std::cout<<"degree_temp: "<<degree_temp<<"minute_temp: "<<minute_temp<<"second_temp: "<<second_temp<< std::endl;
+//std::cout<<"result_temp: "<<result_temp<< std::endl;
+m_Lat1->SetValue(wxString::Format(wxT("%g"),result_temp));
 
     //Lon1
+
+if (this->m_wxNotebook234->GetSelection()==2)
+    {
     //wxString Lon1 = this->m_Lon1_d->GetValue() + _T(" ") + this->m_Lon1_m->GetValue() + _T(" ")  + this->m_Lon1_s->GetValue() + _T(" ") ;// + this->m_Lon1_EW->GetString();
     if(this->m_Lon1_EW->GetCurrentSelection()==1) //W=1
-        sign_temp=1;
-    else
         sign_temp=-1;
+    else
+        sign_temp=1;
     //m_Lon1->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lon1.mb_str().data())));
     this->m_Lon1_d->GetValue().ToDouble(&degree_temp);
     this->m_Lon1_m->GetValue().ToDouble(&minute_temp);
     this->m_Lon1_s->GetValue().ToDouble(&second_temp);
-    result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
-    m_Lon1->SetValue(wxString::Format(wxT("%g"),result_temp));
+    }
+else
+    {
+    //wxString Lon1 = this->m_Lon1_d->GetValue() + _T(" ") + this->m_Lon1_m->GetValue() + _T(" ")  + this->m_Lon1_s->GetValue() + _T(" ") ;// + this->m_Lon1_EW->GetString();
+    if(this->m_Lon1_EW1->GetCurrentSelection()==1) //W=1
+        sign_temp=-1;
+    else
+        sign_temp=1;
+    //m_Lon1->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lon1.mb_str().data())));
+    this->m_Lon1_d1->GetValue().ToDouble(&degree_temp);
+    this->m_Lon1_m1->GetValue().ToDouble(&minute_temp);
+    second_temp=0;
+    }
 
-    //Lat2
+result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
+m_Lon1->SetValue(wxString::Format(wxT("%g"),result_temp));
+
+//Lat2
+
+if (this->m_wxNotebook234->GetSelection()==2)
+    {
+
     //wxString Lat2 = this->m_Lat2_d->GetValue() + _T(" ")  + this->m_Lat2_m->GetValue() + _T(" ")  + this->m_Lat2_s->GetValue() + _T(" ");//  + this->m_Lat2_NS->GetString();
     if(this->m_Lat2_NS->GetCurrentSelection()==1) //S=1
-        sign_temp=1;
-    else
         sign_temp=-1;
+    else
+        sign_temp=1;
     //m_Lat2->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lat2.mb_str().data())));
     this->m_Lat2_d->GetValue().ToDouble(&degree_temp);
     this->m_Lat2_m->GetValue().ToDouble(&minute_temp);
     this->m_Lat2_s->GetValue().ToDouble(&second_temp);
-    result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
-    m_Lat2->SetValue(wxString::Format(wxT("%g"),result_temp));
-
-    //Lon2
-    //wxString Lon2 = this->m_Lon2_d->GetValue() + _T(" ")  + this->m_Lon2_m->GetValue() + _T(" ")  + this->m_Lon2_s->GetValue() + _T(" ") ;// + _T(this->m_Lon2_EW->GetSelection());
-    if(this->m_Lon2_EW->GetCurrentSelection()==1) //W=1
-        sign_temp=1;
+    }
+else
+    {
+    //wxString Lat2 = this->m_Lat2_d->GetValue() + _T(" ")  + this->m_Lat2_m->GetValue() + _T(" ")  + this->m_Lat2_s->GetValue() + _T(" ");//  + this->m_Lat2_NS->GetString();
+    if(this->m_Lat2_NS1->GetCurrentSelection()==1) //S=1
+    sign_temp=-1;
     else
+    sign_temp=1;
+    //m_Lat2->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lat2.mb_str().data())));
+    this->m_Lat2_d1->GetValue().ToDouble(&degree_temp);
+    this->m_Lat2_m1->GetValue().ToDouble(&minute_temp);
+    second_temp=0;
+    }
+
+
+result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
+m_Lat2->SetValue(wxString::Format(wxT("%g"),result_temp));
+
+//Lon2
+if (this->m_wxNotebook234->GetSelection()==2)
+    {
+    if(this->m_Lon2_EW->GetCurrentSelection()==1) //W=1
         sign_temp=-1;
-    //m_Lon2->SetValue(wxString::Format(wxT("%g"), fromDMStodouble((char*)Lon2.mb_str().data())));
+    else
+        sign_temp=1;
     this->m_Lon2_d->GetValue().ToDouble(&degree_temp);
     this->m_Lon2_m->GetValue().ToDouble(&minute_temp);
     this->m_Lon2_s->GetValue().ToDouble(&second_temp);
+    }
+else
+    {
+    if(this->m_Lon2_EW->GetCurrentSelection()==1) //W=1
+    sign_temp=-1;
+    else
+    sign_temp=1;
+    this->m_Lon2_d->GetValue().ToDouble(&degree_temp);
+    this->m_Lon2_m->GetValue().ToDouble(&minute_temp);
+    second_temp=0;
+    }
+
     result_temp=sign_temp*(degree_temp+(minute_temp/60)+(second_temp/3600));
     m_Lon2->SetValue(wxString::Format(wxT("%g"),result_temp));
 

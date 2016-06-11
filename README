@@ -96,10 +96,10 @@ Coordinate shoud be converted correctly
 
 
 In °'" window:
-Enter 40°42'46.021"N in Start&Finish of Route Lattitude
-Enter 74°0'21.388"W in Start&Finish of Route Longitude 
+Enter 40°42'46"N in Start&Finish of Route Lattitude
+Enter 74°0'21"W in Start&Finish of Route Longitude 
 Press "convert to degree" button
-Response should be 40.7127836 and -74.00594111111111 in both latitude and longitude boxes.
+Response should be 40.7128 and -74.0058 in both latitude and longitude boxes.
 
 
 

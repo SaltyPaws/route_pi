@@ -54,8 +54,6 @@
 		<Unit filename="src/routegui.h" />
 		<Unit filename="src/routegui_impl.cpp" />
 		<Unit filename="src/routegui_impl.h" />
-		<Unit filename="src/vincenty.cpp" />
-		<Unit filename="src/vincenty.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
