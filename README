@@ -84,6 +84,27 @@ Build as normally:
 * make
 * sudo make install
 
+Testing
+=======
+The following tests should be performed after a code change, to check the correct responses:
+
+In Decimal degree window:
+Paste 40°42'46.021"N in Start/Finish of Route Lattitude response should be 40.7127836
+Paste 74°0'21.388"W in Start/Finish of Route Longitude response should be -74.00594111111111
+Copy lat/lon and use "paste" button for each of the opencpn coordinate display modes (decimal degree, degree, decimal minute and degree minute second)
+Coordinate shoud be converted correctly
+
+
+In °'" window:
+Enter 40°42'46.021"N in Start&Finish of Route Lattitude
+Enter 74°0'21.388"W in Start&Finish of Route Longitude 
+Press "convert to degree" button
+Response should be 40.7127836 and -74.00594111111111 in both latitude and longitude boxes.
+
+
+
+
+
 License
 =======
 The plugin is licensed under the terms of GPL v2 or, at your will, later.
