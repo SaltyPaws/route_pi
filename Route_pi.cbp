@@ -34,6 +34,7 @@
 		<Unit filename="src/NavFunc.cpp" />
 		<Unit filename="src/NavFunc.h" />
 		<Unit filename="src/OpenCPN/cutil.cpp" />
+		<Unit filename="src/OpenCPN/cutil.h" />
 		<Unit filename="src/OpenCPN/geodesic.cpp" />
 		<Unit filename="src/OpenCPN/geodesic.h" />
 		<Unit filename="src/OpenCPN/georef.cpp" />
@@ -53,6 +54,8 @@
 		<Unit filename="src/routegui.h" />
 		<Unit filename="src/routegui_impl.cpp" />
 		<Unit filename="src/routegui_impl.h" />
+		<Unit filename="src/vincenty.cpp" />
+		<Unit filename="src/vincenty.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
