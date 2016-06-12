@@ -53,7 +53,7 @@ class Dlg;
 
 #define CALCULATOR_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
-class route_pi : public wxEvtHandler,public opencpn_plugin_110
+class route_pi : public wxEvtHandler, public opencpn_plugin_110
 {
 public:
       route_pi(void *ppimgr);
