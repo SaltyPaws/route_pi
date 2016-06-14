@@ -96,8 +96,8 @@ else if (Coordinate.Contains(wxT("S")) || Coordinate.Contains(wxT("W")))
 if (Coordinate.EndsWith(_T(".")))
     Coordinate=Coordinate.BeforeLast('.');
 
-    Coordinate.Trim(True); //Removes white-space (space, tabs, form feed, newline and carriage return) from the left or from the right end of the string (right is default).
-    Coordinate.Trim(False);
+    Coordinate.Trim(true); //Removes white-space (space, tabs, form feed, newline and carriage return) from the left or from the right end of the string (right is default).
+    Coordinate.Trim(false);
 
 if (Coordinate.IsEmpty())
     Coordinate ="0.0";
