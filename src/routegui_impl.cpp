@@ -1413,7 +1413,7 @@ void Dlg::OnExportRH(wxCommandEvent& event)
 int Pattern=this->m_combo_GC->GetCurrentSelection();
 //std::cout<<"Pattern: "<<Pattern<< std::endl;
 
-switch ( Pattern )
+if (test_start_finish()) switch ( Pattern )
     {
     case 0: //to OpenCPN
         {
@@ -1438,6 +1438,30 @@ switch ( Pattern )
     }
 }
 
+bool Dlg::test_start_finish(void){
+
+
+wxString A=this->m_Lat1->GetValue();
+wxString B=this->m_Lat2->GetValue();
+
+wxString C=this->m_Lon1->GetValue();
+wxString D=this->m_Lon2->GetValue();
+
+//Start and Finish are the same
+if ((A==B) && (C==D))
+
+    {
+    wxMessageBox(_("Impossible route: Route Start and Finish are the same location.") );
+    return false;
+    }
+else
+    {
+    //std::cout<<"No double input: "<< std::endl;
+    return true;
+    }
+
+}
+
 void Dlg::OnGCLCalculate( wxCommandEvent& event )
 {
     bool error=OnGCLCalculate (event, false, false);
@@ -1448,7 +1472,7 @@ void Dlg::OnExportGCL( wxCommandEvent& event )
 int Pattern=this->m_combo_LC->GetCurrentSelection();
 //std::cout<<"Pattern: "<<Pattern<< std::endl;
 
-switch ( Pattern )
+if (test_start_finish()) switch ( Pattern )
     {
     case 0: //to OpenCPN
         {
@@ -1485,7 +1509,7 @@ void Dlg::OnExportGC(wxCommandEvent& event)
 int Pattern=this->m_combo_GC->GetCurrentSelection();
 //std::cout<<"Pattern: "<<Pattern<< std::endl;
 
-switch ( Pattern )
+if (test_start_finish()) switch ( Pattern )
     {
     case 0: //to OpenCPN
         {

@@ -87,6 +87,7 @@ public:
         void Import_coordinate_pair_from_clipboard(bool start);
         wxString Clean_Coordinate (wxString Coordinate);
         int Count_Spaces(wxString Space_Count);
+        bool test_start_finish(void);
 
         //friend class function;
         route_pi *plugin;
