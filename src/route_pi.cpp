@@ -94,11 +94,11 @@ int route_pi::Init(void)
 
         wxMenu dummy_menu;
 
-      wxMenuItem *pmi = new wxMenuItem(&dummy_menu, -1, _("Start Route Here (Route Plugin)"));
+      wxMenuItem *pmi = new wxMenuItem(&dummy_menu, -1, _("Start Route_pi Here"));
       m_add_start = AddCanvasContextMenuItem(pmi, this );
       SetCanvasContextMenuItemViz(m_add_start, true);
 
-      wxMenuItem *pmih = new wxMenuItem(&dummy_menu, -1, _("Finish Route Here  (Route Plugin)"));
+      wxMenuItem *pmih = new wxMenuItem(&dummy_menu, -1, _("Finish Route_pi Here."));
       m_add_finish = AddCanvasContextMenuItem(pmih, this );
       SetCanvasContextMenuItemViz(m_add_finish, true);
 
