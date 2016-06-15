@@ -4125,7 +4125,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip">Paste coordinate pair (38.8897,-77.0089) or (38.8897°, -77.0089°) or (38° 53′ 23″ N, 77° 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)</property>
+                                                                            <property name="tooltip">Use paste button only if the clipboard contains a coordinate pair. Right clicking with use &quot;Start/finish route_pi here&quot; will directly update the coordinates.&#x0A;&#x0A;Decimal degree, degree decimal minute and degree minute second are all supported.&#x0A;&#x0A;Paste coordinate pair (38.8897,-77.0089) or (38.8897°, -77.0089°) or (38° 53′ 23″ N, 77° 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>
@@ -4775,7 +4775,7 @@
                                                                             <property name="style"></property>
                                                                             <property name="subclass"></property>
                                                                             <property name="toolbar_pane">0</property>
-                                                                            <property name="tooltip">Paste coordinate pair (38.8897,-77.0089) or (38.8897°, -77.0089°) or (38° 53′ 23″ N, 77° 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)</property>
+                                                                            <property name="tooltip">Use paste button only if the clipboard contains a coordinate pair. Right clicking with use &quot;Start/finish route_pi here&quot; will directly update the coordinates.&#x0A;&#x0A;Decimal degree, degree decimal minute and degree minute second are all supported.&#x0A;&#x0A;Paste coordinate pair (38.8897,-77.0089) or (38.8897°, -77.0089°) or (38° 53′ 23″ N, 77° 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)</property>
                                                                             <property name="validator_data_type"></property>
                                                                             <property name="validator_style">wxFILTER_NONE</property>
                                                                             <property name="validator_type">wxDefaultValidator</property>

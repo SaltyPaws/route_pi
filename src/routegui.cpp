@@ -347,7 +347,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer1431->Add( m_staticText3331, 0, wxALL, 5 );
 	
 	m_button7 = new wxButton( sbSizer7->GetStaticBox(), wxID_ANY, _("Paste"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_button7->SetToolTip( _("Paste coordinate pair (38.8897,-77.0089) or (38.8897\u00b0, -77.0089\u00b0) or (38\u00b0 53′ 23″ N, 77\u00b0 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)") );
+	m_button7->SetToolTip( _("Use paste button only if the clipboard contains a coordinate pair. Right clicking with use \"Start/finish route_pi here\" will directly update the coordinates.\n\nDecimal degree, degree decimal minute and degree minute second are all supported.\n\nPaste coordinate pair (38.8897,-77.0089) or (38.8897\u00b0, -77.0089\u00b0) or (38\u00b0 53′ 23″ N, 77\u00b0 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)") );
 	
 	bSizer1431->Add( m_button7, 0, wxALL, 5 );
 	
@@ -402,7 +402,7 @@ DlgDef::DlgDef( wxWindow* parent, wxWindowID id, const wxString& title, const wx
 	bSizer14312->Add( m_staticText33312, 0, wxALL, 5 );
 	
 	m_button9 = new wxButton( sbSizer71->GetStaticBox(), wxID_ANY, _("Paste"), wxDefaultPosition, wxDefaultSize, 0 );
-	m_button9->SetToolTip( _("Paste coordinate pair (38.8897,-77.0089) or (38.8897\u00b0, -77.0089\u00b0) or (38\u00b0 53′ 23″ N, 77\u00b0 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)") );
+	m_button9->SetToolTip( _("Use paste button only if the clipboard contains a coordinate pair. Right clicking with use \"Start/finish route_pi here\" will directly update the coordinates.\n\nDecimal degree, degree decimal minute and degree minute second are all supported.\n\nPaste coordinate pair (38.8897,-77.0089) or (38.8897\u00b0, -77.0089\u00b0) or (38\u00b0 53′ 23″ N, 77\u00b0 00′ 32″ W) or  (38 53 23 N, 77 00 32 W)") );
 	
 	bSizer14312->Add( m_button9, 0, wxALL, 5 );
 	
